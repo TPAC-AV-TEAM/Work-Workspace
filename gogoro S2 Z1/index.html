@@ -260,7 +260,7 @@ body {
       <h1>Z1 前叉調校</h1>
       <div class="sub">Gogoro S2 ABS · 非線性曲線模型</div>
     </div>
-    <div class="version-badge">V12.3</div>
+    <div class="version-badge">V12.4</div>
   </div>
 
   <div class="tab-bar">
@@ -603,7 +603,7 @@ body {
             : (mode === 'double')  ? { d: 1.15, s: 1.05 }
             :                        { d: 1.0,  s: 1.0  };
     base_cSt    = Math.round(CST_ANCHOR + n * c.d);
-    base_oilGap = Math.round(GAP_ANCHOR - n * 0.8 * c.s);
+    base_oilGap = Math.round(GAP_ANCHOR - n * 1.2 * c.s);
 
     // === 硬體安全邊界（Z1 物理極限，非偏好 clamp）===
     base_cSt    = Math.min(Math.max(base_cSt,    30), 45);
@@ -686,60 +686,67 @@ body {
 
   const diff = val - base_cSt;
   const absDiff = Math.abs(diff);
+
+  // ===== 評價顏色 =====
+  let evalColor;
+  if (absDiff <= 1)      evalColor = 'var(--accent)';
+  else if (absDiff <= 3) evalColor = 'var(--accent)';
+  else if (absDiff <= 6) evalColor = 'var(--warn)';
+  else                   evalColor = 'var(--danger)';
+
   const sign = diff >= 0 ? '+' : '';
-
-  // ===== 顯示差值 =====
   labelEl.textContent = sign + diff.toFixed(1) + ' cSt';
+  labelEl.style.color = evalColor;
 
-  // ===== 區間判定 =====
-  let mode = '';
-  if (absDiff < 2) {
-    mode = 'ok';
-    labelEl.style.color = 'var(--accent)';
-    compEl.style.display = 'none';
-    return;
-  } else if (absDiff < 5) {
-    mode = 'notice';
-    labelEl.style.color = 'var(--warn)';
-  } else {
-    mode = 'adjust';
-    labelEl.style.color = 'var(--danger)';
-  }
+  // =========================
+  // ✅ 非線性補償（V12.3.2 升級）
+  // =========================
+  const norm = diff / 10;
+  const nonlinear = Math.sign(norm) * Math.pow(Math.abs(norm), 0.85);
 
-  // ===== 預設不動 =====
-  let compAirGap = base_oilGap;
-  let compSag    = base_sag;
+  let airGapAdj = Math.round(nonlinear * 13); // ≈1.3mm/cSt
+  let sagAdj    = Math.round(nonlinear * 3);  // ≈0.3mm/cSt
 
-  // ===== 只有大偏差才允許微調 =====
-  if (mode === 'adjust') {
-    const airAdj = Math.max(-2, Math.min(2, Math.round(diff * 0.3)));
-    const sagAdj = Math.max(-1, Math.min(1, Math.round(diff * 0.1)));
+  // =========================
+  // ✅ 安全限幅（避免過補）
+  // =========================
+  const MAX_AIRGAP_ADJ = 6;
+  const MAX_SAG_ADJ    = 3;
 
-    compAirGap = base_oilGap + airAdj;
-    compSag    = base_sag + sagAdj;
-  }
+  airGapAdj = Math.max(Math.min(airGapAdj, MAX_AIRGAP_ADJ), -MAX_AIRGAP_ADJ);
+  sagAdj    = Math.max(Math.min(sagAdj,    MAX_SAG_ADJ),    -MAX_SAG_ADJ);
 
-  // ===== UI 更新 =====
+  const compAirGap = Math.min(Math.max(base_oilGap + airGapAdj, 85), 115);
+  const compSag    = Math.min(Math.max(base_sag    + sagAdj,    18), 32);
+
   document.getElementById('comp-airgap').textContent = compAirGap;
   document.getElementById('comp-sag').textContent    = compSag;
   document.getElementById('comp-diff').textContent   = sign + diff.toFixed(1);
+  document.getElementById('comp-diff').style.color   = evalColor;
 
-  // ===== 說明文字 =====
-  let note = '';
+  // =========================
+  // ✅ 語意修正（V12.3.2）
+  // =========================
+  const airDir =
+    airGapAdj > 0 ? '降低油面（Air Gap +' + airGapAdj + 'mm）'
+  : airGapAdj < 0 ? '提高油面（Air Gap ' + airGapAdj + 'mm）'
+  : 'Air Gap 不需調整';
 
-  if (mode === 'notice') {
-    note = '油品黏度有差異，但仍在可接受範圍內（不建議調整 Air Gap / SAG）。';
-  }
+  const sagDir =
+    sagAdj > 0 ? '建議 SAG +'+sagAdj+'mm（放鬆預載）'
+  : sagAdj < 0 ? '建議 SAG '+sagAdj+'mm（增加預載）'
+  : 'SAG 無需調整';
 
-  if (mode === 'adjust') {
-    note = diff > 0
-      ? '油品偏黏（阻尼偏強），建議僅微調 Air Gap 與 SAG 作補償（已限制幅度）。'
-      : '油品偏稀（阻尼偏弱），建議僅微調 Air Gap 與 SAG 作補償（已限制幅度）。';
-  }
+  document.getElementById('comp-note').innerHTML =
+    '油品偏' +
+    (diff > 0
+      ? '<span style="color:var(--warn)">黏（阻尼偏強）</span>'
+      : diff < 0
+      ? '<span style="color:var(--info)">稀（阻尼偏弱）</span>'
+      : '<span style="color:var(--accent)">準</span>') +
+    '，建議 ' + airDir + '，' + sagDir + '。';
 
-  document.getElementById('comp-note').innerHTML = note;
-
-  compEl.style.display = 'block';
+  compEl.style.display = absDiff < 0.5 ? 'none' : 'block';
 }
   function selectToggle(group, el) {
     document.getElementById(group + '-grp').querySelectorAll('.toggle-btn').forEach(b => b.className = 'toggle-btn');
