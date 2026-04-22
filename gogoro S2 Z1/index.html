@@ -1,1 +1,884 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Z1 前叉調校 V12.3</title>
+<style>
+:root {
+  --bg: #0e0e10;
+  --bg2: #18181b;
+  --bg3: #222226;
+  --border: rgba(255,255,255,0.08);
+  --border-hi: rgba(255,255,255,0.15);
+  --text: #f0f0f0;
+  --muted: #888;
+  --accent: #3dd68c;
+  --accent-dim: rgba(61,214,140,0.12);
+  --warn: #f0a500;
+  --warn-dim: rgba(240,165,0,0.12);
+  --danger: #e05a4f;
+  --danger-dim: rgba(224,90,79,0.12);
+  --info: #4fa8e0;
+  --info-dim: rgba(79,168,224,0.12);
+  --r: 12px;
+  --rs: 8px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Helvetica Neue','PingFang TC','Noto Sans TC',sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+.app { max-width: 480px; margin: auto; display: flex; flex-direction: column; min-height: 100vh; }
 
+/* Header */
+.header {
+  display: flex; align-items: center; gap: 10px;
+  padding: 20px 20px 0;
+}
+.header-icon {
+  width: 32px; height: 32px; border-radius: 9px;
+  background: var(--accent-dim); border: 1px solid var(--accent);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px;
+}
+.header h1 { font-size: 15px; font-weight: 600; }
+.header .sub { font-size: 11px; color: var(--muted); margin-top: 1px; }
+.version-badge {
+  margin-left: auto; font-size: 11px; color: var(--accent);
+  background: var(--accent-dim); border: 1px solid var(--accent);
+  padding: 2px 8px; border-radius: 20px;
+}
+
+/* Tabs */
+.tab-bar {
+  display: flex; gap: 4px;
+  padding: 16px 20px 0;
+}
+.tab {
+  flex: 1; padding: 9px 0; text-align: center;
+  font-size: 13px; font-weight: 500; cursor: pointer;
+  border-radius: var(--rs) var(--rs) 0 0;
+  border: 1px solid transparent;
+  border-bottom: none;
+  color: var(--muted);
+  background: transparent;
+  transition: all 0.18s;
+  user-select: none;
+}
+.tab.active {
+  color: var(--text);
+  background: var(--bg2);
+  border-color: var(--border-hi);
+}
+.tab-line {
+  height: 1px; background: var(--border-hi);
+  margin: 0 20px;
+}
+
+/* Pages */
+.page { display: none; padding: 20px; flex: 1; }
+.page.active { display: block; }
+
+/* Param cards */
+.param-grid {
+  display: grid; grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px; margin-bottom: 20px;
+}
+.param-card {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: var(--r); padding: 14px 12px;
+  text-align: center;
+}
+.param-card.accent { border-color: rgba(61,214,140,0.35); background: rgba(61,214,140,0.06); }
+.param-card .p-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 8px; }
+.param-card .p-val { font-size: 26px; font-weight: 700; color: var(--accent); line-height: 1; }
+.param-card .p-unit { font-size: 11px; color: var(--muted); margin-top: 4px; }
+.param-card .p-status { font-size: 11px; margin-top: 5px; }
+
+/* SAG bar */
+.sag-bar-wrap {
+  position: relative; height: 6px;
+  background: var(--bg3); border-radius: 3px;
+  margin-top: 8px; overflow: visible;
+}
+.sag-bar-fill {
+  height: 100%; border-radius: 3px;
+  transition: width 0.3s, background 0.3s;
+}
+.sag-bar-target {
+  position: absolute; top: -3px; width: 2px; height: 12px;
+  background: var(--warn); border-radius: 1px;
+  transition: left 0.3s;
+}
+
+/* Section title */
+.section-title {
+  font-size: 11px; font-weight: 600; color: var(--muted);
+  text-transform: uppercase; letter-spacing: 0.08em;
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 14px;
+}
+.section-title::before {
+  content: ''; display: block; width: 3px; height: 12px;
+  border-radius: 2px; background: var(--accent);
+}
+
+/* Form */
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+.field { display: flex; flex-direction: column; gap: 5px; }
+.field label { font-size: 12px; color: var(--muted); }
+.field input, .field select {
+  background: var(--bg3); border: 1px solid var(--border);
+  color: var(--text); padding: 9px 12px;
+  border-radius: var(--rs); font-size: 14px;
+  outline: none; transition: border-color 0.2s;
+  -webkit-appearance: none;
+}
+.field input:focus, .field select:focus { border-color: var(--accent); }
+.field select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23888' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 12px center; padding-right: 32px;
+}
+.field input[type=number] { -moz-appearance: textfield; }
+.field input[type=number]::-webkit-inner-spin-button { -webkit-appearance: none; }
+
+/* Range */
+.range-wrap { display: flex; align-items: center; gap: 10px; }
+.range-wrap input[type=range] {
+  flex: 1; padding: 0; height: 4px;
+  background: var(--bg3); border: none;
+  accent-color: var(--accent); cursor: pointer;
+}
+.range-val { font-size: 13px; font-weight: 600; color: var(--accent); min-width: 32px; text-align: right; }
+
+/* Fixed spec note */
+.spec-note {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: var(--rs); padding: 9px 12px;
+  font-size: 12px; color: var(--muted);
+  margin-bottom: 10px;
+}
+.spec-note .spec-key { color: var(--text); font-weight: 500; margin-right: 4px; }
+
+/* Btn */
+.btn {
+  width: 100%; padding: 13px;
+  background: var(--accent); color: #000;
+  font-size: 14px; font-weight: 700;
+  border: none; border-radius: var(--rs);
+  cursor: pointer; margin-top: 14px;
+  transition: opacity 0.15s, transform 0.1s;
+}
+.btn:hover { opacity: 0.9; }
+.btn:active { transform: scale(0.99); }
+.btn.secondary {
+  background: transparent; color: var(--accent);
+  border: 1px solid var(--accent); margin-top: 8px;
+}
+
+/* Toggle buttons */
+.toggle-group { display: flex; gap: 6px; }
+.toggle-btn {
+  flex: 1; padding: 8px 0; border-radius: 20px;
+  font-size: 13px; cursor: pointer; text-align: center;
+  border: 1px solid var(--border);
+  background: var(--bg3); color: var(--muted);
+  transition: all 0.15s; user-select: none;
+}
+.toggle-btn:hover { border-color: var(--border-hi); color: var(--text); }
+.toggle-btn.sel-ok  { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
+.toggle-btn.sel-hard, .toggle-btn.sel-deep, .toggle-btn.sel-fast { border-color: var(--danger); color: var(--danger); background: var(--danger-dim); }
+.toggle-btn.sel-soft, .toggle-btn.sel-stiff, .toggle-btn.sel-slow { border-color: var(--warn); color: var(--warn); background: var(--warn-dim); }
+
+/* Degree slider */
+.degree-wrap {
+  display: none; margin-top: 10px;
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: var(--rs); padding: 10px 12px;
+  animation: fadeIn 0.15s ease;
+}
+.degree-wrap.show { display: block; }
+@keyframes fadeIn { from { opacity:0; transform:translateY(-4px); } to { opacity:1; transform:translateY(0); } }
+.degree-track {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 6px;
+}
+.degree-track input[type=range] {
+  flex: 1; height: 4px; padding: 0; border: none;
+  accent-color: var(--warn); cursor: pointer;
+}
+.degree-num {
+  font-size: 15px; font-weight: 700; color: var(--warn);
+  min-width: 18px; text-align: right;
+}
+.degree-labels {
+  display: flex; justify-content: space-between;
+  font-size: 10px; color: var(--muted);
+}
+
+/* Feedback result */
+.result-panel { display: none; margin-top: 16px; }
+.result-panel.show { display: block; }
+
+.diff-row {
+  display: grid; grid-template-columns: 1fr 52px 52px 52px;
+  align-items: center; padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+}
+.diff-row:last-of-type { border-bottom: none; }
+.diff-col { text-align: center; }
+
+.notes-wrap { margin-top: 12px; border-top: 1px solid var(--border); padding-top: 10px; }
+.note-item {
+  display: flex; align-items: flex-start; gap: 8px;
+  padding: 5px 0; border-top: 1px solid var(--border);
+}
+.note-item:first-child { border-top: none; }
+.note-dot { width: 5px; height: 5px; border-radius: 50%; margin-top: 5px; flex-shrink: 0; }
+
+/* Divider */
+.sep { height: 1px; background: var(--border); margin: 18px 0; }
+
+/* Locked state */
+.locked-notice {
+  text-align: center; padding: 32px 0;
+  color: var(--muted); font-size: 13px;
+}
+.locked-notice .lock-icon { font-size: 24px; margin-bottom: 8px; }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <div class="header">
+    <div class="header-icon">⚙</div>
+    <div>
+      <h1>Z1 前叉調校</h1>
+      <div class="sub">Gogoro S2 ABS · 非線性曲線模型</div>
+    </div>
+    <div class="version-badge">V12.3</div>
+  </div>
+
+  <div class="tab-bar">
+    <div class="tab active" id="tab1" onclick="switchTab(1)">① 基準設定</div>
+    <div class="tab" id="tab2" onclick="switchTab(2)">② 試騎回饋</div>
+  </div>
+  <div class="tab-line"></div>
+
+  <div class="page active" id="page1">
+
+    <div id="param-cards" style="display:none">
+      <!-- 基準參數卡片 2x2 -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
+        <div class="param-card accent">
+          <div class="p-label">機油黏度</div>
+          <div class="p-val" id="r-cst">—</div>
+          <div class="p-unit">cSt（建議）</div>
+        </div>
+        <div class="param-card accent">
+          <div class="p-label">油面高度</div>
+          <div class="p-val" id="r-oilgap">—</div>
+          <div class="p-unit">mm Air Gap</div>
+        </div>
+        <div class="param-card accent">
+          <div class="p-label">建議 SAG</div>
+          <div class="p-val" id="r-sag-best">—</div>
+          <div class="p-unit" id="r-sag-range">mm</div>
+        </div>
+        <div class="param-card">
+          <div class="p-label">設定基準</div>
+          <div class="p-val" id="r-wtarget" style="font-size:20px">—</div>
+          <div class="p-unit">kg</div>
+        </div>
+      </div>
+
+      <!-- 手邊油品輸入 + 自動補償 -->
+      <div style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--rs);padding:12px;margin-bottom:10px">
+        <div style="font-size:11px;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.06em">手邊油品 → 自動補償施工參數</div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+          <div style="flex:1">
+            <input type="number" id="custom-cst" placeholder="填入手邊 cSt" min="20" max="60" step="0.1"
+              style="width:100%;background:var(--bg2);border:1px solid var(--border);color:var(--text);padding:8px 12px;border-radius:var(--rs);font-size:14px;outline:none"
+              oninput="evalCustomCst()">
+          </div>
+          <div id="cst-eval-label" style="font-size:12px;color:var(--muted);min-width:72px;text-align:right">—</div>
+        </div>
+        <!-- 補償後施工參數（初始隱藏） -->
+        <div id="cst-compensated" style="display:none">
+          <div style="height:1px;background:var(--border);margin-bottom:10px"></div>
+          <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px">補償後施工參數</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;text-align:center">
+            <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--rs);padding:10px 8px">
+              <div style="font-size:10px;color:var(--muted);margin-bottom:4px">Air Gap</div>
+              <div id="comp-airgap" style="font-size:20px;font-weight:700;color:var(--warn)">—</div>
+              <div style="font-size:10px;color:var(--muted)">mm</div>
+            </div>
+            <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--rs);padding:10px 8px">
+              <div style="font-size:10px;color:var(--muted);margin-bottom:4px">SAG 目標</div>
+              <div id="comp-sag" style="font-size:20px;font-weight:700;color:var(--warn)">—</div>
+              <div style="font-size:10px;color:var(--muted)">mm</div>
+            </div>
+            <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--rs);padding:10px 8px">
+              <div style="font-size:10px;color:var(--muted);margin-bottom:4px">cSt 差</div>
+              <div id="comp-diff" style="font-size:20px;font-weight:700;color:var(--muted)">—</div>
+              <div style="font-size:10px;color:var(--muted)">cSt</div>
+            </div>
+          </div>
+          <div id="comp-note" style="font-size:11px;color:var(--muted);margin-top:8px;line-height:1.5"></div>
+        </div>
+      </div>
+
+      <div style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--rs);padding:12px;margin-bottom:10px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+          <span style="font-size:12px;color:var(--muted)">調校狀態評估</span>
+          <span id="status-label" style="font-size:13px;font-weight:700"></span>
+        </div>
+        <div class="sag-bar-wrap" style="margin-top:0;height:6px;background:var(--bg2);">
+          <div class="sag-bar-fill" id="status-fill" style="width:0%"></div>
+        </div>
+        <div id="status-desc" style="font-size:11px;margin-top:8px;color:var(--muted);line-height:1.4"></div>
+      </div>
+
+      <div class="spec-note" style="margin-bottom:0">
+        <span>💡</span>
+        <span>換油後請坐上車量測 SAG，到「試騎回饋」頁驗證是否在目標範圍</span>
+      </div>
+      <div class="sep"></div>
+    </div>
+
+    <div class="section-title">體重輸入</div>
+
+    <div class="form-row" style="margin-bottom:10px">
+      <div class="field">
+        <label style="display:flex;justify-content:space-between;align-items:baseline">
+          <span>單人 + 裝備</span>
+          <span id="single-val" style="font-size:15px;font-weight:700;color:var(--accent)">75 kg</span>
+        </label>
+        <input type="range" id="single" min="50" max="100" value="75" step="1" oninput="onSingleChange()" style="width:100%;margin-top:6px">
+        <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-top:2px"><span>50</span><span>100 kg</span></div>
+      </div>
+      <div class="field">
+        <label style="display:flex;justify-content:space-between;align-items:baseline">
+          <span>雙載總重量</span>
+          <span id="double-val" style="font-size:15px;font-weight:700;color:var(--accent)">130 kg</span>
+        </label>
+        <input type="range" id="double" min="90" max="180" value="130" step="1" oninput="onDoubleChange()" style="width:100%;margin-top:6px">
+        <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-top:2px"><span>90</span><span>180 kg</span></div>
+      </div>
+    </div>
+
+    <div class="field" style="margin-bottom:14px">
+      <label>使用情境偏重</label>
+      <select id="mode">
+        <option value="auto">自動（甜蜜點上限，盡量吸收雙載）</option>
+        <option value="single">單人優先（貼地質感最佳）</option>
+        <option value="balanced">單雙均衡（互相妥協）</option>
+        <option value="double">雙載優先（支撐安全為主）</option>
+      </select>
+    </div>
+
+    <button class="btn" onclick="calcBase()">計算基準設定</button>
+    <button class="btn secondary" onclick="resetBase()">重置</button>
+  </div>
+
+  <div class="page" id="page2">
+
+    <div id="page2-locked" class="locked-notice">
+      <div class="lock-icon">🔒</div>
+      請先完成「基準設定」
+    </div>
+
+    <div id="page2-content" style="display:none">
+
+      <div class="section-title">SAG 驗證</div>
+      <div class="spec-note" style="margin-bottom:10px;flex-direction:column;align-items:flex-start;gap:6px">
+        <div style="display:flex;gap:8px;align-items:flex-start">
+          <span>📋</span>
+          <span style="font-size:12px;line-height:1.6">
+            按建議換好油後，<strong style="color:var(--text)">坐上車、正常騎姿</strong>，測量前叉下沉量填入。<br>
+            若偏差 → 調整<strong style="color:var(--text)">彈簧預載</strong>（與機油無關）
+          </span>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:6px">
+        <div class="field">
+          <label>實測 SAG (mm)</label>
+          <input type="number" id="sag-input" value="" placeholder="填入量測值" min="0" max="90" oninput="onSagInput()">
+        </div>
+        <div style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--rs);padding:10px 12px;display:flex;flex-direction:column;justify-content:center">
+          <div style="font-size:10px;color:var(--muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:0.06em">目標範圍</div>
+          <div style="font-size:18px;font-weight:700;color:var(--text)">22–27 <span style="font-size:12px;font-weight:400;color:var(--muted)">mm</span></div>
+          <div style="font-size:10px;color:var(--muted);margin-top:2px">行程 25–30%</div>
+        </div>
+      </div>
+
+      <div id="sag-result-wrap" style="display:none;background:var(--bg3);border:1px solid var(--border);border-radius:var(--rs);padding:12px;margin-bottom:16px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+          <span style="font-size:12px;color:var(--muted)">實測比例</span>
+          <span id="sag-pct-label" style="font-size:16px;font-weight:700"></span>
+        </div>
+        <div class="sag-bar-wrap">
+          <div class="sag-bar-fill" id="sag-fill"></div>
+          <div class="sag-bar-target" id="sag-target-marker"></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-top:4px"><span>0%</span><span style="color:var(--warn)">目標 25–30%</span><span>100%</span></div>
+        <div id="sag-action" style="font-size:12px;margin-top:10px;padding-top:8px;border-top:1px solid var(--border)"></div>
+      </div>
+
+      <div class="sep"></div>
+
+      <div class="section-title">試騎感受</div>
+
+      <div class="field" style="margin-bottom:14px">
+        <label style="margin-bottom:8px">碎震</label>
+        <div class="toggle-group" id="bump-grp">
+          <div class="toggle-btn sel-ok" data-val="ok" onclick="selectToggle('bump',this)">正常</div>
+          <div class="toggle-btn" data-val="hard" onclick="selectToggle('bump',this)">太硬</div>
+          <div class="toggle-btn" data-val="soft" onclick="selectToggle('bump',this)">太軟</div>
+        </div>
+        <div class="degree-wrap" id="bump-degree">
+          <div class="degree-track">
+            <input type="range" id="bump-deg" min="1" max="3" value="2" step="1" oninput="updateDegreeLabel('bump')">
+            <span class="degree-num" id="bump-deg-val">2</span>
+          </div>
+          <div class="degree-labels"><span>稍微</span><span>明顯</span><span>非常</span></div>
+        </div>
+      </div>
+
+      <div class="field" style="margin-bottom:14px">
+        <label style="margin-bottom:8px">煞車點頭</label>
+        <div class="toggle-group" id="brake-grp">
+          <div class="toggle-btn sel-ok" data-val="ok" onclick="selectToggle('brake',this)">正常</div>
+          <div class="toggle-btn" data-val="deep" onclick="selectToggle('brake',this)">過多</div>
+          <div class="toggle-btn" data-val="stiff" onclick="selectToggle('brake',this)">太少</div>
+        </div>
+        <div class="degree-wrap" id="brake-degree">
+          <div class="degree-track">
+            <input type="range" id="brake-deg" min="1" max="3" value="2" step="1" oninput="updateDegreeLabel('brake')">
+            <span class="degree-num" id="brake-deg-val">2</span>
+          </div>
+          <div class="degree-labels"><span>稍微</span><span>明顯</span><span>非常</span></div>
+        </div>
+      </div>
+
+      <div class="field" style="margin-bottom:4px">
+        <label style="margin-bottom:8px">回彈速度</label>
+        <div class="toggle-group" id="rebound-grp">
+          <div class="toggle-btn sel-ok" data-val="ok" onclick="selectToggle('rebound',this)">正常</div>
+          <div class="toggle-btn" data-val="fast" onclick="selectToggle('rebound',this)">太快</div>
+          <div class="toggle-btn" data-val="slow" onclick="selectToggle('rebound',this)">太慢</div>
+        </div>
+        <div class="degree-wrap" id="rebound-degree">
+          <div class="degree-track">
+            <input type="range" id="rebound-deg" min="1" max="3" value="2" step="1" oninput="updateDegreeLabel('rebound')">
+            <span class="degree-num" id="rebound-deg-val">2</span>
+          </div>
+          <div class="degree-labels"><span>稍微</span><span>明顯</span><span>非常</span></div>
+        </div>
+      </div>
+
+      <button class="btn" onclick="calcFeedback()">分析調整建議</button>
+
+      <div class="result-panel" id="feedbackOutput"></div>
+
+      <button class="btn secondary" onclick="resetFeedback()" style="margin-top:10px">重置回饋</button>
+    </div>
+  </div>
+
+</div>
+<script>
+  const TRAVEL = 90;
+  let base_cSt = 36, base_oilGap = 105, base_sag = 25, baseReady = false;
+  const toggleState = { bump: 'ok', brake: 'ok', rebound: 'ok' };
+  const degreeLabels = ['', '稍微', '明顯', '非常'];
+
+  function updateDegreeLabel(group) {
+    const v = document.getElementById(group + '-deg').value;
+    document.getElementById(group + '-deg-val').textContent = v;
+  }
+
+  function getDeg(group) {
+    return parseInt(document.getElementById(group + '-deg').value);
+  }
+
+  function switchTab(n) {
+    document.getElementById('tab1').classList.toggle('active', n === 1);
+    document.getElementById('tab2').classList.toggle('active', n === 2);
+    document.getElementById('page1').classList.toggle('active', n === 1);
+    document.getElementById('page2').classList.toggle('active', n === 2);
+  }
+
+  function onSingleChange() {
+    document.getElementById('single-val').textContent = document.getElementById('single').value + ' kg';
+  }
+  function onDoubleChange() {
+    document.getElementById('double-val').textContent = document.getElementById('double').value + ' kg';
+  }
+
+  function onSagInput() {
+  const raw = document.getElementById('sag-input').value;
+  const sag = parseFloat(raw);
+
+  if (raw === "" || isNaN(sag) || sag <= 0 || sag > TRAVEL) {
+    document.getElementById('sag-result-wrap').style.display = 'none';
+    return;
+  }
+
+  const pct = Math.round(sag / TRAVEL * 100);
+  const midPct = 27.5;
+
+  document.getElementById('sag-result-wrap').style.display = 'block';
+
+  const safePct = Math.min(Math.max(pct, 0), 100);
+  document.getElementById('sag-fill').style.width = safePct + '%';
+  document.getElementById('sag-target-marker').style.left = midPct + '%';
+
+  let color, action;
+  if (pct > 30) {
+    color = 'var(--danger)';
+    action = '↑ SAG 過多（' + pct + '%）→ 調緊預載';
+  } else if (pct < 25) {
+    color = 'var(--warn)';
+    action = '↓ SAG 不足（' + pct + '%）→ 調鬆預載';
+  } else {
+    color = 'var(--accent)';
+    action = '✓ SAG 良好（' + pct + '%）';
+  }
+
+  document.getElementById('sag-pct-label').textContent = pct + '%';
+  document.getElementById('sag-pct-label').style.color = color;
+  document.getElementById('sag-fill').style.background = color;
+  document.getElementById('sag-action').innerHTML =
+    '<span style="color:' + color + '">' + action + '</span>';
+}
+
+  function calcBase() {
+    const single = +document.getElementById('single').value;
+    const dbl    = +document.getElementById('double').value;
+    const mode   = document.getElementById('mode').value;
+
+    // ===== 防呆 =====
+    if (isNaN(single) || isNaN(dbl) || single <= 0) {
+      alert("請確認體重輸入正確");
+      return;
+    }
+
+    // === 基準錨點（75kg 實測定案值）===
+    const W_ANCHOR   = 75;
+    const CST_ANCHOR = 37.4;   // ✅ V12.1：36 → 37.4（實測定案）
+    const GAP_ANCHOR = 110;    // ✅ V12.1：105 → 110（實測定案）
+
+    // === Z1 容許浮動上限 ===
+    const Z1_TOLERANCE = 20;
+    const passengerKg  = dbl - single;
+
+    // === 依偏好決定目標基準重 ===
+    let wTarget;
+    let modeLabel;
+    if (mode === 'single') {
+      wTarget   = single;
+      modeLabel = '單人優先';
+    } else if (mode === 'auto') {
+      wTarget   = single + Z1_TOLERANCE;
+      modeLabel = '自動（甜蜜點上限）';
+    } else if (mode === 'balanced') {
+      wTarget   = (single + dbl) / 2;
+      modeLabel = '單雙均衡';
+    } else {
+      wTarget   = dbl;
+      modeLabel = '雙載優先';
+    }
+
+    // === 非線性曲線模型：1.1 日常通勤（原 1.25 偏競技）===
+    const deltaKg = wTarget - W_ANCHOR;
+    const n = Math.sign(deltaKg) * Math.pow(Math.abs(deltaKg / 10), 1.1);  // ✅ V12.1：1.25 → 1.1
+
+    // ✅ V12.1：double 強化阻尼為主，Air Gap 微調為輔；single 偏舒適
+    const c = (mode === 'single')  ? { d: 0.9,  s: 0.8  }
+            : (mode === 'double')  ? { d: 1.15, s: 1.05 }
+            :                        { d: 1.0,  s: 1.0  };
+    base_cSt    = Math.round(CST_ANCHOR + n * c.d);
+    base_oilGap = Math.round(GAP_ANCHOR - n * 0.8 * c.s);
+
+    // === 硬體安全邊界（Z1 物理極限，非偏好 clamp）===
+    base_cSt    = Math.min(Math.max(base_cSt,    30), 45);
+    base_oilGap = Math.min(Math.max(base_oilGap, 85), 115);
+
+    // === SAG 動態計算（錨點 75kg=25mm，每 10kg 偏移 0.8mm）===
+    const SAG_ANCHOR = 25;
+    const sagBest = Math.round(SAG_ANCHOR + n * 0.8);
+    base_sag = Math.min(Math.max(sagBest, 20), 30);
+    const sagLo = Math.max(base_sag - 2, 18);
+    const sagHi = Math.min(base_sag + 2, 32);
+
+    baseReady = true;
+
+    document.getElementById('r-cst').textContent      = base_cSt;
+    document.getElementById('r-oilgap').textContent   = base_oilGap;
+    document.getElementById('r-wtarget').textContent  = Math.round(wTarget);
+    document.getElementById('r-sag-best').textContent = base_sag;
+    document.getElementById('r-sag-range').textContent = sagLo + '–' + sagHi + ' mm 範圍';
+
+    // 重置手邊油品區塊
+    document.getElementById('custom-cst').value = '';
+    document.getElementById('cst-eval-label').textContent = '—';
+    document.getElementById('cst-eval-label').style.color = 'var(--muted)';
+    document.getElementById('cst-compensated').style.display = 'none';
+
+    // === 狀態評估：以 Z1 ±20kg 容許範圍為標準 ===
+    let statusColor, statusText, statusDesc, statusPct;
+
+    if (passengerKg <= 0) {
+      // 純單人，不考慮雙載
+      statusColor = 'var(--accent)';
+      statusText  = '✓ 純單人模式';
+      statusDesc  = '無雙載需求，以墨齋基準錨點調校，質感最佳。';
+      statusPct   = 20;
+    } else if (passengerKg <= Z1_TOLERANCE) {
+      // 乘客在 Z1 容許範圍內
+      statusColor = 'var(--accent)';
+      statusText  = '✓ Z1 容許範圍內';
+      statusDesc  = '乘客 +' + passengerKg + 'kg，在 Z1 ±20kg 容許範圍內，' + modeLabel + '偏好可正常發揮。';
+      statusPct   = 40;
+    } else if (passengerKg <= 35) {
+      // 輕度超規（20–35kg）
+      statusColor = 'var(--warn)';
+      statusText  = '⚠️ 輕度超規（+' + passengerKg + 'kg）';
+      statusDesc  = '乘客超過 Z1 容許 ' + (passengerKg - Z1_TOLERANCE) + 'kg。參數已針對「' + modeLabel + '」最佳化，但某一端路感必然有所妥協。';
+      statusPct   = 65;
+    } else {
+      // 重度超規（>35kg）
+      statusColor = 'var(--danger)';
+      statusText  = '🚨 重度超規（+' + passengerKg + 'kg）';
+      statusDesc  = '乘客超過 Z1 容許 ' + (passengerKg - Z1_TOLERANCE) + 'kg，已超出前叉物理設計範圍。雙載請大幅降速，避免觸底。參數給出「' + modeLabel + '」條件下的最佳近似值。';
+      statusPct   = 100;
+    }
+
+    document.getElementById('status-fill').style.width = statusPct + '%';
+    document.getElementById('status-fill').style.background = statusColor;
+    document.getElementById('status-label').textContent = statusText;
+    document.getElementById('status-label').style.color = statusColor;
+    document.getElementById('status-desc').textContent = statusDesc;
+
+    document.getElementById('param-cards').style.display = 'block';
+    document.getElementById('page2-locked').style.display  = 'none';
+    document.getElementById('page2-content').style.display = 'block';
+  }
+
+  function evalCustomCst() {
+  if (!baseReady) return;
+
+  const val = parseFloat(document.getElementById('custom-cst').value);
+  const labelEl = document.getElementById('cst-eval-label');
+  const compEl  = document.getElementById('cst-compensated');
+
+  if (isNaN(val)) {
+    labelEl.textContent = '—';
+    labelEl.style.color = 'var(--muted)';
+    compEl.style.display = 'none';
+    return;
+  }
+
+  const diff = val - base_cSt;
+  const absDiff = Math.abs(diff);
+  const sign = diff >= 0 ? '+' : '';
+
+  // ===== 顯示差值 =====
+  labelEl.textContent = sign + diff.toFixed(1) + ' cSt';
+
+  // ===== 區間判定 =====
+  let mode = '';
+  if (absDiff < 2) {
+    mode = 'ok';
+    labelEl.style.color = 'var(--accent)';
+    compEl.style.display = 'none';
+    return;
+  } else if (absDiff < 5) {
+    mode = 'notice';
+    labelEl.style.color = 'var(--warn)';
+  } else {
+    mode = 'adjust';
+    labelEl.style.color = 'var(--danger)';
+  }
+
+  // ===== 預設不動 =====
+  let compAirGap = base_oilGap;
+  let compSag    = base_sag;
+
+  // ===== 只有大偏差才允許微調 =====
+  if (mode === 'adjust') {
+    const airAdj = Math.max(-2, Math.min(2, Math.round(diff * 0.3)));
+    const sagAdj = Math.max(-1, Math.min(1, Math.round(diff * 0.1)));
+
+    compAirGap = base_oilGap + airAdj;
+    compSag    = base_sag + sagAdj;
+  }
+
+  // ===== UI 更新 =====
+  document.getElementById('comp-airgap').textContent = compAirGap;
+  document.getElementById('comp-sag').textContent    = compSag;
+  document.getElementById('comp-diff').textContent   = sign + diff.toFixed(1);
+
+  // ===== 說明文字 =====
+  let note = '';
+
+  if (mode === 'notice') {
+    note = '油品黏度有差異，但仍在可接受範圍內（不建議調整 Air Gap / SAG）。';
+  }
+
+  if (mode === 'adjust') {
+    note = diff > 0
+      ? '油品偏黏（阻尼偏強），建議僅微調 Air Gap 與 SAG 作補償（已限制幅度）。'
+      : '油品偏稀（阻尼偏弱），建議僅微調 Air Gap 與 SAG 作補償（已限制幅度）。';
+  }
+
+  document.getElementById('comp-note').innerHTML = note;
+
+  compEl.style.display = 'block';
+}
+  function selectToggle(group, el) {
+    document.getElementById(group + '-grp').querySelectorAll('.toggle-btn').forEach(b => b.className = 'toggle-btn');
+    el.classList.add('sel-' + el.dataset.val);
+    toggleState[group] = el.dataset.val;
+    const degWrap = document.getElementById(group + '-degree');
+    const isAbnormal = el.dataset.val !== 'ok';
+    degWrap.classList.toggle('show', isAbnormal);
+    if (isAbnormal) {
+      document.getElementById(group + '-deg').value = 2;
+      updateDegreeLabel(group);
+    }
+  }
+
+  function calcFeedback() {
+    if (!baseReady) return;
+    const sagRaw = document.getElementById('sag-input').value;
+    const sag = sagRaw === '' || isNaN(+sagRaw) ? 0 : +sagRaw;
+    let cSt = base_cSt, oilGap = base_oilGap;
+    const notes = [];
+    const sagP = sag / TRAVEL;
+
+    // ✅ SAG 鎖定機制：幾何問題優先，未到位前禁止阻尼/油品建議
+    if (sagP > 0.30) {
+      notes.push({ c: 'danger', t: 'SAG 過多（' + Math.round(sagP*100) + '%）→ 請先調<strong style="color:var(--text)">緊</strong>彈簧預載，SAG 到位後再回來分析阻尼' });
+      renderResult(cSt, oilGap, notes, true);
+      return;
+    }
+    if (sagP < 0.25 && sag > 0) {
+      notes.push({ c: 'warn', t: 'SAG 不足（' + Math.round(sagP*100) + '%）→ 請先調<strong style="color:var(--text)">鬆</strong>彈簧預載，SAG 到位後再回來分析阻尼' });
+      renderResult(cSt, oilGap, notes, true);
+      return;
+    }
+
+    if (sag > 0) notes.push({ c: 'ok', t: 'SAG 良好（' + Math.round(sagP*100) + '%），開始進行阻尼分析' });
+
+    const bumpDeg = getDeg('bump');
+    const brakeDeg = getDeg('brake');
+    const reboundDeg = getDeg('rebound');
+
+    // ✅ 旋鈕優先原則：先建議調旋鈕，油品僅在明顯/非常時才動
+    if (toggleState.bump === 'hard') {
+      notes.push({ c: 'info', t: '碎震太硬（' + degreeLabels[bumpDeg] + '）→ 先開 Comp 壓縮阻尼 1/4 turn' });
+      if (bumpDeg >= 2) { cSt -= bumpDeg; notes.push({ c: 'info', t: '仍不足時：換低黏度機油（cSt −' + bumpDeg + '）' }); }
+    }
+    if (toggleState.bump === 'soft') {
+      notes.push({ c: 'warn', t: '碎震太軟（' + degreeLabels[bumpDeg] + '）→ 先關 Comp 壓縮阻尼 1/4 turn' });
+      if (bumpDeg >= 2) { cSt += bumpDeg; notes.push({ c: 'warn', t: '仍不足時：換高黏度機油（cSt +' + bumpDeg + '）' }); }
+    }
+    if (toggleState.brake === 'deep') {
+      oilGap -= brakeDeg * 2 + 1;
+      notes.push({ c: 'info', t: '點頭過多（' + degreeLabels[brakeDeg] + '）→ 提高油面（Air Gap −' + (brakeDeg * 2 + 1) + ' mm）' });
+    }
+    if (toggleState.brake === 'stiff') {
+      oilGap += brakeDeg * 2 + 1;
+      notes.push({ c: 'warn', t: '點頭不足（' + degreeLabels[brakeDeg] + '）→ 降低油面（Air Gap +' + (brakeDeg * 2 + 1) + ' mm）' });
+    }
+    if (toggleState.rebound === 'fast') {
+      notes.push({ c: 'warn', t: '回彈太快（' + degreeLabels[reboundDeg] + '）→ 先關 Rebound 回彈阻尼 1/8 turn' });
+      if (reboundDeg >= 2) { cSt += reboundDeg; notes.push({ c: 'warn', t: '仍不足時：換高黏度機油（cSt +' + reboundDeg + '）' }); }
+    }
+    if (toggleState.rebound === 'slow') {
+      notes.push({ c: 'info', t: '回彈太慢（' + degreeLabels[reboundDeg] + '）→ 先開 Rebound 回彈阻尼 1/8 turn' });
+      if (reboundDeg >= 2) { cSt -= reboundDeg; notes.push({ c: 'info', t: '仍不足時：換低黏度機油（cSt −' + reboundDeg + '）' }); }
+    }
+
+    renderResult(cSt, oilGap, notes, false);
+  }
+
+  function renderResult(cSt, oilGap, notes, sagLocked) {
+    const dc = cSt - base_cSt, do_ = oilGap - base_oilGap;
+    const dStr = d => d === 0 ? '<span style="color:var(--muted)">—</span>'
+      : `<span style="color:${d>0?'var(--warn)':'var(--info)'}">${d>0?'+':''}${d}</span>`;
+    const dotColor = c => c === 'ok' ? 'var(--accent)' : c === 'warn' ? 'var(--warn)' : c === 'info' ? 'var(--info)' : 'var(--danger)';
+
+    // ✅ SAG 鎖定時：只顯示 notes 提示，不顯示參數差異表格
+    const tableHtml = sagLocked ? '' : `
+      <div style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--rs);padding:14px;margin-bottom:12px">
+        <div style="display:grid;grid-template-columns:1fr 52px 52px 52px;font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;padding-bottom:8px;border-bottom:1px solid var(--border)">
+          <span>參數</span><span style="text-align:center">原始</span><span style="text-align:center">差異</span><span style="text-align:center;color:var(--accent)">建議</span>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 52px 52px 52px;align-items:center;padding:10px 0;border-bottom:1px solid var(--border);font-size:13px">
+          <span>機油黏度</span>
+          <span style="text-align:center;color:var(--muted)">${base_cSt}</span>
+          <span style="text-align:center">${dStr(dc)}</span>
+          <span style="text-align:center;font-size:18px;font-weight:700;color:var(--accent)">${cSt}</span>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 52px 52px 52px;align-items:center;padding:10px 0;font-size:13px">
+          <span>油面高度</span>
+          <span style="text-align:center;color:var(--muted)">${base_oilGap}</span>
+          <span style="text-align:center">${dStr(do_)}</span>
+          <span style="text-align:center;font-size:18px;font-weight:700;color:var(--accent)">${oilGap}</span>
+        </div>
+      </div>`;
+
+    document.getElementById('feedbackOutput').innerHTML = `
+      ${tableHtml}
+      <div class="notes-wrap">
+        ${notes.map(n=>`
+          <div class="note-item">
+            <div class="note-dot" style="background:${dotColor(n.c)}"></div>
+            <span style="font-size:12px;color:var(--muted)">${n.t}</span>
+          </div>`).join('')}
+      </div>
+    `;
+    document.getElementById('feedbackOutput').classList.add('show');
+  }
+
+  function resetBase() {
+    baseReady = false;
+    document.getElementById('param-cards').style.display = 'none';
+    document.getElementById('page2-locked').style.display  = '';
+    document.getElementById('page2-content').style.display = 'none';
+    document.getElementById('feedbackOutput').classList.remove('show');
+    document.getElementById('sag-input').value = '';
+    document.getElementById('sag-result-wrap').style.display = 'none';
+    document.getElementById('custom-cst').value = '';
+    document.getElementById('cst-eval-label').textContent = '—';
+    document.getElementById('cst-eval-label').style.color = 'var(--muted)';
+    document.getElementById('cst-compensated').style.display = 'none';
+    document.getElementById('r-sag-best').textContent = '—';
+    document.getElementById('r-sag-range').textContent = 'mm';
+  }
+
+  function resetFeedback() {
+    ['bump','brake','rebound'].forEach(g => {
+      document.getElementById(g+'-grp').querySelectorAll('.toggle-btn').forEach(b => b.className = 'toggle-btn');
+      document.getElementById(g+'-grp').querySelector('[data-val="ok"]').classList.add('sel-ok');
+      toggleState[g] = 'ok';
+      document.getElementById(g+'-degree').classList.remove('show');
+      document.getElementById(g+'-deg').value = 2;
+      updateDegreeLabel(g);
+    });
+    document.getElementById('feedbackOutput').classList.remove('show');
+  }
+
+  window.addEventListener('load', () => {
+    onSingleChange(); onDoubleChange();
+  });
+</script>
+</body>
+</html>
