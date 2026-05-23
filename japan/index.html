@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>V15 ｜ 2026 名古屋之旅</title>
+<title>V16 macOS26 Dark ｜ 2026 名古屋之旅</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
@@ -131,10 +131,287 @@ html,body{margin:0;height:100%;background:#eef2f5;font-family:'Noto Sans TC',san
   .title{font-size:15px;}
 }
 </style>
+
+<!-- =========================
+macOS 26 Dark Mode Patch
+========================= -->
+<style>
+
+html,
+body{
+    background:
+    linear-gradient(
+        180deg,
+        #0f1115 0%,
+        #151821 100%
+    ) !important;
+
+    color:#f5f7fa !important;
+}
+
+.version-bar{
+    background:#0b0d12 !important;
+    color:#8ea3b5 !important;
+    border-bottom:1px solid rgba(255,255,255,0.06);
+}
+
+.header{
+    background:
+    linear-gradient(
+        135deg,
+        #171b24,
+        #202633
+    ) !important;
+
+    border-bottom:1px solid rgba(255,255,255,0.08);
+
+    box-shadow:
+    0 10px 30px rgba(0,0,0,0.35);
+}
+
+.header h1{
+    color:#f7fafc !important;
+}
+
+.header p{
+    color:#aab6c5 !important;
+}
+
+.tab-bar{
+    background:
+    rgba(18,22,30,0.82) !important;
+
+    backdrop-filter:
+    blur(22px);
+
+    border-bottom:
+    1px solid rgba(255,255,255,0.08);
+}
+
+.tab{
+    color:
+    rgba(210,220,235,0.45) !important;
+}
+
+.tab.active{
+    color:#ffffff !important;
+    border-bottom-color:#5fa8ff !important;
+}
+
+.info-panel,
+.focus-box,
+.food-box,
+.warning-box,
+.success-box,
+.nav-box,
+.route-map,
+.taxi-card,
+.modal-content{
+
+    background:
+    rgba(28,32,42,0.88) !important;
+
+    color:#f5f7fa !important;
+
+    border:
+    1px solid rgba(255,255,255,0.07) !important;
+
+    backdrop-filter:
+    blur(18px);
+
+    box-shadow:
+    0 8px 24px rgba(0,0,0,0.28);
+}
+
+.focus-box{
+    border-left:4px solid #f6c453 !important;
+}
+
+.food-box{
+    border-left:4px solid #ff9b5e !important;
+}
+
+.warning-box{
+    border-left:4px solid #ff7070 !important;
+}
+
+.success-box{
+    border-left:4px solid #4ade80 !important;
+}
+
+.info-item{
+    background:
+    rgba(255,255,255,0.04) !important;
+}
+
+.info-label{
+    color:#94a3b8 !important;
+}
+
+.info-value{
+    color:#f5f7fa !important;
+}
+
+.day-stats{
+    background:
+    rgba(255,255,255,0.05) !important;
+
+    color:#d6dee8 !important;
+
+    border:
+    1px solid rgba(255,255,255,0.05);
+}
+
+.day-stats .sep{
+    color:
+    rgba(255,255,255,0.18) !important;
+}
+
+.timeline{
+    border-left:
+    2px solid rgba(255,255,255,0.08) !important;
+}
+
+.event::before{
+    background:#5fa8ff !important;
+
+    border:
+    2px solid #151821 !important;
+
+    box-shadow:
+    0 0 0 2px rgba(255,255,255,0.04);
+}
+
+.time{
+    color:#8fc2ff !important;
+}
+
+.title{
+    color:#ffffff !important;
+}
+
+.route-line-name{
+    color:#f8fafc !important;
+}
+
+.route-detail{
+    color:#aeb8c7 !important;
+}
+
+.exit-box{
+    background:#5fa8ff !important;
+    color:#081018 !important;
+}
+
+.btn{
+    background:
+    linear-gradient(
+        135deg,
+        #2f6df6,
+        #4f8cff
+    ) !important;
+
+    color:white !important;
+
+    border:
+    1px solid rgba(255,255,255,0.08);
+
+    box-shadow:
+    0 6px 16px rgba(47,109,246,0.35);
+}
+
+.btn.secondary{
+    background:
+    rgba(255,255,255,0.06) !important;
+
+    color:#f5f7fa !important;
+
+    border:
+    1px solid rgba(255,255,255,0.08);
+}
+
+.float-btn{
+    background:
+    rgba(30,36,48,0.92) !important;
+
+    color:#ffffff !important;
+
+    border:
+    1px solid rgba(255,255,255,0.08);
+
+    backdrop-filter:
+    blur(20px);
+
+    box-shadow:
+    0 10px 24px rgba(0,0,0,0.38);
+}
+
+.modal{
+    background:
+    rgba(0,0,0,0.72) !important;
+}
+
+.close{
+    color:#dbe4ee !important;
+}
+
+.shop-table th{
+    background:
+    rgba(255,255,255,0.05) !important;
+
+    color:#f8fafc !important;
+}
+
+.shop-table td{
+    border-bottom:
+    1px solid rgba(255,255,255,0.06) !important;
+}
+
+.info-chip{
+    background:
+    rgba(255,255,255,0.06) !important;
+
+    color:#f5f7fa !important;
+}
+
+.today-banner{
+    background:
+    linear-gradient(
+        135deg,
+        #23405f,
+        #2f6df6
+    ) !important;
+
+    color:white !important;
+}
+
+.taxi-jp{
+    color:#ff9c9c !important;
+}
+
+::-webkit-scrollbar{
+    width:10px;
+}
+
+::-webkit-scrollbar-track{
+    background:#10141c;
+}
+
+::-webkit-scrollbar-thumb{
+    background:#2a3442;
+    border-radius:10px;
+}
+
+::-webkit-scrollbar-thumb:hover{
+    background:#3b4656;
+}
+
+</style>
+
 </head>
 <body>
 
-<div class="version-bar">✦ V15 ｜ 2026.06 名古屋之旅 ✦</div>
+<div class="version-bar">✦ V16 macOS26 Dark ｜ 2026.06 名古屋之旅 ✦</div>
 
 <div class="header">
   <h1>2026 名古屋工藝 × 美食 × 科技之旅</h1>
