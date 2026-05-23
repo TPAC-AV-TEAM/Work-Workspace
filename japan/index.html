@@ -3,976 +3,495 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>2026 名古屋工藝 × 美食 × 科技之旅</title>
+<title>V14 ｜ 2026 名古屋工藝 × 美食 × 科技之旅</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box}
-body{
-    margin:0;
-    background:#eef2f5;
-    font-family:'Noto Sans TC',sans-serif;
-    color:#222;
-    line-height:1.7;
-}
-.header{
-    background:linear-gradient(135deg,#173434,#285c5c);
-    color:white;
-    padding:34px 22px;
-    border-bottom:5px solid #d0a96a;
-}
-.header h1{
-    margin:0;
-    font-size:24px;
-    font-weight:900;
-    letter-spacing:1px;
-}
-.header p{
-    margin-top:8px;
-    opacity:0.9;
-    font-size:13px;
-}
-.container{
-    max-width:760px;
-    margin:auto;
-    padding:16px;
-}
-.card{
-    background:white;
-    border-radius:22px;
-    padding:18px;
-    margin-bottom:20px;
-    box-shadow:0 4px 18px rgba(0,0,0,0.06);
-}
-.warning{
-    background:#fff2f0;
-    border:2px solid #ffb3a7;
-}
-.warning h2{
-    color:#c53030;
-}
-.info-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:12px;
-}
-.info-item{
-    background:#f6f8fa;
-    border-radius:16px;
-    padding:14px;
-}
-.info-label{
-    font-size:11px;
-    color:#777;
-    margin-bottom:4px;
-}
-.info-value{
-    font-size:14px;
-    font-weight:700;
-    color:#173434;
-}
-.day-card{
-    background:white;
-    border-radius:24px;
-    overflow:hidden;
-    margin-bottom:28px;
-    box-shadow:0 6px 24px rgba(0,0,0,0.08);
-}
-.day-header{
-    background:#214949;
-    color:white;
-    padding:16px 20px;
-}
-.day-header h2{
-    margin:0;
-    font-size:20px;
-}
-.day-header p{
-    margin:4px 0 0;
-    opacity:0.9;
-    font-size:13px;
-}
-.day-body{
-    padding:20px;
-}
-.day-stats{
-    background:#f5f7f9;
-    border-radius:14px;
-    padding:12px;
-    margin-bottom:18px;
-    font-size:13px;
-}
-.timeline{
-    border-left:3px solid #d8e1e5;
-    margin-left:8px;
-    padding-left:18px;
-}
-.event{
-    position:relative;
-    margin-bottom:28px;
-}
-.event::before{
-    content:'';
-    position:absolute;
-    left:-26px;
-    top:7px;
-    width:12px;
-    height:12px;
-    border-radius:50%;
-    background:#214949;
-    border:3px solid white;
-}
-.time{
-    color:#214949;
-    font-size:14px;
-    font-weight:800;
-}
-.title{
-    font-size:19px;
-    font-weight:800;
-    margin:3px 0 8px;
-}
-.badge{
-    display:inline-block;
-    background:#d9485f;
-    color:white;
-    border-radius:8px;
-    padding:2px 8px;
-    font-size:11px;
-    margin-left:6px;
-}
-.fee{
-    background:#edf2f7;
-    color:#555;
-    padding:2px 8px;
-    border-radius:8px;
-    font-size:11px;
-    margin-left:6px;
-}
-.focus-box{
-    background:#fff9e8;
-    border:1px solid #f4dfa0;
-    border-radius:16px;
-    padding:14px;
-    margin-top:12px;
-    font-size:14px;
-}
-.food-box{
-    background:#fff3e8;
-    border:1px solid #ffd1a3;
-    border-radius:16px;
-    padding:14px;
-    margin-top:12px;
-    font-size:14px;
-}
-.route-map{
-    background:#f7fafc;
-    border-radius:18px;
-    padding:16px;
-    margin-top:14px;
-}
-.route-node{
-    display:flex;
-    align-items:center;
-    margin-bottom:12px;
-    font-size:14px;
-    font-weight:700;
-}
-.route-line{
-    width:5px;
-    height:28px;
-    margin-left:13px;
-    border-radius:10px;
-}
+body{margin:0;background:#eef2f5;font-family:'Noto Sans TC',sans-serif;color:#222;line-height:1.7;}
+
+/* ── Version Badge ── */
+.version-bar{background:#173434;color:#d0a96a;text-align:center;padding:6px 12px;font-size:12px;font-weight:700;letter-spacing:2px;}
+
+/* ── Header ── */
+.header{background:linear-gradient(135deg,#173434,#285c5c);color:white;padding:34px 22px;border-bottom:5px solid #d0a96a;}
+.header h1{margin:0;font-size:24px;font-weight:900;letter-spacing:1px;}
+.header p{margin-top:8px;opacity:0.9;font-size:13px;}
+
+/* ── Layout ── */
+.container{max-width:760px;margin:auto;padding:16px;}
+
+/* ── Generic Card ── */
+.card{background:white;border-radius:22px;padding:18px;margin-bottom:20px;box-shadow:0 4px 18px rgba(0,0,0,0.06);}
+.warning{background:#fff2f0;border:2px solid #ffb3a7;}
+.warning h2{color:#c53030;margin-top:0;}
+
+/* ── Info Grid ── */
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.info-item{background:#f6f8fa;border-radius:16px;padding:14px;}
+.info-label{font-size:11px;color:#777;margin-bottom:4px;}
+.info-value{font-size:14px;font-weight:700;color:#173434;}
+
+/* ── Day Card ── */
+.day-card{background:white;border-radius:24px;overflow:hidden;margin-bottom:28px;box-shadow:0 6px 24px rgba(0,0,0,0.08);}
+.day-header{background:#214949;color:white;padding:16px 20px;}
+.day-header h2{margin:0;font-size:20px;}
+.day-header p{margin:4px 0 0;opacity:0.9;font-size:13px;}
+.day-body{padding:20px;}
+
+/* ── Day Stats (橫向) ── */
+.day-stats{background:#f5f7f9;border-radius:14px;padding:10px 14px;margin-bottom:18px;font-size:13px;display:flex;flex-wrap:wrap;gap:6px 16px;align-items:center;}
+.day-stats span{white-space:nowrap;}
+.day-stats .sep{color:#ccc;}
+
+/* ── Timeline ── */
+.timeline{border-left:3px solid #d8e1e5;margin-left:8px;padding-left:18px;}
+.event{position:relative;margin-bottom:28px;}
+.event::before{content:'';position:absolute;left:-26px;top:7px;width:12px;height:12px;border-radius:50%;background:#214949;border:3px solid white;}
+.time{color:#214949;font-size:14px;font-weight:800;}
+.title{font-size:19px;font-weight:800;margin:3px 0 8px;}
+.badge{display:inline-block;background:#d9485f;color:white;border-radius:8px;padding:2px 8px;font-size:11px;margin-left:6px;}
+.fee{background:#edf2f7;color:#555;padding:2px 8px;border-radius:8px;font-size:11px;margin-left:6px;}
+
+/* ── Info Boxes ── */
+.focus-box{background:#fff9e8;border:1px solid #f4dfa0;border-radius:14px;padding:11px 14px;margin-top:10px;font-size:13.5px;}
+.food-box{background:#fff3e8;border:1px solid #ffd1a3;border-radius:14px;padding:11px 14px;margin-top:10px;font-size:13.5px;}
+.warning-box{background:#fff2f0;border:1px solid #ffb3a7;border-radius:14px;padding:11px 14px;margin-top:10px;font-size:13.5px;}
+.success-box{background:#f0fff4;border:1px solid #9ae6b4;border-radius:14px;padding:11px 14px;margin-top:10px;font-size:13.5px;}
+.nav-box{background:#f7fafc;border-radius:14px;padding:11px 14px;margin-top:10px;font-size:13.5px;}
+
+/* ── Inline Info Row (橫向小資訊) ── */
+.info-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;}
+.info-chip{background:#f0f4f7;border-radius:20px;padding:5px 12px;font-size:12.5px;font-weight:700;color:#333;white-space:nowrap;}
+.info-chip.red{background:#fff0f0;color:#c53030;}
+.info-chip.green{background:#f0fff4;color:#276749;}
+.info-chip.gold{background:#fffbe8;color:#7b5e00;}
+
+/* ── Route Map ── */
+.route-map{background:#f7fafc;border-radius:18px;padding:14px 16px;margin-top:12px;}
+.route-node{display:flex;align-items:center;margin-bottom:10px;font-size:13.5px;font-weight:700;}
+.route-line{width:5px;height:24px;margin-left:13px;border-radius:10px;margin-bottom:2px;}
+.route-step{display:flex;align-items:flex-start;gap:12px;margin-bottom:10px;}
+.route-icon{font-size:18px;min-width:24px;}
+.route-content{}
+.route-line-name{font-weight:700;font-size:14px;}
+.route-detail{font-size:12px;color:#666;}
 .purple{background:#8b5cf6}
-.red{background:#ef4444}
+.red-line{background:#ef4444}
 .blue{background:#3b82f6}
-.green{background:#10b981}
-.exit-box{
-    background:#173434;
-    color:white;
-    display:inline-block;
-    padding:6px 12px;
-    border-radius:12px;
-    font-weight:900;
-    margin-top:10px;
-}
-.btn-group{
-    display:flex;
-    gap:10px;
-    margin-top:14px;
-    flex-wrap:wrap;
-}
-.btn{
-    text-decoration:none;
-    background:#214949;
-    color:white;
-    padding:10px 14px;
-    border-radius:14px;
-    font-size:13px;
-    font-weight:700;
-    display:inline-flex;
-    align-items:center;
-    gap:6px;
-}
-.btn.secondary{
-    background:#edf2f7;
-    color:#222;
-}
-.modal-btn{
-    border:none;
-    cursor:pointer;
-}
-.footer{
-    text-align:center;
-    color:#666;
-    font-size:13px;
-    padding:30px 20px 80px;
-}
-.floating-menu{
-    position:fixed;
-    right:18px;
-    bottom:18px;
-    display:flex;
-    flex-direction:column;
-    gap:12px;
-    z-index:50;
-}
-.float-btn{
-    width:58px;
-    height:58px;
-    border-radius:50%;
-    background:#214949;
-    color:white;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:22px;
-    text-decoration:none;
-    box-shadow:0 4px 16px rgba(0,0,0,0.25);
-}
-.modal{
-    display:none;
-    position:fixed;
-    z-index:100;
-    left:0;
-    top:0;
-    width:100%;
-    height:100%;
-    background:rgba(0,0,0,0.6);
-}
-.modal-content{
-    background:white;
-    width:92%;
-    max-width:680px;
-    margin:8vh auto;
-    border-radius:24px;
-    padding:26px;
-    max-height:80vh;
-    overflow:auto;
-}
-.close{
-    float:right;
-    font-size:30px;
-    cursor:pointer;
-    font-weight:900;
-}
+.green-line{background:#10b981}
+
+/* ── Nav Steps ── */
+.nav-steps{display:flex;flex-direction:column;gap:8px;margin-top:10px;}
+.nav-step{display:flex;align-items:center;gap:10px;font-size:13.5px;}
+.step-num{background:#214949;color:white;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;flex-shrink:0;}
+
+/* ── Exit Box ── */
+.exit-box{background:#173434;color:white;display:inline-block;padding:6px 12px;border-radius:12px;font-weight:900;margin-top:10px;font-size:13px;}
+
+/* ── Buttons ── */
+.btn-group{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap;}
+.btn{text-decoration:none;background:#214949;color:white;padding:9px 14px;border-radius:14px;font-size:13px;font-weight:700;display:inline-flex;align-items:center;gap:6px;border:none;cursor:pointer;}
+.btn.secondary{background:#edf2f7;color:#222;}
+
+/* ── Taxi Card ── */
+.taxi-card{background:white;border-radius:14px;padding:12px;margin-top:10px;border:2px solid #ffd1a3;text-align:center;}
+.taxi-jp{font-size:17px;font-weight:900;color:#c53030;margin-top:6px;}
+
+/* ── Shopping Table ── */
+.shop-table{width:100%;font-size:14px;border-collapse:collapse;}
+.shop-table th{background:#f5f7f9;padding:10px;text-align:left;}
+.shop-table td{padding:10px;border-bottom:1px solid #eee;}
+
+/* ── Airport Timeline ── */
+.airport-tl{margin-top:8px;}
+.airport-row{display:flex;align-items:baseline;gap:10px;font-size:13.5px;padding:4px 0;}
+.airport-time{font-weight:900;color:#214949;min-width:52px;}
+
+/* ── Footer ── */
+.footer{text-align:center;color:#666;font-size:13px;padding:30px 20px 90px;}
+
+/* ── Floating Buttons ── */
+.floating-menu{position:fixed;right:18px;bottom:18px;display:flex;flex-direction:column;gap:12px;z-index:50;}
+.float-btn{width:58px;height:58px;border-radius:50%;background:#214949;color:white;display:flex;align-items:center;justify-content:center;font-size:22px;border:none;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,0.25);}
+
+/* ── Modal ── */
+.modal{display:none;position:fixed;z-index:100;left:0;top:0;width:100%;height:100%;background:rgba(0,0,0,0.6);}
+.modal-content{background:white;width:92%;max-width:680px;margin:8vh auto;border-radius:24px;padding:26px;max-height:80vh;overflow:auto;}
+.close{float:right;font-size:30px;cursor:pointer;font-weight:900;}
+
+/* ── Responsive ── */
 @media(max-width:600px){
-    .info-grid{grid-template-columns:1fr}
-    .title{font-size:17px}
+  .info-grid{grid-template-columns:1fr}
+  .title{font-size:17px}
+  .day-stats{font-size:12px;}
 }
 </style>
 </head>
 <body>
 
+<div class="version-bar">✦ V14 ｜ 2025.05 整合版 ✦</div>
+
 <div class="header">
-    <h1>2026 名古屋工藝 × 美食 × 科技之旅</h1>
-    <p>Nagoya Craft · Food · Technology ｜ Kelly 帶隊</p>
+  <h1>2026 名古屋工藝 × 美食 × 科技之旅</h1>
+  <p>Nagoya Craft · Food · Technology ｜ Kelly 帶隊</p>
 </div>
 
 <div class="container">
 
+<!-- ── 防呆系統 ── -->
 <div class="card warning">
-    <h2>🚨 導遊級防呆系統</h2>
-    <ul>
-        <li><b>失聯處理：</b>原地等待 10 分鐘，直接回最近車站剪票口。</li>
-        <li><b>榮站導航：</b>地下街容易迷路，直接上地面找「名古屋電視塔」。</li>
-        <li><b>日本交通：</b>iPhone Wallet 直接加入 Suica / ICOCA。</li>
-        <li><b>雨天模式：</b>便利商店可直接買透明傘。</li>
-        <li><b>晚間撤退：</b>21:30 前回榮站最穩定。</li>
-    </ul>
+  <h2>🚨 導遊級防呆系統</h2>
+  <ul style="margin:0;padding-left:18px;">
+    <li><b>失聯處理：</b>原地等待 10 分鐘，直接回最近車站剪票口集合。</li>
+    <li><b>榮站導航：</b>地下街容易迷路，直接上地面找「名古屋電視塔」定位。</li>
+    <li><b>日本交通：</b>iPhone Wallet 直接加入 Suica / ICOCA。</li>
+    <li><b>雨天模式：</b>便利商店可直接買透明傘。</li>
+    <li><b>晚間撤退：</b>21:30 前回榮站最穩定。</li>
+  </ul>
 </div>
 
+<!-- ── 旅行資訊 ── -->
 <div class="card">
-    <div class="info-grid">
-        <div class="info-item">
-            <div class="info-label">航班</div>
-            <div class="info-value">虎航 IT706 / IT206</div>
-        </div>
-        <div class="info-item">
-            <div class="info-label">住宿</div>
-            <div class="info-value">Royal Park Iconic Nagoya</div>
-        </div>
-        <div class="info-item">
-            <div class="info-label">核心任務</div>
-            <div class="info-value">JPG‑X100 土鍋內鍋</div>
-        </div>
-        <div class="info-item">
-            <div class="info-label">旅行模式</div>
-            <div class="info-value">低焦慮無腦自由行</div>
-        </div>
-    </div>
+  <div class="info-grid">
+    <div class="info-item"><div class="info-label">航班</div><div class="info-value">虎航 IT706 (去) / IT206 (回)</div></div>
+    <div class="info-item"><div class="info-label">住宿</div><div class="info-value">Royal Park Iconic Nagoya</div></div>
+    <div class="info-item"><div class="info-label">核心任務</div><div class="info-value">JPG‑X100 土鍋內鍋</div></div>
+    <div class="info-item"><div class="info-label">旅行模式</div><div class="info-value">低焦慮無腦自由行</div></div>
+  </div>
 </div>
 
+<!-- ══════════════ DAY 1 ══════════════ -->
 <div class="day-card">
-    <div class="day-header">
-        <h2>Day 1｜6/11（四）</h2>
-        <p>抵達日本 × 生活感開始</p>
+  <div class="day-header">
+    <h2>Day 1｜6/11（四）</h2>
+    <p>抵達日本 × 生活感開始</p>
+  </div>
+  <div class="day-body">
+    <div class="day-stats">
+      <span>🚶 步數：低～中</span><span class="sep">|</span>
+      <span>🧠 腦力：高</span><span class="sep">|</span>
+      <span>🍜 主題：超商文化補給</span><span class="sep">|</span>
+      <span>☔ 雨天影響：中</span>
     </div>
-    <div class="day-body">
+    <div class="timeline">
 
-        <div class="day-stats">
-            🚶 步行量：低～中<br>
-            🧠 腦力消耗：高<br>
-            🍜 美食強度：超商文化<br>
-            ☔ 雨天影響：中
+      <div class="event">
+        <div class="time">17:20 → 21:15</div>
+        <div class="title">桃園 (T1) → 中部國際 (T2)</div>
+        <div class="info-row">
+          <span class="info-chip">虎航 IT706</span>
+          <span class="info-chip">飛行約 3h 50m</span>
         </div>
+      </div>
 
-        <div class="timeline">
-            <div class="event">
-                <div class="time">17:20 → 21:15</div>
-                <div class="title">桃園機場 → 中部國際機場</div>
-            </div>
-
-            <div class="event">
-                <div class="time">22:00</div>
-                <div class="title">前往飯店</div>
-
-                <div class="route-map">
-                    <div class="route-node">✈️ 中部國際機場</div>
-                    <div class="route-line red"></div>
-                    <div class="route-node">🚉 名鐵特急（往金山）</div>
-                    <div class="route-line purple"></div>
-                    <div class="route-node">🚇 名城線</div>
-                    <div class="route-line green"></div>
-                    <div class="route-node">🏨 榮站 / 飯店</div>
-                </div>
-
-                <div class="nav-details" style="background:#f8fafc;border-radius:16px;padding:16px;margin-top:14px;font-size:14px;">
-                    <div style="margin-bottom:10px;"><b>1️⃣ 機場尋找 名鐵線 Meitetsu 指標</b></div>
-                    <div style="margin-bottom:10px;"><b>2️⃣ 搭至 金山站</b>（轉乘比名古屋站輕鬆很多）</div>
-                    <div style="margin-bottom:10px;"><b>3️⃣ 轉乘地鐵 名城線</b> 往榮方向</div>
-                    <div><b>4️⃣ 榮站 4 號出口</b> 直結「中日大廈」飯店</div>
-                </div>
-
-                <div class="exit-box">榮站 4 號出口</div>
-
-                <div class="focus-box">
-                    💡 金山站轉乘比名古屋站更輕鬆。
-                    <br>
-                    地下街迷路時，直接上地面找「電視塔」。
-                </div>
-
-                <div class="food-box">
-                    🍙 <b>第一晚用餐策略</b>
-                    <br><br>
-                    不硬找名店。
-                    <br>
-                    建議：Lawson / 7-11 / FamilyMart 補給。
-                    <br><br>
-                    推薦：炸雞、飯糰、日本茶、布丁。
-                </div>
-
-                <div class="btn-group">
-                    <a class="btn" target="_blank" href="https://maps.google.com/?q=Royal+Park+Hotel+Iconic+Nagoya">🗺 飯店導航</a>
-                    <button class="btn secondary modal-btn" onclick="openModal('trafficModal')">🚇 日本交通教學</button>
-                </div>
-            </div>
+      <div class="event">
+        <div class="time">22:00</div>
+        <div class="title">前往飯店</div>
+        <div class="route-map">
+          <div class="route-node">✈️ 中部國際機場 T2</div>
+          <div class="route-line red-line"></div>
+          <div class="route-node">🚉 名鐵特急（往金山）</div>
+          <div class="route-line purple"></div>
+          <div class="route-node">🚇 名城線</div>
+          <div class="route-line green-line"></div>
+          <div class="route-node">🏨 榮站 / 飯店</div>
         </div>
+        <div class="nav-box">
+          <div style="margin-bottom:6px;">1️⃣ 機場尋找 <b>Meitetsu 名鐵線</b> 指標</div>
+          <div style="margin-bottom:6px;">2️⃣ 搭至 <b>金山站</b>（轉乘比名古屋站輕鬆很多）</div>
+          <div style="margin-bottom:6px;">3️⃣ 轉乘 <b>地鐵名城線</b> 往榮方向</div>
+          <div>4️⃣ <b>榮站 4 號出口</b> 直結「中日大廈」飯店</div>
+        </div>
+        <div class="exit-box">榮站 4 號出口</div>
+        <div class="focus-box">💡 金山站轉乘比名古屋站更輕鬆。地下街迷路時，直接上地面找「電視塔」。</div>
+        <div class="food-box">🍙 <b>宵夜策略：</b>Lawson 炸雞、7-11 飯糰、布丁。不硬找名店，超商就夠。</div>
+        <div class="focus-box">🚕 <b>備案：</b>體力不足可搭計程車（約 1.2～1.5 萬円）。</div>
+        <div class="btn-group">
+          <a class="btn" target="_blank" href="https://maps.google.com/?q=Royal+Park+Hotel+Iconic+Nagoya">🗺 飯店導航</a>
+          <button class="btn secondary" onclick="openModal('trafficModal')">🚇 日本交通教學</button>
+        </div>
+      </div>
+
     </div>
+  </div>
 </div>
 
+<!-- ══════════════ DAY 2 ══════════════ -->
 <div class="day-card">
-    <div class="day-header">
-        <h2>Day 2｜6/12（五）</h2>
-        <p>工藝 × 歷史 × 味噌文化</p>
+  <div class="day-header">
+    <h2>Day 2｜6/12（五）</h2>
+    <p>工藝 × 歷史 × 味噌文化</p>
+  </div>
+  <div class="day-body">
+    <div class="day-stats">
+      <span>🚶 步數：高</span><span class="sep">|</span>
+      <span>🧠 腦力：高</span><span class="sep">|</span>
+      <span>🍜 主題：味噌豬排</span><span class="sep">|</span>
+      <span>☔ 雨天影響：低</span>
     </div>
-    <div class="day-body">
+    <div class="timeline">
 
-        <div class="day-stats">
-            🚶 步行量：高<br>
-            🧠 腦力消耗：高<br>
-            🍜 美食強度：味噌文化<br>
-            ☔ 雨天影響：低
+      <div class="event">
+        <div class="time">09:30</div>
+        <div class="title">名古屋城 <span class="fee">500円</span></div>
+        <div class="nav-box">🚇 地鐵名城線 → <b>名古屋城站 7 號出口</b></div>
+        <div class="focus-box">🔭 <b>重點：</b>本丸御殿榫接木造工法、石垣堆疊結構、金鯱工藝。</div>
+        <div class="food-box">🍱 <b>午餐：</b>矢場とん（矢場豬排）。味噌文化代表店，步行可達。</div>
+        <div class="btn-group">
+          <a class="btn" target="_blank" href="https://maps.google.com/?q=Nagoya+Castle">🗺 名古屋城導航</a>
         </div>
+      </div>
 
-        <div class="timeline">
-
-            <div class="event">
-                <div class="time">09:30</div>
-                <div class="title">名古屋城 <span class="fee">500円</span></div>
-
-                <div class="nav-details" style="background:#f8fafc;border-radius:16px;padding:16px;margin:12px 0;font-size:14px;">
-                    🚇 地鐵名城線 → <b>名古屋城站 7 號出口</b>
-                </div>
-
-                <div class="focus-box">
-                    🔭 觀察重點：
-                    <br>
-                    ・本丸御殿榫接木造工法
-                    <br>
-                    ・石垣堆疊結構
-                    <br>
-                    ・金鯱工藝
-                </div>
-
-                <div class="food-box">
-                    🍱 <b>午餐主題：名古屋味噌文化</b>
-                    <br><br>
-                    推薦：味噌豬排、味噌烏龍。
-                    <br>
-                    代表店：矢場とん。
-                </div>
-
-                <div class="btn-group">
-                    <a class="btn" target="_blank" href="https://maps.google.com/?q=Nagoya+Castle">🗺 名古屋城導航</a>
-                </div>
-            </div>
-
-            <div class="event">
-                <div class="time">13:30</div>
-                <div class="title">
-                    豐田產業技術紀念館
-                    <span class="badge">必去</span>
-                    <span class="fee">500円</span>
-                </div>
-
-                <div class="warning-box">
-
-                    <div class="info-title">
-                        🚕 導遊推薦移動方式
-                    </div>
-
-                    建議從名古屋城直接搭計程車。
-                    <br>
-                    約 1500 円。
-                    <br><br>
-
-                    給司機看這句即可：
-                    <br><br>
-
-                    <div style="background:white;padding:14px;border-radius:14px;font-weight:900;color:#c53030;text-align:center;font-size:18px;">
-                        トヨタ産業技術記念館へお願いします
-                    </div>
-
-                </div>
-
-                <div class="focus-box">
-                    🔧 觀察重點：
-                    <br>
-                    ・自動織布機邏輯
-                    <br>
-                    ・引擎剖面
-                    <br>
-                    ・懸吊與沖壓結構
-                </div>
-
-                <div class="food-box">
-                    ☕ 博物館資訊量很大。
-                    <br>
-                    中途務必補水與休息。
-                </div>
-
-                <div class="btn-group">
-                    <a class="btn" target="_blank" href="https://maps.google.com/?q=Toyota+Commemorative+Museum+of+Industry+and+Technology">🗺 豐田館導航</a>
-                    <button class="btn secondary modal-btn" onclick="openModal('foodModal')">🍜 名古屋美食教學</button>
-                </div>
-            </div>
-
-            <div class="event">
-                <div class="time">17:30</div>
-                <div class="title">榮商圈夜景 × 採購任務</div>
-
-                <div class="food-box">
-                    🍺 晚餐推薦
-                    <br><br>
-                    ・矢場とん（味噌豬排）
-                    <br>
-                    ・世界の山ちゃん（雞翅）
-                    <br>
-                    ・CoCo壱番屋（咖哩）
-                </div>
-
-                <div class="focus-box">
-                    🛍 若體力不足，土鍋任務改 Day5。
-                </div>
-            </div>
-
+      <div class="event">
+        <div class="time">13:30</div>
+        <div class="title">豐田產業技術紀念館 <span class="badge">必去</span><span class="fee">500円</span></div>
+        <div class="taxi-card">
+          🚕 <b>導遊推薦：</b>從名古屋城直接搭計程車（約 1,500 円）
+          <div class="taxi-jp">トヨタ産業技術記念館へお願いします</div>
         </div>
+        <div class="focus-box">🔧 <b>重點：</b>自動織布機邏輯、引擎剖面、懸吊與沖壓結構。</div>
+        <div class="food-box">☕ 資訊量很大，中途務必補水與休息。</div>
+        <div class="btn-group">
+          <a class="btn" target="_blank" href="https://maps.google.com/?q=Toyota+Commemorative+Museum+of+Industry+and+Technology">🗺 豐田館導航</a>
+          <button class="btn secondary" onclick="openModal('foodModal')">🍜 名古屋美食</button>
+        </div>
+      </div>
+
+      <div class="event">
+        <div class="time">17:30</div>
+        <div class="title">榮商圈夜景 × 採購任務</div>
+        <div class="food-box">🍺 <b>晚餐選項：</b>矢場とん（味噌豬排）、世界の山ちゃん（雞翅）、CoCo壱番屋（咖哩）。</div>
+        <div class="focus-box">🛍 體力不足時，土鍋任務可移至 Day 5。</div>
+      </div>
+
     </div>
+  </div>
 </div>
 
+<!-- ══════════════ DAY 3 ══════════════ -->
 <div class="day-card">
-    <div class="day-header">
-        <h2>Day 3｜6/13（六）</h2>
-        <p>樂園 × 商店街 × 邊走邊吃</p>
+  <div class="day-header">
+    <h2>Day 3｜6/13（六）</h2>
+    <p>樂園 × 商店街 × 邊走邊吃</p>
+  </div>
+  <div class="day-body">
+    <div class="day-stats">
+      <span>🚶 步數：中</span><span class="sep">|</span>
+      <span>🧠 腦力：中</span><span class="sep">|</span>
+      <span>🍜 主題：大須亂吃</span><span class="sep">|</span>
+      <span>☔ 雨天影響：中</span>
     </div>
-    <div class="day-body">
+    <div class="timeline">
 
-        <div class="day-stats">
-            🚶 步行量：中<br>
-            🧠 腦力消耗：中<br>
-            🍜 美食強度：邊走邊吃<br>
-            ☔ 雨天影響：中
+      <div class="event">
+        <div class="time">09:00</div>
+        <div class="title">樂高樂園 & SEA LIFE <span class="fee">~7,000円</span></div>
+        <div class="nav-box">🚇 名古屋站轉乘「青波線」→ 金城ふ頭站</div>
+        <div class="focus-box">🔭 <b>重點：</b>Miniland 建築比例還原、SEA LIFE 數位互動照明。兩處相鄰，不需大移動。</div>
+        <div class="food-box">🍔 樂園餐點偏貴但方便，可錯峰吃飯避免排隊。</div>
+        <div class="btn-group">
+          <a class="btn" target="_blank" href="https://maps.google.com/?q=Legoland+Japan">🗺 樂高樂園導航</a>
         </div>
+      </div>
 
-        <div class="timeline">
-
-            <div class="event">
-                <div class="time">09:00</div>
-                <div class="title">樂高樂園 × SEA LIFE <span class="fee">~7000円</span></div>
-
-                <div class="nav-details" style="background:#f8fafc;border-radius:16px;padding:16px;margin:12px 0;font-size:14px;">
-                    🚇 名古屋站轉乘「青波線」→ 金城ふ頭站
-                </div>
-
-                <div class="focus-box">
-                    🔭 Miniland 建築比例還原。
-                    <br>
-                    SEA LIFE 數位互動照明。
-                </div>
-
-                <div class="food-box">
-                    🍔 樂園餐點偏貴但方便。
-                    <br>
-                    可錯峰吃飯避免排隊。
-                </div>
-
-                <div class="btn-group">
-                    <a class="btn" target="_blank" href="https://maps.google.com/?q=Legoland+Japan">🗺 樂高樂園導航</a>
-                </div>
-            </div>
-
-            <div class="event">
-                <div class="time">18:30</div>
-                <div class="title">大須商店街</div>
-
-                <div class="food-box">
-                    🍜 今日主題：商店街亂吃文化
-                    <br><br>
-                    推薦：
-                    <br>
-                    ・章魚燒
-                    <br>
-                    ・炸雞
-                    <br>
-                    ・拉麵
-                    <br>
-                    ・鯛魚燒
-                </div>
-
-                <div class="btn-group">
-                    <a class="btn" target="_blank" href="https://maps.google.com/?q=Osu+Shopping+Street+Nagoya">🗺 大須導航</a>
-                </div>
-            </div>
-
+      <div class="event">
+        <div class="time">18:30</div>
+        <div class="title">大須商店街</div>
+        <div class="food-box">🍢 <b>策略：</b>章魚燒、唐揚雞、拉麵、鯛魚燒。邊走邊吃挖掘電子零件（e☆耳機）。</div>
+        <div class="btn-group">
+          <a class="btn" target="_blank" href="https://maps.google.com/?q=Osu+Shopping+Street+Nagoya">🗺 大須導航</a>
         </div>
+      </div>
+
     </div>
+  </div>
 </div>
 
+<!-- ══════════════ DAY 4 ══════════════ -->
 <div class="day-card">
-    <div class="day-header">
-        <h2>Day 4｜6/14（日）</h2>
-        <p>工程 × 科學 × 喫茶店回血</p>
+  <div class="day-header">
+    <h2>Day 4｜6/14（日）</h2>
+    <p>工程 × 科學 × 喫茶回血</p>
+  </div>
+  <div class="day-body">
+    <div class="day-stats">
+      <span>🚶 步數：中</span><span class="sep">|</span>
+      <span>🧠 腦力：超高</span><span class="sep">|</span>
+      <span>🍜 主題：喫茶店回血</span><span class="sep">|</span>
+      <span>☔ 雨天影響：低</span>
     </div>
-    <div class="day-body">
+    <div class="timeline">
 
-        <div class="day-stats">
-            🚶 步行量：中<br>
-            🧠 腦力消耗：超高<br>
-            🍜 美食強度：喫茶店文化<br>
-            ☔ 雨天影響：低
+      <div class="event">
+        <div class="time">10:00</div>
+        <div class="title">磁浮鐵道館 <span class="badge">路線 B</span><span class="fee">1,000円</span></div>
+        <div class="nav-box">🚇 搭乘「青波線」至終點站「金城ふ頭」</div>
+        <div class="focus-box">🚄 <b>重點：</b>超導磁浮、底盤轉向架機械工程、氣動設計、避震穩定技術。</div>
+        <div class="btn-group">
+          <a class="btn" target="_blank" href="https://maps.google.com/?q=SCMAGLEV+and+Railway+Park">🗺 鐵道館導航</a>
         </div>
+      </div>
 
-        <div class="timeline">
-
-            <div class="event">
-                <div class="time">10:00</div>
-                <div class="title">磁浮鐵道館 <span class="fee">1000円</span></div>
-
-                <div class="nav-details" style="background:#f8fafc;border-radius:16px;padding:16px;margin:12px 0;font-size:14px;">
-                    🚇 搭乘「青波線」至終點站「金城ふ頭」
-                </div>
-
-                <div class="focus-box">
-                    🚄 觀察重點：
-                    <br>
-                    ・超導磁浮
-                    <br>
-                    ・氣動設計
-                    <br>
-                    ・避震技術
-                </div>
-
-                <div class="btn-group">
-                    <a class="btn" target="_blank" href="https://maps.google.com/?q=SCMAGLEV+and+Railway+Park">🗺 鐵道館導航</a>
-                </div>
-            </div>
-
-            <div class="event">
-                <div class="time">14:00</div>
-                <div class="title">名古屋市科學館 <span class="fee">800円</span></div>
-
-                <div class="nav-details" style="background:#f8fafc;border-radius:16px;padding:16px;margin:12px 0;font-size:14px;">
-                    🚇 伏見站 4 號出口 步行約 5 分鐘
-                </div>
-
-                <div class="focus-box">
-                    🌌 推薦：球體天文館、放電實驗、極寒實驗。
-                </div>
-
-                <div class="food-box">
-                    ☕ 今日主題：喫茶店回血
-                    <br><br>
-                    推薦：Komeda Coffee
-                    <br>
-                    必吃：冰與火、紅豆吐司。
-                </div>
-
-                <div class="btn-group">
-                    <a class="btn" target="_blank" href="https://maps.google.com/?q=Nagoya+City+Science+Museum">🗺 科學館導航</a>
-                </div>
-            </div>
-
+      <div class="event">
+        <div class="time">14:00</div>
+        <div class="title">名古屋市科學館 <span class="fee">800円</span></div>
+        <div class="exit-box">地鐵伏見站 4 號出口</div>
+        <div class="focus-box">🌌 <b>重點：</b>懸浮球體天文館構造、放電實驗室、極寒實驗。</div>
+        <div class="food-box">☕ <b>回血：</b>Komeda Coffee 冰與火。資訊過載時務必安排休息。</div>
+        <div class="btn-group">
+          <a class="btn" target="_blank" href="https://maps.google.com/?q=Nagoya+City+Science+Museum">🗺 科學館導航</a>
         </div>
+      </div>
+
     </div>
+  </div>
 </div>
 
-<!-- DAY5 最終修正版（直接覆蓋原本 Day5 區塊即可） -->
-
+<!-- ══════════════ DAY 5 ══════════════ -->
 <div class="day-card">
+  <div class="day-header">
+    <h2>Day 5｜6/15（一）</h2>
+    <p>正式購鍋 × 平穩收尾 × 返台</p>
+  </div>
+  <div class="day-body">
+    <div class="day-stats">
+      <span>🚶 步數：低</span><span class="sep">|</span>
+      <span>🧠 腦力：中（時間壓力）</span><span class="sep">|</span>
+      <span>🍲 正式購鍋日</span><span class="sep">|</span>
+      <span>✈️ 回程壓力：高</span>
+    </div>
+    <div class="timeline">
 
-    <div class="day-header">
+      <div class="event">
+        <div class="time">21:50（請確認）</div>
+        <div class="title">虎航 IT206 回程班機</div>
+        <div class="warning-box">🚨 <b>最晚撤退：17:30 前離開榮站。</b><br>原因：名鐵班次間隔、土鍋整理、機場報到、安檢排隊、最後晚餐。</div>
+      </div>
 
-        <h2>Day 5｜6/15（一）</h2>
+      <div class="event">
+        <div class="time">11:00 ～ 16:30</div>
+        <div class="title">最後採買 × 土鍋任務</div>
+        <div class="warning-box">🚨 <b>土鍋警報：</b>JPG-X100 土鍋內鍋易碎，務必手提上機。Kelly 請確認各團員隨身空間。</div>
+        <div class="food-box">🍱 <b>今日策略：</b>榮地下街最後採買、機場晚餐、整理行李。平穩收尾為主。</div>
+      </div>
 
-        <p>平穩收尾 × 返回台灣</p>
+      <div class="event">
+        <div class="time">17:30</div>
+        <div class="title">前往中部國際機場</div>
+        <div class="route-map">
+          <div class="route-step">
+            <div class="route-icon">🏨</div>
+            <div class="route-content">
+              <div class="route-line-name">榮站</div>
+              <div class="route-detail">搭乘名城線往金山</div>
+            </div>
+          </div>
+          <div class="route-step">
+            <div class="route-icon">🟣</div>
+            <div class="route-content">
+              <div class="route-line-name">名城線</div>
+              <div class="route-detail">約 8 分鐘</div>
+            </div>
+          </div>
+          <div class="route-step">
+            <div class="route-icon">🔴</div>
+            <div class="route-content">
+              <div class="route-line-name">名鐵特急</div>
+              <div class="route-detail">約 35 分鐘 → 中部機場</div>
+            </div>
+          </div>
+          <div class="route-step">
+            <div class="route-icon">✈️</div>
+            <div class="route-content">
+              <div class="route-line-name">中部國際機場 T2</div>
+              <div class="route-detail">建議提早報到</div>
+            </div>
+          </div>
+        </div>
+        <div class="nav-steps">
+          <div class="nav-step"><div class="step-num">1</div><div>榮站搭名城線往金山</div></div>
+          <div class="nav-step"><div class="step-num">2</div><div>金山站轉乘名鐵特急</div></div>
+          <div class="nav-step"><div class="step-num">3</div><div>特急前往中部國際機場（約 35 分鐘）</div></div>
+          <div class="nav-step"><div class="step-num">4</div><div>抵達 T2 後先完成報到</div></div>
+        </div>
+        <div class="warning-box">⚠️ 名鐵有班次間隔，不要壓線。回程時行李更重、精神更疲勞、地下街判斷力下降。</div>
+        <div class="success-box">
+          <b>✈️ 機場建議節奏</b>
+          <div class="airport-tl">
+            <div class="airport-row"><span class="airport-time">18:30</span>抵達機場</div>
+            <div class="airport-row"><span class="airport-time">19:00</span>完成報到</div>
+            <div class="airport-row"><span class="airport-time">19:30</span>晚餐 / 最後採買</div>
+            <div class="airport-row"><span class="airport-time">20:30</span>安檢</div>
+            <div class="airport-row"><span class="airport-time">21:50</span>起飛</div>
+          </div>
+        </div>
+        <div class="warning-box">🍲 <b>登機前確認：</b>土鍋是否手提？（建議隨身攜帶，勿托運）</div>
+      </div>
 
     </div>
-
-    <div class="day-body">
-
-        <div class="day-stats">
-
-            🚶 步行量：低<br>
-            🧠 腦力消耗：中（時間壓力）<br>
-            🍲 正式購鍋日<br>
-            ✈️ 回程壓力：高
-
-        </div>
-
-        <div class="timeline">
-
-            <!-- Flight -->
-
-            <div class="event">
-
-                <div class="time">
-                    21:50（請再次確認）
-                </div>
-
-                <div class="title">
-                    虎航回程班機
-                </div>
-
-                <div class="warning-box">
-
-                    <div class="info-title">
-                        🚨 最晚撤退時間
-                    </div>
-
-                    <b>17:30 前離開榮站。</b>
-                    <br><br>
-
-                    原因：
-                    <br>
-                    ・名鐵班次間隔
-                    <br>
-                    ・土鍋重新整理
-                    <br>
-                    ・機場報到
-                    <br>
-                    ・安檢排隊
-                    <br>
-                    ・最後晚餐
-
-                </div>
-
-            </div>
-
-            <!-- Shopping -->
-
-            <div class="event">
-
-                <div class="time">
-                    11:00 ～ 16:30
-                </div>
-
-                <div class="title">
-                    最後採買 × 土鍋任務
-                </div>
-
-                <div class="warning-box">
-
-                    <div class="info-title">
-                        🚨 土鍋警報
-                    </div>
-
-                    JPG-X100 土鍋內鍋。
-                    <br><br>
-
-                    ⚠️ 易碎物建議手提上機。
-                    <br>
-                    Kelly 確認每位團員隨身空間。
-
-                </div>
-
-                <div class="food-box">
-
-                    <div class="info-title">
-                        🍱 今日策略
-                    </div>
-
-                    今天不再硬排行程。
-                    <br>
-                    以「平穩收尾」為主。
-                    <br><br>
-
-                    建議：
-                    <br>
-                    ・榮地下街最後採買
-                    <br>
-                    ・機場晚餐
-                    <br>
-                    ・整理行李
-
-                </div>
-
-            </div>
-
-            <!-- Airport -->
-
-            <div class="event">
-
-                <div class="time">
-                    17:30
-                </div>
-
-                <div class="title">
-                    前往中部國際機場
-                </div>
-
-                <div class="big-nav">
-
-                    <div class="big-nav-top">
-                        🚇 名城線 → 金山 → 名鐵 → 中部機場
-                    </div>
-
-                    <div class="big-exit">
-                        【T2】
-                    </div>
-
-                </div>
-
-                <!-- Route -->
-
-                <div class="route-map">
-
-                    <div class="route-step">
-
-                        <div class="route-icon">🏨</div>
-
-                        <div class="route-content">
-
-                            <div class="route-line-name">
-                                榮站
-                            </div>
-
-                            <div class="route-detail">
-                                搭乘名城線往金山
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <div class="route-step">
-
-                        <div class="route-icon">🟣</div>
-
-                        <div class="route-content">
-
-                            <div class="route-line-name">
-                                名城線
-                            </div>
-
-                            <div class="route-detail">
-                                約 8 分鐘
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <div class="route-step">
-
-                        <div class="route-icon">🔴</div>
-
-                        <div class="route-content">
-
-                            <div class="route-line-name">
-                                名鐵特急
-                            </div>
-
-                            <div class="route-detail">
-                                約 35 分鐘 → 中部機場
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <div class="route-step">
-
-                        <div class="route-icon">✈️</div>
-
-                        <div class="route-content">
-
-                            <div class="route-line-name">
-                                中部國際機場 T2
-                            </div>
-
-                            <div class="route-detail">
-                                建議提早報到
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <!-- Steps -->
-
-                <div class="nav-steps">
-
-                    <div class="nav-step">
-                        <div class="step-num">1</div>
-                        <div class="step-text">
-                            榮站搭乘名城線往金山
-                        </div>
-                    </div>
-
-                    <div class="nav-step">
-                        <div class="step-num">2</div>
-                        <div class="step-text">
-                            金山站轉乘名鐵特急
-                        </div>
-                    </div>
-
-                    <div class="nav-step">
-                        <div class="step-num">3</div>
-                        <div class="step-text">
-                            搭乘特急前往中部國際機場
-                        </div>
-                    </div>
-
-                    <div class="nav-step">
-                        <div class="step-num">4</div>
-                        <div class="step-text">
-                            抵達 T2 後先完成報到
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="warning-box">
-
-                    <div class="info-title">
-                        ⚠️ 導遊提醒
-                    </div>
-
-                    名鐵特急有班次間隔，
-                    不要壓線搭車。
-                    <br><br>
-
-                    回程時：
-                    <br>
-                    ・行李更重
-                    <br>
-                    ・精神更疲勞
-                    <br>
-                    ・地下街判斷力下降
-
-                </div>
-
-                <div class="success-box">
-
-                    <div class="info-title">
-                        ✈️ 中部機場建議節奏
-                    </div>
-
-                    18:30 抵達機場
-                    <br>
-                    19:00 完成報到
-                    <br>
-                    19:30 晚餐 / 最後採買
-                    <br>
-                    20:30 安檢
-                    <br>
-                    21:50 起飛
-
-                </div>
-
-                <div class="warning-box">
-
-                    <div class="info-title">
-                        🍲 最後確認
-                    </div>
-
-                    登機前再次確認：
-                    <br><br>
-
-                    ⚠️ 土鍋是否放入托運？
-                    <br>
-                    （建議隨身攜帶）
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
+  </div>
+</div>
+
+<!-- ── 技術男採買清單 ── -->
+<div class="card">
+  <h3 style="margin-top:0;color:#173434;">🛠 技術男採買清單</h3>
+  <table class="shop-table">
+    <tr><th>品項</th><th>建議地點</th></tr>
+    <tr><td>JPG-X100 內鍋</td><td>Yodobashi / Bic Camera</td></tr>
+    <tr><td>Realforce 鍵盤</td><td>Bic Camera 電腦區</td></tr>
+    <tr><td>Nepros 工具</td><td>Astro Products</td></tr>
+    <tr><td>Technics AZ80</td><td>e☆耳機 大須店</td></tr>
+  </table>
+</div>
+
+<div class="footer">
+  🎒 出門確認：護照、IC 卡、行動電源、雨傘。<br><br>
+  「慢慢看，比趕景點更重要。」
+</div>
+
+</div><!-- /container -->
+
+<!-- ── Floating Menu ── -->
+<div class="floating-menu">
+  <button class="float-btn" onclick="openModal('foodModal')">🍜</button>
+  <button class="float-btn" onclick="openModal('trafficModal')">🚇</button>
+</div>
+
+<!-- ── Traffic Modal ── -->
+<div id="trafficModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('trafficModal')">×</span>
+    <h2>🚇 交通無腦教學</h2>
+    <ul>
+      <li>進站嗶一次，出站嗶一次。儲值建議 5,000 円起。</li>
+      <li>地下街迷路請直接回到地面看「電視塔」定位。</li>
+      <li><b>榮站出口：</b>4 號直結飯店所在的中日大廈。</li>
+      <li><b>金山轉乘：</b>比名古屋站更平整輕鬆，推薦使用。</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ── Food Modal ── -->
+<div id="foodModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('foodModal')">×</span>
+    <h2>🍜 名古屋美食地圖</h2>
+    <ul>
+      <li><b>矢場豬排（矢場とん）：</b>穩定不踩雷的味噌文化代表。</li>
+      <li><b>世界の山ちゃん：</b>名古屋雞翅，醬香微辣。</li>
+      <li><b>Komeda Coffee：</b>紅豆吐司 + 冰與火，腦力回血點。</li>
+      <li><b>大須小吃：</b>章魚燒、鯛魚燒、唐揚雞，邊走邊吃樂趣。</li>
+      <li><b>超商補給：</b>Lawson 炸雞、7-11 布丁，第一晚首選。</li>
+    </ul>
+  </div>
 </div>
 
 <script>
-function openModal(id){
-    document.getElementById(id).style.display='block';
-}
-function closeModal(id){
-    document.getElementById(id).style.display='none';
-}
-window.onclick=function(event){
-    const modals=document.getElementsByClassName('modal');
-    for(let modal of modals){
-        if(event.target===modal){
-            modal.style.display='none';
-        }
-    }
-}
+function openModal(id){document.getElementById(id).style.display='block';}
+function closeModal(id){document.getElementById(id).style.display='none';}
+window.onclick=function(e){if(e.target.className==='modal')e.target.style.display='none';}
 </script>
 
 </body>
