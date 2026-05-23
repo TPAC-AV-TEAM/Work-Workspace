@@ -14,6 +14,19 @@ body{margin:0;background:#eef2f5;font-family:'Noto Sans TC',sans-serif;color:#22
 /* ── Version Badge ── */
 .version-bar{background:#173434;color:#d0a96a;text-align:center;padding:6px 12px;font-size:12px;font-weight:700;letter-spacing:2px;}
 
+/* ── Ticket Modal ── */
+.ticket-section{margin-bottom:20px;}
+.ticket-section h3{margin:0 0 10px;font-size:15px;color:#173434;display:flex;align-items:center;gap:6px;}
+.ticket-row{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid #f0f0f0;font-size:13.5px;}
+.ticket-row:last-child{border-bottom:none;}
+.ticket-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:6px;}
+.dot-red{background:#ef4444;}
+.dot-yellow{background:#f59e0b;}
+.dot-green{background:#10b981;}
+.ticket-info{}
+.ticket-name{font-weight:700;margin-bottom:2px;}
+.ticket-note{color:#666;font-size:12.5px;line-height:1.5;}
+
 /* ── Header ── */
 .header{background:linear-gradient(135deg,#173434,#285c5c);color:white;padding:34px 22px;border-bottom:5px solid #d0a96a;}
 .header h1{margin:0;font-size:24px;font-weight:900;letter-spacing:1px;}
@@ -131,7 +144,7 @@ body{margin:0;background:#eef2f5;font-family:'Noto Sans TC',sans-serif;color:#22
 </head>
 <body>
 
-<div class="version-bar">✦ V14 ｜ 2025.05 整合版 ✦</div>
+<div class="version-bar">✦ V14.1 ｜ 2025.05 整合版 + 購票攻略 ✦</div>
 
 <div class="header">
   <h1>2026 名古屋工藝 × 美食 × 科技之旅</h1>
@@ -455,8 +468,76 @@ body{margin:0;background:#eef2f5;font-family:'Noto Sans TC',sans-serif;color:#22
 
 <!-- ── Floating Menu ── -->
 <div class="floating-menu">
+  <button class="float-btn" onclick="openModal('ticketModal')">🎟</button>
   <button class="float-btn" onclick="openModal('foodModal')">🍜</button>
   <button class="float-btn" onclick="openModal('trafficModal')">🚇</button>
+</div>
+
+<!-- ── Ticket Modal ── -->
+<div id="ticketModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('ticketModal')">×</span>
+    <h2>🎟 購票攻略</h2>
+    <p style="font-size:13px;color:#666;margin-top:-8px;margin-bottom:18px;">出發前搞定，行程中不用再看。</p>
+
+    <div class="ticket-section">
+      <h3><span style="background:#ef4444;color:white;border-radius:6px;padding:2px 8px;font-size:12px;">強烈建議預購</span></h3>
+      <div class="ticket-row">
+        <div class="ticket-dot dot-red"></div>
+        <div class="ticket-info">
+          <div class="ticket-name">🧱 樂高樂園 + SEA LIFE 套票（Day 3）</div>
+          <div class="ticket-note">6 月旺季週末，現場買需排隊且較貴。<br>KKday / Klook 購買後收 QR Code，掃碼直接入場。<br>⚠️ 購買時注意入場日期要選 6/13（六）。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ticket-section">
+      <h3><span style="background:#f59e0b;color:white;border-radius:6px;padding:2px 8px;font-size:12px;">建議搭配票券</span></h3>
+      <div class="ticket-row">
+        <div class="ticket-dot dot-yellow"></div>
+        <div class="ticket-info">
+          <div class="ticket-name">🚌 Me～guru 1DAY 一日券（Day 2 推薦）</div>
+          <div class="ticket-note">成人 500 円 / 兒童 250 円。<br>名古屋城、豐田產業技術紀念館入場有折扣，矢場とん 用餐也有優惠。<br>各大車站售票機現場購買即可。</div>
+        </div>
+      </div>
+      <div class="ticket-row">
+        <div class="ticket-dot dot-yellow"></div>
+        <div class="ticket-info">
+          <div class="ticket-name">🚇 地下鐵全線 24 小時券（Day 2 / Day 4）</div>
+          <div class="ticket-note">760 円，單日搭乘 4 次以上就划算。<br>Day 2（名古屋城→豐田館→榮）、Day 4（磁浮館→科學館）都適用。<br>各站售票機直接購買。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ticket-section">
+      <h3><span style="background:#10b981;color:white;border-radius:6px;padding:2px 8px;font-size:12px;">現場買就好</span></h3>
+      <div class="ticket-row">
+        <div class="ticket-dot dot-green"></div>
+        <div class="ticket-info">
+          <div class="ticket-name">🚄 磁浮鐵道館（Day 4）1,000 円</div>
+          <div class="ticket-note">非熱門景點，無排隊壓力，現場購票。<br>記得連館內 Wi-Fi 使用免費中文語音導覽。</div>
+        </div>
+      </div>
+      <div class="ticket-row">
+        <div class="ticket-dot dot-green"></div>
+        <div class="ticket-info">
+          <div class="ticket-name">🌌 名古屋市科學館（Day 4）800 円</div>
+          <div class="ticket-note">現場購票，無需預約。</div>
+        </div>
+      </div>
+      <div class="ticket-row">
+        <div class="ticket-dot dot-green"></div>
+        <div class="ticket-info">
+          <div class="ticket-name">🏯 名古屋城（Day 2）500 円</div>
+          <div class="ticket-note">持 Me～guru 一日券有折扣，現場買即可。</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="background:#fff9e8;border:1px solid #f4dfa0;border-radius:12px;padding:12px;font-size:13px;">
+      💡 <b>Kelly 出發前 To-Do：</b>在台灣先於 KKday 或 Klook 購買樂高套票，選好 6/13 日期。其餘票券日本當地再買。
+    </div>
+  </div>
 </div>
 
 <!-- ── Traffic Modal ── -->
