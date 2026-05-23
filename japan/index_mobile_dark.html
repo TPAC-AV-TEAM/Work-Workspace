@@ -1,0 +1,222 @@
+
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 名古屋行程 - Dark Mode</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 0;
+            background-color: #121212;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #121212;
+            color: #e0e0e0;
+            line-height: 1.5;
+        }
+        .header {
+            background: linear-gradient(180deg, #1f1f1f 0%, #121212 100%);
+            padding: 30px 20px;
+            text-align: center;
+            border-bottom: 1px solid #333;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 20pt;
+            color: #ffffff;
+            letter-spacing: 1px;
+        }
+        .header p {
+            margin: 5px 0 0;
+            color: #888;
+            font-size: 10pt;
+        }
+        .container {
+            padding: 15px;
+        }
+        .info-section {
+            background: #1e1e1e;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid #333;
+        }
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 10pt;
+        }
+        .info-label { color: #888; }
+        .info-value { color: #fff; font-weight: 500; text-align: right; }
+
+        .day-block {
+            margin-bottom: 25px;
+        }
+        .day-title {
+            font-size: 14pt;
+            font-weight: bold;
+            color: #bb86fc;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            border-left: 4px solid #bb86fc;
+            padding-left: 10px;
+        }
+        .card {
+            background: #1e1e1e;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 10px;
+            border: 1px solid #333;
+        }
+        .time-tag {
+            color: #03dac6;
+            font-weight: bold;
+            font-size: 9pt;
+            margin-bottom: 4px;
+            display: block;
+        }
+        .event-title {
+            font-size: 11pt;
+            font-weight: 600;
+            color: #ffffff;
+        }
+        .event-desc {
+            font-size: 9.5pt;
+            color: #aaaaaa;
+            margin-top: 4px;
+        }
+        .tip-box {
+            background: rgba(187, 134, 252, 0.1);
+            border-radius: 8px;
+            padding: 10px;
+            margin-top: 8px;
+            font-size: 9pt;
+            color: #bb86fc;
+            border: 1px hide;
+        }
+        .shopping-card {
+            background: #252525;
+            border: 2px solid #cf6679;
+            border-radius: 12px;
+            padding: 15px;
+            margin-top: 30px;
+        }
+        .shopping-card h3 {
+            margin: 0 0 10px 0;
+            color: #cf6679;
+            font-size: 13pt;
+            display: flex;
+            align-items: center;
+        }
+        .shopping-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+        }
+        .item-name { font-weight: bold; color: #fff; }
+        .item-loc { font-size: 9pt; color: #888; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>2026 名古屋行</h1>
+        <p>Nagoya Tour | 6.11 - 6.15</p>
+    </div>
+
+    <div class="container">
+        <div class="info-section">
+            <div class="info-row"><span class="info-label">住宿</span><span class="info-value">Royal Park Hotel Iconic Nagoya</span></div>
+            <div class="info-row"><span class="info-label">航班</span><span class="info-value">虎航 IT706 / IT206</span></div>
+        </div>
+
+        <!-- Day 1 -->
+        <div class="day-block">
+            <div class="day-title">Day 1 | 6/11 (四)</div>
+            <div class="card">
+                <span class="time-tag">17:20 - 21:15</span>
+                <div class="event-title">✈️ 桃園 → 名古屋 (T2)</div>
+                <div class="tip-box">💡 建議：機場 → 金山站 → 榮 (轉乘較輕鬆)</div>
+            </div>
+        </div>
+
+        <!-- Day 2 -->
+        <div class="day-block">
+            <div class="day-title">Day 2 | 6/12 (五)</div>
+            <div class="card">
+                <span class="time-tag">Morning</span>
+                <div class="event-title">🏯 名古屋城 & 金シャチ横丁</div>
+            </div>
+            <div class="card">
+                <span class="time-tag">Afternoon</span>
+                <div class="event-title">🛠️ 豐田產業技術紀念館</div>
+                <div class="event-desc">必看：自動織布機、汽車引擎進化展示。</div>
+            </div>
+            <div class="card">
+                <span class="time-tag">Evening</span>
+                <div class="event-title">🌃 榮商圈 (Oasis 21 / 電視塔)</div>
+                <div class="tip-box">🎯 任務：先去 Yodobashi 確認土鍋內鍋庫存。</div>
+            </div>
+        </div>
+
+        <!-- Day 3 -->
+        <div class="day-block">
+            <div class="day-title">Day 3 | 6/13 (六)</div>
+            <div class="card">
+                <span class="time-tag">All Day</span>
+                <div class="event-title">🎢 樂高樂園 & SEA LIFE</div>
+                <div class="event-desc">建議：開園前抵達，優先衝 The Dragon。</div>
+            </div>
+        </div>
+
+        <!-- Day 4 -->
+        <div class="day-block">
+            <div class="day-title">Day 4 | 6/14 (日)</div>
+            <div class="card">
+                <span class="time-tag">Morning</span>
+                <div class="event-title">🚆 磁浮鐵道館 (路線 B)</div>
+                <div class="event-desc">深入觀察高速鐵道動力與結構設計。</div>
+            </div>
+            <div class="card">
+                <span class="time-tag">Afternoon</span>
+                <div class="event-title">🧠 名古屋市科學館 / VR 中心</div>
+            </div>
+        </div>
+
+        <!-- Day 5 -->
+        <div class="day-block">
+            <div class="day-title">Day 5 | 6/15 (一)</div>
+            <div class="card">
+                <span class="time-tag">Morning</span>
+                <div class="event-title">🛍️ 伴手禮最後採買</div>
+            </div>
+            <div class="card">
+                <span class="time-tag">18:30 - 21:45</span>
+                <div class="event-title">🚆 前往機場 → ✈️ 返台</div>
+            </div>
+        </div>
+
+        <!-- Shopping Task -->
+        <div class="shopping-card">
+            <h3>🎯 重點採購項目</h3>
+            <div class="shopping-item">
+                <div>
+                    <div class="item-name">Tiger JPG-X100 內鍋 (土鍋)</div>
+                    <div class="item-loc">Bic Camera / Yodobashi</div>
+                </div>
+                <div style="color:#cf6679; font-weight:bold;">必買</div>
+            </div>
+            <div class="tip-box" style="background:rgba(207,102,121,0.1); color:#cf6679; border:none;">
+                ⚠️ 提醒：土鍋為易碎品，請保留原箱並「手提」上機。
+            </div>
+        </div>
+    </div>
+</body>
+</html>
