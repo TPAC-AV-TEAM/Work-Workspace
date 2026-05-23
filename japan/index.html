@@ -1,174 +1,73 @@
-
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2026 名古屋工藝與技術之行 - Kelly 帶隊</title>
+    <title>2026 名古屋工藝與技術之行 - 導航版</title>
     <style>
-        :root {
-            --bg-main: #0a0a0a;
-            --bg-card: #161616;
-            --header-bg: #1a3a3a;
-            --accent-color: #2c5d5d;
-            --text-main: #e0e0e0;
-            --text-dim: #999;
-            --border-color: #333;
-            --highlight: #00d1d1;
-        }
-        body {
-            font-family: -apple-system, "PingFang TC", "Microsoft JhengHei", sans-serif;
-            margin: 0; padding: 0;
-            background-color: var(--bg-main);
-            color: var(--text-main);
-            line-height: 1.6;
-        }
-        .header {
-            background-color: var(--header-bg);
-            color: white;
-            padding: 40px 20px;
-            text-align: center;
-            border-bottom: 3px solid var(--highlight);
-        }
+        body { font-family: -apple-system, "PingFang TC", "Microsoft JhengHei", sans-serif; margin: 0; padding: 0; color: #333; line-height: 1.6; background-color: #f4f7f6; }
+        .header { background-color: #1a3a3a; color: white; padding: 40px 20px; text-align: center; }
         .header h1 { margin: 0; font-size: 22pt; letter-spacing: 2px; }
-        .header p { margin: 10px 0 0; opacity: 0.8; font-size: 11pt; }
-
         .container { padding: 20px 15px; max-width: 600px; margin: 0 auto; }
-
-        .info-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-bottom: 25px;
-        }
-        .info-item {
-            background: var(--bg-card);
-            padding: 15px;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-        }
-        .info-label { font-size: 8pt; color: var(--text-dim); text-transform: uppercase; margin-bottom: 4px; }
-        .info-value { font-weight: bold; font-size: 10pt; color: #fff; }
-
-        .day-card {
-            background: var(--bg-card);
-            margin-bottom: 25px;
-            border-radius: 12px;
-            overflow: hidden;
-            border: 1px solid var(--border-color);
-        }
-        .day-header {
-            background: var(--accent-color);
-            color: white;
-            padding: 12px 20px;
-            font-weight: bold;
-            font-size: 13pt;
-            display: flex;
-            justify-content: space-between;
-        }
-        .day-content { padding: 15px 20px; }
-
-        .timeline { border-left: 2px solid var(--border-color); margin-left: 10px; padding-left: 20px; }
-        .event { position: relative; margin-bottom: 20px; }
-        .event::before {
-            content: ''; position: absolute; left: -27px; top: 6px;
-            width: 12px; height: 12px; background: var(--highlight);
-            border-radius: 50%; border: 2px solid var(--bg-main);
-        }
-        .event-time { font-weight: bold; color: var(--highlight); font-size: 10pt; }
-        .event-title { font-weight: bold; font-size: 11pt; display: block; color: #fff; }
-        .event-desc { font-size: 9.5pt; color: var(--text-dim); margin-top: 4px; }
-
-        .transport-tag {
-            display: inline-block;
-            background: rgba(0, 209, 209, 0.1);
-            color: var(--highlight);
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 8.5pt;
-            margin-top: 8px;
-            border: 1px solid rgba(0, 209, 209, 0.3);
-        }
-
-        .note-box {
-            background: rgba(255, 204, 0, 0.05);
-            border-left: 4px solid #ffcc00;
-            padding: 12px;
-            margin-top: 15px;
-            font-size: 9pt;
-            color: #ffcc00;
-        }
-
-        .shopping-list {
-            background: #1a1010;
-            padding: 20px;
-            border-radius: 12px;
-            margin-top: 20px;
-            border: 1px solid #4a1a1a;
-        }
-        .shopping-list h3 { margin-top: 0; color: #ff4d4d; border-bottom: 1px solid #4a1a1a; padding-bottom: 10px; }
-        table { width: 100%; border-collapse: collapse; font-size: 10pt; }
-        th { text-align: left; color: var(--text-dim); padding: 10px; border-bottom: 1px solid var(--border-color); }
-        td { padding: 12px 10px; border-bottom: 1px solid var(--border-color); color: #fff; }
-
-        .badge {
-            background: var(--highlight);
-            color: #000;
-            padding: 1px 6px;
-            border-radius: 3px;
-            font-size: 7.5pt;
-            font-weight: bold;
-            margin-left: 5px;
-            vertical-align: middle;
-        }
+        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 25px; background: white; border-radius: 12px; padding: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .info-label { font-size: 8pt; color: #888; text-transform: uppercase; }
+        .info-value { font-weight: bold; font-size: 10pt; color: #1a3a3a; }
+        .day-card { background: white; margin-bottom: 25px; border-radius: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); overflow: hidden; }
+        .day-header { background: #2c5d5d; color: white; padding: 12px 20px; font-weight: bold; font-size: 14pt; display: flex; justify-content: space-between; }
+        .day-content { padding: 20px; }
+        .timeline { border-left: 2px solid #e0e0e0; margin-left: 5px; padding-left: 20px; }
+        .event { position: relative; margin-bottom: 25px; }
+        .event::before { content: ''; position: absolute; left: -27px; top: 6px; width: 10px; height: 10px; background: #2c5d5d; border-radius: 50%; border: 3px solid white; box-shadow: 0 0 0 1px #e0e0e0; }
+        .event-time { font-weight: bold; color: #2c5d5d; font-size: 11pt; display: block; }
+        .event-title { font-weight: bold; font-size: 12pt; color: #111; }
+        /* 導航區塊設計 */
+        .nav-summary { background: #eef2f2; padding: 8px 12px; border-radius: 6px; margin: 8px 0; font-size: 10pt; color: #1a3a3a; font-weight: bold; border-left: 4px solid #1a3a3a; }
+        .nav-details { background: #fff; border: 1px solid #eee; border-radius: 8px; padding: 12px; margin-top: 5px; }
+        .step { display: flex; align-items: flex-start; margin-bottom: 8px; font-size: 9.5pt; color: #555; }
+        .step-num { background: #2c5d5d; color: white; min-width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 7.5pt; margin-right: 10px; margin-top: 2px; }
+        .jp-text { font-family: "Meiryo", sans-serif; background: #fff1f1; padding: 4px 8px; border: 1px dashed #d9534f; border-radius: 4px; display: block; margin: 8px 0; font-weight: bold; color: #d9534f; text-align: center; }
+        .shopping-table { width: 100%; border-collapse: collapse; margin-top: 15px; background: #fff; border-radius: 8px; overflow: hidden; border: 1px solid #eee; }
+        .shopping-table th { background: #1a3a3a; color: white; padding: 10px; font-size: 9pt; text-align: left; }
+        .shopping-table td { padding: 10px; border-bottom: 1px solid #eee; font-size: 9pt; }
+        .badge { background: #d9534f; color: white; font-size: 8pt; padding: 2px 6px; border-radius: 4px; vertical-align: middle; margin-left: 5px; }
     </style>
 </head>
 <body>
     <div class="header">
         <h1>2026 名古屋工藝與技術之行</h1>
-        <p>Nagoya Craft & Technology Tour | Kelly 帶隊</p>
+        <p>Nagoya Craft & Technology | Kelly 帶隊</p>
     </div>
 
     <div class="container">
         <div class="info-grid">
-            <div class="info-item">
-                <div class="info-label">住宿飯店 HOTEL</div>
-                <div class="info-value">皇家公園酒店名古屋標誌</div>
-            </div>
-            <div class="info-item">
-                <div class="info-label">召集人 LEADER</div>
-                <div class="info-value">Kelly</div>
-            </div>
-            <div class="info-item" style="grid-column: span 2;">
-                <div class="info-label">機票資訊 FLIGHTS</div>
-                <div class="info-value">虎航 IT706 (去) / IT206 (回)</div>
-            </div>
+            <div class="info-item"><div class="info-label">召集人 LEADER</div><div class="info-value">Kelly</div></div>
+            <div class="info-item"><div class="info-label">住宿 HOTEL</div><div class="info-value">Royal Park Iconic Nagoya</div></div>
+            <div class="info-item" style="grid-column: span 2;"><div class="info-label">機票資訊 FLIGHTS</div><div class="info-value">虎航 IT706 (去) / IT206 (回)</div></div>
         </div>
 
-        <!-- Day 1 -->
         <div class="day-card">
             <div class="day-header"><span>Day 1 | 6/11 (四)</span><span>抵達</span></div>
             <div class="day-content">
                 <div class="timeline">
                     <div class="event">
-                        <span class="event-time">17:20</span>
-                        <span class="event-title">桃園機場 (T1) 起飛</span>
-                    </div>
-                    <div class="event">
-                        <span class="event-time">21:15</span>
-                        <span class="event-title">抵達中部國際機場 (T2)</span>
+                        <span class="event-time">17:20 / 21:15</span>
+                        <span class="event-title">桃園機場 (T1) → 中部國際機場 (T2)</span>
                     </div>
                     <div class="event">
                         <span class="event-time">22:00</span>
                         <span class="event-title">機場移動至飯店</span>
-                        <div class="transport-tag">🚆 名鐵特急(往金山) → 金山站轉地鐵名城線 → 榮站</div>
-                        <div class="event-desc">提示：金山站轉乘比名古屋站更輕鬆。</div>
+                        <div class="nav-summary">🚆 名鐵特急 (往金山) → 金山站轉地鐵名城線 → 榮站</div>
+                        <div style="font-size: 8.5pt; color: #d9534f; margin: 5px 0;">* 提示：金山站轉乘比名古屋站更輕鬆平整。</div>
+                        <div class="nav-details">
+                            <div class="step"><div class="step-num">1</div><div>跟隨 <b>名鐵線 (Meitetsu)</b> 指標移動。</div></div>
+                            <div class="step"><div class="step-num">2</div><div>搭乘名鐵特急至 <b>金山站 (Kanayama)</b>。</div></div>
+                            <div class="step"><div class="step-num">3</div><div>轉乘地鐵 <b>名城線</b> 往榮方向。</div></div>
+                            <div class="step"><div class="step-num">4</div><div>抵達 <b>榮站 (Sakae)</b>，4 號出口直結飯店。</div></div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Day 2 -->
         <div class="day-card">
             <div class="day-header"><span>Day 2 | 6/12 (五)</span><span>工藝與視覺</span></div>
             <div class="day-content">
@@ -176,107 +75,86 @@
                     <div class="event">
                         <span class="event-time">09:30</span>
                         <span class="event-title">名古屋城 & 金シャチ横丁</span>
-                        <div class="transport-tag">🚇 地鐵名城線 → 名古屋城站 7號出口</div>
+                        <div class="nav-summary">🚇 地鐵名城線 → 名古屋城站 7 號出口</div>
                     </div>
                     <div class="event">
                         <span class="event-time">13:30</span>
                         <span class="event-title">豐田產業技術紀念館 <span class="badge">必去</span></span>
-                        <div class="transport-tag">🚕 建議從名古屋城直接搭計程車前往 (約1500円)</div>
-                        <div class="event-desc">觀察機械進化史，從自動織布機到現代引擎結構。</div>
+                        <div class="nav-summary">🚕 建議從名古屋城直接搭計程車前往 (約 1500円)</div>
+                        <div class="nav-details">
+                            <div class="step">給司機看此字樣：</div>
+                            <div class="jp-text">トヨタ産業技術記念館へお願いします</div>
+                            <div class="event-desc">重點：觀察自動織布機到現代引擎結構進化。</div>
+                        </div>
                     </div>
                     <div class="event">
                         <span class="event-time">17:30</span>
-                        <span class="event-title">榮商圈：Oasis 21 & 電視塔</span>
-                        <div class="event-desc">觀察建築投影設計。</div>
-                        <div class="note-box">🛍️ 任務：前往 Yodobashi (松坂屋店) 確認土鍋內鍋庫存。</div>
+                        <span class="event-title">榮商圈夜景 / 採買任務</span>
+                        <div class="event-desc">🛍️ <b>任務：</b>前往 Yodobashi 確認土鍋庫存。</div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Day 3 -->
         <div class="day-card">
             <div class="day-header"><span>Day 3 | 6/13 (六)</span><span>結構與樂園</span></div>
             <div class="day-content">
                 <div class="timeline">
                     <div class="event">
-                        <span class="event-time">09:00</span>
-                        <span class="event-title">樂高樂園 & SEA LIFE</span>
-                        <div class="transport-tag">🚇 名古屋站轉乘「青波線」→ 金城ふ頭站</div>
+                        <span class="event-time">09:00</span><span class="event-title">樂高樂園 & SEA LIFE</span>
+                        <div class="nav-summary">🚇 名古屋站轉乘「青波線」→ 金城ふ頭站</div>
                     </div>
                     <div class="event">
-                        <span class="event-time">18:30</span>
-                        <span class="event-title">大須商店街</span>
-                        <div class="transport-tag">🚇 鶴舞線 → 大須觀音站</div>
-                        <div class="event-desc">挖掘音響器材與在地電子零件。</div>
+                        <span class="event-time">18:30</span><span class="event-title">大須商店街</span>
+                        <div class="nav-summary">🚇 鶴舞線 → 大須觀音站</div>
+                        <div class="event-desc">挖掘音響器材與電子零件。</div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Day 4 -->
         <div class="day-card">
             <div class="day-header"><span>Day 4 | 6/14 (日)</span><span>工程與科學</span></div>
             <div class="day-content">
                 <div class="timeline">
                     <div class="event">
-                        <span class="event-time">10:00</span>
-                        <span class="event-title">磁浮鐵道館 <span class="badge">路線 B</span></span>
-                        <div class="transport-tag">🚇 搭乘「青波線」至終點站「金城ふ頭」</div>
-                        <div class="event-desc">參觀極速火車構造與動力工程。</div>
+                        <span class="event-time">10:00</span><span class="event-title">磁浮鐵道館 <span class="badge" style="background:#0a84ff;">路線 B</span></span>
+                        <div class="nav-summary">🚇 搭乘「青波線」至終點站「金城ふ頭」</div>
                     </div>
                     <div class="event">
-                        <span class="event-time">14:00</span>
-                        <span class="event-title">名古屋市科學館</span>
-                        <div class="transport-tag">🚇 伏見站 4號出口 步行5分鐘</div>
-                        <div class="event-desc">推薦看天文館球體構造。</div>
+                        <span class="event-time">14:00</span><span class="event-title">名古屋市科學館</span>
+                        <div class="nav-summary">🚇 伏見站 4 號出口 步行 5 分鐘</div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Day 5 -->
         <div class="day-card">
             <div class="day-header"><span>Day 5 | 6/15 (一)</span><span>返程</span></div>
             <div class="day-content">
                 <div class="timeline">
                     <div class="event">
-                        <span class="event-time">11:00</span>
-                        <span class="event-title">飯店退房 & 最後採買</span>
-                        <div class="event-desc">行李可寄放櫃檯，在榮商圈活動。</div>
+                        <span class="event-time">11:00</span><span class="event-title">退房 & 最後採買</span>
+                        <div class="event-desc">行李寄放飯店，於榮商圈活動。</div>
                     </div>
                     <div class="event">
-                        <span class="event-time">18:30</span>
-                        <span class="event-title">前往中部國際機場</span>
-                        <div class="transport-tag">🚇 榮站 → 金山站轉「名鐵特急」</div>
+                        <span class="event-time">18:30</span><span class="event-title">前往中部國際機場 (T2)</span>
+                        <div class="nav-summary">🚇 榮站 → 金山站轉「名鐵特急」</div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="shopping-list">
-            <h3>🎯 核心採購任務</h3>
-            <table>
-                <tr>
-                    <th>品項</th>
-                    <th>建議地點</th>
-                </tr>
-                <tr>
-                    <td>Tiger JPG-X100 內鍋 (土鍋)</td>
-                    <td>Yodobashi / Bic Camera</td>
-                </tr>
-                <tr>
-                    <td>Realforce 靜電容鍵盤</td>
-                    <td>Bic Camera 電腦區</td>
-                </tr>
-                <tr>
-                    <td>Technics EAH-AZ80 耳機</td>
-                    <td>e☆耳機 大須店</td>
-                </tr>
-            </table>
-            <div class="note-box" style="border-left-color: #ff4d4d; color: #ff4d4d; background: rgba(255, 77, 77, 0.05);">
-                ⚠️ 提醒：土鍋為易碎品，務必手提上機，請 Kelly 協助確認團員手提空間。
-            </div>
+        <table class="shopping-table">
+            <tr><th>🎯 核心採購任務</th><th>建議地點</th></tr>
+            <tr><td>Tiger JPG-X100 內鍋 (土鍋)</td><td>Yodobashi / Bic Camera</td></tr>
+            <tr><td>Realforce 靜電容鍵盤</td><td>Bic Camera 電腦區</td></tr>
+            <tr><td>Technics EAH-AZ80 耳機</td><td>e☆耳機 大須店</td></tr>
+        </table>
+        
+        <div class="footer-note">
+            ⚠️ 提醒：土鍋為易碎品，務必手提上機，請 Kelly 協助確認團員手提空間。<br><br>
+            「慢慢看，比趕景點更重要。」
         </div>
     </div>
 </body>
