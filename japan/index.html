@@ -3,7 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>V16.1 macOS26 Dark ｜ 2026 名古屋之旅</title>
+<title>V16.2 macOS26 Dark ｜ 2026 名古屋之旅</title>
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="名古屋之旅">
+<meta name="theme-color" content="#173434">
+<link rel="manifest" id="pwa-manifest">
 <style>
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 html,body{margin:0;height:100%;background:#eef2f5;font-family:'Noto Sans TC','PingFang TC','Microsoft JhengHei','Heiti TC','Hiragino Sans GB',sans-serif;color:#222;line-height:1.7;overscroll-behavior:none;}
@@ -408,7 +414,7 @@ body{
 </head>
 <body>
 
-<div class="version-bar">✦ V16.1 macOS26 Dark ｜ 2026.06 名古屋之旅 ✦</div>
+<div class="version-bar">✦ V16.2 macOS26 Dark ｜ 2026.06 名古屋之旅 ✦</div>
 
 <div class="header">
   <h1>2026 名古屋工藝 × 美食 × 科技之旅</h1>
@@ -866,6 +872,57 @@ function closeModal(id){document.getElementById(id).style.display='none';}
 window.onclick=function(e){if(e.target.className==='modal')e.target.style.display='none';}
 
 init();
+
+// ── PWA：動態注入 Manifest ──
+(function(){
+  const manifest = {
+    name: '2026 名古屋之旅',
+    short_name: '名古屋之旅',
+    description: '2026 名古屋工藝 × 美食 × 科技之旅行程手冊',
+    start_url: location.href,
+    scope: location.href,
+    display: 'standalone',
+    orientation: 'portrait',
+    background_color: '#111827',
+    theme_color: '#173434',
+    icons: [
+      {
+        src: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='32' fill='%23173434'/><text y='130' x='96' text-anchor='middle' font-size='110'>🎌</text></svg>",
+        sizes: '192x192',
+        type: 'image/svg+xml'
+      },
+      {
+        src: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='80' fill='%23173434'/><text y='360' x='256' text-anchor='middle' font-size='300'>🎌</text></svg>",
+        sizes: '512x512',
+        type: 'image/svg+xml'
+      }
+    ]
+  };
+  const blob = new Blob([JSON.stringify(manifest)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  document.getElementById('pwa-manifest').href = url;
+})();
+
+// ── PWA：註冊 Service Worker（快取離線用）──
+if('serviceWorker' in navigator){
+  const swCode = `
+const CACHE = 'nagoya-2026-v1';
+self.addEventListener('install', e => {
+  self.skipWaiting();
+});
+self.addEventListener('activate', e => {
+  e.waitUntil(clients.claim());
+});
+self.addEventListener('fetch', e => {
+  e.respondWith(
+    caches.match(e.request).then(cached => cached || fetch(e.request).catch(() => cached))
+  );
+});
+  `;
+  const swBlob = new Blob([swCode], {type:'text/javascript'});
+  const swUrl = URL.createObjectURL(swBlob);
+  navigator.serviceWorker.register(swUrl, {scope: './'}).catch(()=>{});
+}
 </script>
 </body>
 </html>
