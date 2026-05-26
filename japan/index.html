@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>V16.2 macOS26 Dark ｜ 2026 名古屋之旅</title>
+<title>V16.3 macOS26 Dark ｜ 2026 名古屋之旅</title>
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -414,7 +414,7 @@ body{
 </head>
 <body>
 
-<div class="version-bar">✦ V16.2 macOS26 Dark ｜ 2026.06 名古屋之旅 ✦</div>
+<div class="version-bar">✦ V16.3 macOS26 Dark ｜ 2026.06 名古屋之旅 ✦</div>
 
 <div class="header">
   <h1>2026 名古屋工藝 × 美食 × 科技之旅</h1>
@@ -908,20 +908,54 @@ if('serviceWorker' in navigator){
   const swCode = `
 const CACHE = 'nagoya-2026-v1';
 self.addEventListener('install', e => {
-  self.skipWaiting();
+  e.waitUntil(
+    caches.open(CACHE).then(cache => {
+      return cache.add(self.location.href.replace(/\\/[^/]*$/, '/') || '/');
+    }).then(() => self.skipWaiting())
+  );
 });
 self.addEventListener('activate', e => {
-  e.waitUntil(clients.claim());
+  e.waitUntil(
+    caches.keys().then(keys =>
+      Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k)))
+    ).then(() => clients.claim())
+  );
 });
 self.addEventListener('fetch', e => {
   e.respondWith(
-    caches.match(e.request).then(cached => cached || fetch(e.request).catch(() => cached))
+    caches.match(e.request).then(cached => {
+      if(cached) return cached;
+      return fetch(e.request).then(resp => {
+        const clone = resp.clone();
+        caches.open(CACHE).then(cache => cache.put(e.request, clone));
+        return resp;
+      }).catch(() => cached);
+    })
   );
 });
   `;
   const swBlob = new Blob([swCode], {type:'text/javascript'});
   const swUrl = URL.createObjectURL(swBlob);
-  navigator.serviceWorker.register(swUrl, {scope: './'}).catch(()=>{});
+  navigator.serviceWorker.register(swUrl, {scope: './'})
+    .then(reg => {
+      // 主動把當前頁面 URL 快取進去（第一次安裝時用）
+      if(reg.active) return;
+      reg.addEventListener('updatefound', () => {
+        const sw = reg.installing;
+        sw.addEventListener('statechange', () => {
+          if(sw.state === 'activated'){
+            caches.open('nagoya-2026-v1').then(cache => cache.add(location.href));
+          }
+        });
+      });
+    }).catch(()=>{});
+
+  // 額外保險：頁面載入完成後主動快取自己
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.ready.then(() => {
+      caches.open('nagoya-2026-v1').then(cache => cache.add(location.href));
+    });
+  });
 }
 </script>
 </body>
