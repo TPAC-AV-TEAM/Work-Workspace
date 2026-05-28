@@ -1,0 +1,26 @@
+{
+  "name": "PT-RQ35K 選單導覽",
+  "short_name": "投影機",
+  "description": "Panasonic PT-RQ35K 投影機選單導覽手冊",
+  "start_url": "/Work-Workspace/Projector-Manual/index.html",
+  "scope": "/Work-Workspace/Projector-Manual/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0e0e0f",
+  "theme_color": "#0e0e0f",
+  "lang": "zh-TW",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
