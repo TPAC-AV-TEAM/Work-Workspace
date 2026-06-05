@@ -291,7 +291,20 @@ html, body {
   padding: 10px 13px; margin-top: 9px; font-size: 13px;
 }
 
-/* ── Responsive ── */
+/* ── Breakfast Nav Button ── */
+.breakfast-nav {
+  display: inline-flex; align-items: center; gap: 4px;
+  margin-top: 6px;
+  text-decoration: none;
+  background: rgba(95,168,255,0.12);
+  border: 1px solid rgba(95,168,255,0.3);
+  color: var(--accent);
+  font-size: 11px; font-weight: 700;
+  padding: 4px 9px; border-radius: 8px;
+  transition: background .15s;
+}
+.breakfast-nav:active { background: rgba(95,168,255,0.25); }
+.breakfast-nav svg { flex-shrink: 0; }
 @media (max-width: 380px) {
   .header h1   { font-size: 17px; }
   .tab .tab-date { font-size: 13px; }
@@ -1019,10 +1032,10 @@ html, body {
 
     <div class="ticket-section">
       <h3><span style="background:var(--amber);color:white;border-radius:6px;padding:2px 8px;font-size:11px;">☕ 早餐小旅程</span></h3>
-      <div class="ticket-row"><div class="ticket-dot dot-yellow"></div><div><div class="ticket-name">Day 2 ｜ Conpal（コンパル）</div><div class="ticket-note">榮地下街或大須。炸蝦三明治，名古屋老派喫茶店文化。</div></div></div>
-      <div class="ticket-row"><div class="ticket-dot dot-yellow"></div><div><div class="ticket-name">Day 3 ｜ Komeda Morning</div><div class="ticket-note">榮商圈周邊。第一次體驗名古屋 Morning Service。</div></div></div>
-      <div class="ticket-row"><div class="ticket-dot dot-yellow"></div><div><div class="ticket-name">Day 4 ｜ Kato Coffee（加藤珈琲店）</div><div class="ticket-note">久屋大通站附近。職人自家烘焙咖啡，科技日腦力補給。</div></div></div>
-      <div class="ticket-row"><div class="ticket-dot dot-yellow"></div><div><div class="ticket-name">Day 5 ｜ Komeda Morning 再訪</div><div class="ticket-note">退房前後就近安排，為旅程畫下句點。</div></div></div>
+      <div class="ticket-row"><div class="ticket-dot dot-yellow"></div><div><div class="ticket-name">Day 2 ｜ Conpal（コンパル）</div><div class="ticket-note">榮地下街或大須。炸蝦三明治，名古屋老派喫茶店文化。</div><a class="breakfast-nav" href="https://maps.google.com/?q=コンパル+大須本店+名古屋" target="_blank"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>導航前往</a></div></div>
+      <div class="ticket-row"><div class="ticket-dot dot-yellow"></div><div><div class="ticket-name">Day 3 ｜ Komeda Morning</div><div class="ticket-note">榮商圈周邊。第一次體驗名古屋 Morning Service。</div><a class="breakfast-nav" href="https://maps.google.com/?q=コメダ珈琲店+栄+名古屋" target="_blank"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>導航前往</a></div></div>
+      <div class="ticket-row"><div class="ticket-dot dot-yellow"></div><div><div class="ticket-name">Day 4 ｜ Kato Coffee（加藤珈琲店）</div><div class="ticket-note">久屋大通站附近。職人自家烘焙咖啡，科技日腦力補給。</div><a class="breakfast-nav" href="https://maps.google.com/?q=加藤珈琲店+名古屋+久屋大通" target="_blank"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>導航前往</a></div></div>
+      <div class="ticket-row"><div class="ticket-dot dot-yellow"></div><div><div class="ticket-name">Day 5 ｜ Komeda Morning 再訪</div><div class="ticket-note">退房前後就近安排，為旅程畫下句點。</div><a class="breakfast-nav" href="https://maps.google.com/?q=コメダ珈琲店+栄+名古屋" target="_blank"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>導航前往</a></div></div>
     </div>
 
     <div class="ticket-section">
