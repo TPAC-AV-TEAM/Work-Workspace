@@ -1054,7 +1054,13 @@ html, body {
 <script>
 const DAY_DATES = {1:'2026-06-11',2:'2026-06-12',3:'2026-06-13',4:'2026-06-14',5:'2026-06-15'};
 
-function getToday(){return new Date().toISOString().slice(0,10);}
+function getToday(){
+  const d = new Date();
+  const y = d.getFullYear();
+  const m = String(d.getMonth()+1).padStart(2,'0');
+  const day = String(d.getDate()).padStart(2,'0');
+  return `${y}-${m}-${day}`;
+}
 
 function getTodayPageIndex(){
   const today = getToday();
