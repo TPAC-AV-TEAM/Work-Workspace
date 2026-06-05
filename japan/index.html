@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>V24 Final ｜ 2026 名古屋之旅</title>
+<title>V27 Final ｜ 2026 名古屋之旅</title>
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -11,271 +11,330 @@
 <meta name="theme-color" content="#0f1115">
 <link rel="manifest" id="pwa-manifest">
 <style>
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-html,body{margin:0;height:100%;background:#eef2f5;font-family:'Noto Sans TC','PingFang TC','Microsoft JhengHei','Heiti TC','Hiragino Sans GB',sans-serif;color:#222;line-height:1.7;overscroll-behavior:none;}
+/* ── CSS Variables ── */
+:root {
+  --bg:           #0f1115;
+  --bg2:          #151821;
+  --surface:      rgba(28,32,42,0.88);
+  --surface-alt:  rgba(255,255,255,0.04);
+  --border:       rgba(255,255,255,0.07);
+  --text:         #f5f7fa;
+  --text-sub:     #aab6c5;
+  --text-dim:     rgba(210,220,235,0.45);
+  --accent:       #5fa8ff;
+  --accent2:      #d0a96a;
+  --red:          #c53030;
+  --red-soft:     rgba(255,112,112,0.1);
+  --amber:        #f59e0b;
+  --green:        #10b981;
+  --timeline-dot: #5fa8ff;
+  --timeline-line:rgba(255,255,255,0.08);
+  --header-bg:    linear-gradient(135deg,#171b24,#202633);
+  --tab-bg:       rgba(18,22,30,0.82);
+  --btn-bg:       linear-gradient(135deg,#2f6df6,#4f8cff);
+  --btn-sec:      rgba(255,255,255,0.06);
+  --focus-l:      #f6c453;
+  --food-l:       #ff9b5e;
+  --warn-l:       #ff7070;
+  --success-l:    #4ade80;
+  --scrollbar-track: #10141c;
+  --scrollbar-thumb: #2a3442;
+}
+
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html, body {
+  margin: 0; height: 100%;
+  background: linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
+  font-family: 'Noto Sans TC','PingFang TC','Microsoft JhengHei','Heiti TC','Hiragino Sans GB', sans-serif;
+  color: var(--text); line-height: 1.7; overscroll-behavior: none;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--scrollbar-track); }
+::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 8px; }
+::-webkit-scrollbar-thumb:hover { background: #3b4656; }
 
 /* ── Version Bar ── */
-.version-bar{background:#173434;color:#d0a96a;text-align:center;padding:5px 12px;font-size:11px;font-weight:700;letter-spacing:2px;}
+.version-bar {
+  background: #0b0d12; color: var(--text-sub);
+  text-align: center; padding: 5px 12px;
+  font-size: 11px; font-weight: 700; letter-spacing: 2px;
+  border-bottom: 1px solid var(--border);
+}
 
 /* ── Header ── */
-.header{background:linear-gradient(135deg,#173434,#285c5c);color:white;padding:20px 20px 16px;border-bottom:4px solid #d0a96a;}
-.header h1{margin:0;font-size:20px;font-weight:900;letter-spacing:1px;}
-.header p{margin:4px 0 0;opacity:0.85;font-size:12px;}
+.header {
+  background: var(--header-bg); color: var(--text);
+  padding: 20px 20px 16px;
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+}
+.header h1 { margin: 0; font-size: 20px; font-weight: 900; letter-spacing: 1px; }
+.header p  { margin: 4px 0 0; color: var(--text-sub); font-size: 12px; }
 
 /* ── Tab Bar ── */
-.tab-bar{position:sticky;top:0;z-index:40;background:#1a3d3d;display:flex;border-bottom:3px solid #d0a96a;overflow-x:auto;scrollbar-width:none;}
-.tab-bar::-webkit-scrollbar{display:none;}
-.tab{flex:1;min-width:60px;padding:10px 4px 8px;text-align:center;cursor:pointer;color:rgba(255,255,255,0.55);font-size:11px;font-weight:700;line-height:1.3;border-bottom:3px solid transparent;margin-bottom:-3px;transition:color .2s;}
-.tab .tab-date{font-size:14px;font-weight:900;display:block;}
-.tab.active{color:#d0a96a;border-bottom-color:#d0a96a;}
-.tab.today-tab .tab-date::after{content:'●';font-size:6px;color:#ef4444;vertical-align:super;margin-left:2px;}
+.tab-bar {
+  position: sticky; top: 0; z-index: 40;
+  background: var(--tab-bg); backdrop-filter: blur(22px);
+  display: flex; border-bottom: 1px solid var(--border);
+  overflow-x: auto; scrollbar-width: none;
+}
+.tab-bar::-webkit-scrollbar { display: none; }
+.tab {
+  flex: 1; min-width: 60px; padding: 10px 4px 8px;
+  text-align: center; cursor: pointer;
+  color: var(--text-dim); font-size: 11px; font-weight: 700; line-height: 1.3;
+  border-bottom: 3px solid transparent; margin-bottom: -1px; transition: color .2s;
+}
+.tab .tab-date { font-size: 14px; font-weight: 900; display: block; }
+.tab.active { color: #fff; border-bottom-color: var(--accent); }
+.tab.today-tab .tab-date::after {
+  content: '●'; font-size: 6px; color: #ef4444;
+  vertical-align: super; margin-left: 2px;
+}
 
 /* ── Pages ── */
-.pages{position:relative;}
-.page{display:none;padding:14px 14px 100px;}
-.page.active{display:block;}
+.pages { position: relative; }
+.page { display: none; padding: 14px 14px 100px; }
+.page.active { display: block; }
 
-/* ── Info Panel (top of each day) ── */
-.info-panel{background:white;border-radius:18px;padding:14px 16px;margin-bottom:14px;box-shadow:0 3px 12px rgba(0,0,0,0.07);}
-.info-panel.warning-panel{background:#fff2f0;border:2px solid #ffb3a7;}
-.info-panel h2{margin:0 0 10px;font-size:16px;color:#c53030;}
-.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-.info-item{background:#f6f8fa;border-radius:14px;padding:12px;}
-.info-label{font-size:10px;color:#888;margin-bottom:3px;}
-.info-value{font-size:13px;font-weight:700;color:#173434;}
-
-/* ── Collapsible (Details/Summary) ── */
-.custom-details {background:#f8fafc;border-radius:12px;border:1px solid #e2e8f0;margin-bottom:12px;overflow:hidden;}
-.custom-details summary {padding:12px 14px;font-size:13.5px;font-weight:800;color:#173434;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;user-select:none;}
-.custom-details summary::-webkit-details-marker {display:none;}
-.custom-details summary::after {content:'▼';font-size:11px;color:#888;transition:transform 0.2s;}
-.custom-details[open] summary::after {transform:rotate(-180deg);}
-.custom-details .details-content {padding:0 14px 14px;font-size:13px;}
-.custom-details .details-content .focus-box, 
-.custom-details .details-content .food-box, 
-.custom-details .details-content .nav-box {margin-top:6px;}
+/* ── Info Panel ── */
+.info-panel {
+  background: var(--surface); border-radius: 18px;
+  padding: 14px 16px; margin-bottom: 14px;
+  border: 1px solid var(--border);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.28);
+  backdrop-filter: blur(18px);
+}
+.info-panel.warning-panel { background: rgba(197,48,48,0.08); border-color: rgba(255,100,100,0.2); }
+.info-panel h2 { margin: 0 0 10px; font-size: 16px; color: var(--text); }
+.info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.info-item { background: var(--surface-alt); border-radius: 14px; padding: 12px; }
+.info-label { font-size: 10px; color: var(--text-sub); margin-bottom: 3px; }
+.info-value { font-size: 13px; font-weight: 700; color: var(--text); }
 
 /* ── Day Stats ── */
-.day-stats{background:#f0f4f6;border-radius:12px;padding:9px 13px;margin-bottom:14px;font-size:12px;display:flex;flex-wrap:wrap;gap:4px 12px;align-items:center;}
-.day-stats .sep{color:#ccc;}
+.day-stats {
+  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 12px; padding: 9px 13px; margin-bottom: 14px;
+  font-size: 12px; color: #d6dee8;
+  display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: center;
+}
+.day-stats .sep { color: rgba(255,255,255,0.18); }
 
 /* ── Timeline ── */
-.timeline{border-left:3px solid #d8e1e5;margin-left:8px;padding-left:16px;}
-.event{position:relative;margin-bottom:24px;}
-.event::before{content:'';position:absolute;left:-23px;top:6px;width:11px;height:11px;border-radius:50%;background:#214949;border:3px solid white;box-shadow:0 0 0 1px #d8e1e5;}
-.time{color:#214949;font-size:13px;font-weight:800;}
-.title{font-size:17px;font-weight:800;margin:2px 0 7px;line-height:1.3;}
-.badge{display:inline-block;background:#d9485f;color:white;border-radius:7px;padding:1px 7px;font-size:10px;margin-left:5px;}
-.fee{background:#edf2f7;color:#555;padding:1px 7px;border-radius:7px;font-size:10px;margin-left:5px;}
+.timeline { border-left: 2px solid var(--timeline-line); margin-left: 8px; padding-left: 16px; }
+.event { position: relative; margin-bottom: 24px; }
+.event::before {
+  content: ''; position: absolute; left: -23px; top: 6px;
+  width: 11px; height: 11px; border-radius: 50%;
+  background: var(--timeline-dot); border: 2px solid var(--bg2);
+  box-shadow: 0 0 0 2px rgba(255,255,255,0.04);
+}
+.time  { color: var(--accent); font-size: 13px; font-weight: 800; }
+.title { font-size: 17px; font-weight: 800; margin: 2px 0 7px; line-height: 1.3; color: #fff; }
+.badge { display: inline-block; background: #d9485f; color: white; border-radius: 7px; padding: 1px 7px; font-size: 10px; margin-left: 5px; }
+.fee   { background: rgba(255,255,255,0.08); color: var(--text-sub); padding: 1px 7px; border-radius: 7px; font-size: 10px; margin-left: 5px; }
 
 /* ── Info Boxes ── */
-.focus-box{background:#fff9e8;border:1px solid #f4dfa0;border-radius:12px;padding:10px 13px;margin-top:9px;font-size:13px;}
-.food-box{background:#fff3e8;border:1px solid #ffd1a3;border-radius:12px;padding:10px 13px;margin-top:9px;font-size:13px;}
-.warning-box{background:#fff2f0;border:1px solid #ffb3a7;border-radius:12px;padding:10px 13px;margin-top:9px;font-size:13px;}
-.success-box{background:#f0fff4;border:1px solid #9ae6b4;border-radius:12px;padding:10px 13px;margin-top:9px;font-size:13px;}
-.nav-box{background:#f7fafc;border-radius:12px;padding:10px 13px;margin-top:9px;font-size:13px;}
+.focus-box, .food-box, .warning-box, .success-box, .nav-box {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; padding: 10px 13px; margin-top: 9px; font-size: 13px;
+  color: var(--text);
+}
+.focus-box   { border-left: 4px solid var(--focus-l); }
+.food-box    { border-left: 4px solid var(--food-l); }
+.warning-box { border-left: 4px solid var(--warn-l); }
+.success-box { border-left: 4px solid var(--success-l); }
+.nav-box     { border-left: 4px solid var(--accent); }
+.sub-text    { font-size: 12px; color: var(--text-sub); }
+
+/* ── Collapsible ── */
+.custom-details {
+  background: rgba(28,32,42,0.6); border-radius: 12px;
+  border: 1px solid var(--border); margin-bottom: 12px; overflow: hidden;
+}
+.custom-details summary {
+  padding: 12px 14px; font-size: 13.5px; font-weight: 800;
+  color: var(--accent); cursor: pointer; list-style: none;
+  display: flex; justify-content: space-between; align-items: center;
+  user-select: none;
+}
+.custom-details summary::-webkit-details-marker { display: none; }
+.custom-details summary::after { content: '▼'; font-size: 11px; color: var(--text-sub); transition: transform .2s; }
+.custom-details[open] summary::after { transform: rotate(-180deg); }
+.custom-details .details-content { padding: 0 14px 14px; font-size: 13px; }
 
 /* ── Route Map ── */
-.route-map{background:#f7fafc;border-radius:14px;padding:12px 14px;margin-top:10px;}
-.route-node{display:flex;align-items:center;margin-bottom:8px;font-size:13px;font-weight:700;}
-.route-line{width:4px;height:20px;margin-left:11px;border-radius:8px;margin-bottom:2px;}
-.route-step{display:flex;align-items:flex-start;gap:10px;margin-bottom:9px;}
-.route-icon{font-size:16px;min-width:22px;}
-.route-line-name{font-weight:700;font-size:13px;}
-.route-detail{font-size:11.5px;color:#666;}
-.purple{background:#8b5cf6}.red-line{background:#ef4444}.green-line{background:#10b981}
+.route-map { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 12px 14px; margin-top: 10px; }
+.route-node { display: flex; align-items: center; margin-bottom: 8px; font-size: 13px; font-weight: 700; }
+.route-line { width: 4px; height: 20px; margin-left: 11px; border-radius: 8px; margin-bottom: 2px; }
+.route-step { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 9px; }
+.route-icon { font-size: 16px; min-width: 22px; }
+.route-line-name  { font-weight: 700; font-size: 13px; color: var(--text); }
+.route-detail     { font-size: 11.5px; color: var(--text-sub); }
+.purple    { background: #8b5cf6; }
+.red-line  { background: #ef4444; }
+.green-line{ background: var(--green); }
 
 /* ── Nav Steps ── */
-.nav-steps{display:flex;flex-direction:column;gap:7px;margin-top:9px;}
-.nav-step{display:flex;align-items:center;gap:9px;font-size:13px;}
-.step-num{background:#214949;color:white;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;flex-shrink:0;}
+.nav-steps { display: flex; flex-direction: column; gap: 7px; margin-top: 9px; }
+.nav-step  { display: flex; align-items: center; gap: 9px; font-size: 13px; }
+.step-num  {
+  background: var(--btn-bg); color: white;
+  width: 22px; height: 22px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 900; flex-shrink: 0;
+}
 
 /* ── Exit Box ── */
-.exit-box{background:#173434;color:white;display:inline-block;padding:5px 11px;border-radius:10px;font-weight:900;margin-top:9px;font-size:12px;}
+.exit-box { background: var(--accent); color: #081018; display: inline-block; padding: 5px 11px; border-radius: 10px; font-weight: 900; margin-top: 9px; font-size: 12px; }
 
 /* ── Taxi Card ── */
-.taxi-card{background:white;border-radius:12px;padding:11px;margin-top:9px;border:2px solid #ffd1a3;text-align:center;font-size:13px;}
-.taxi-jp{font-size:16px;font-weight:900;color:#c53030;margin-top:5px;}
+.taxi-card {
+  background: var(--surface); border-radius: 12px; padding: 11px; margin-top: 9px;
+  border: 1px solid rgba(255,159,64,0.3); text-align: center; font-size: 13px;
+}
+.taxi-jp { font-size: 16px; font-weight: 900; color: #ff9c9c; margin-top: 5px; }
 
 /* ── Buttons ── */
-.btn-group{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;}
-.btn{text-decoration:none;background:#214949;color:white;padding:8px 13px;border-radius:12px;font-size:12px;font-weight:700;display:inline-flex;align-items:center;gap:5px;border:none;cursor:pointer;}
-.btn.secondary{background:#edf2f7;color:#222;}
+.btn-group { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+.btn {
+  text-decoration: none; background: var(--btn-bg); color: white;
+  padding: 8px 13px; border-radius: 12px; font-size: 12px; font-weight: 700;
+  display: inline-flex; align-items: center; gap: 5px;
+  border: 1px solid rgba(255,255,255,0.08); cursor: pointer;
+  box-shadow: 0 6px 16px rgba(47,109,246,0.35);
+}
+.btn.secondary { background: var(--btn-sec); color: var(--text); box-shadow: none; }
 
 /* ── Airport Timeline ── */
-.airport-tl{margin-top:8px;}
-.airport-row{display:flex;align-items:baseline;gap:10px;font-size:13px;padding:3px 0;}
-.airport-time{font-weight:900;color:#214949;min-width:50px;}
+.airport-tl  { margin-top: 8px; }
+.airport-row { display: flex; align-items: baseline; gap: 10px; font-size: 13px; padding: 3px 0; }
+.airport-time{ font-weight: 900; color: var(--accent); min-width: 50px; }
 
 /* ── Today Banner ── */
-.today-banner{background:linear-gradient(90deg,#214949,#2d6060);color:white;border-radius:12px;padding:8px 14px;margin-bottom:12px;font-size:12px;display:flex;align-items:center;gap:8px;}
-.today-banner b{font-size:14px;}
+.today-banner {
+  background: linear-gradient(135deg,#23405f,#2f6df6);
+  color: white; border-radius: 12px; padding: 8px 14px;
+  margin-bottom: 12px; font-size: 12px; display: flex; align-items: center; gap: 8px;
+}
+.today-banner b { font-size: 14px; }
 
 /* ── Floating Menu ── */
-.floating-menu{position:fixed;right:16px;bottom:16px;display:flex;flex-direction:column;gap:10px;z-index:50;}
-.float-btn{width:52px;height:52px;border-radius:50%;background:#214949;color:white;display:flex;align-items:center;justify-content:center;font-size:20px;border:none;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,0.28);}
+.floating-menu { position: fixed; right: 16px; bottom: 16px; display: flex; flex-direction: column; gap: 8px; z-index: 50; }
+.float-btn-wrap { position: relative; display: flex; align-items: center; justify-content: flex-end; gap: 8px; }
+.float-btn {
+  width: 52px; height: 52px; border-radius: 50%;
+  background: rgba(30,36,48,0.92); color: white;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; border: 1px solid var(--border); cursor: pointer;
+  backdrop-filter: blur(20px); box-shadow: 0 10px 24px rgba(0,0,0,0.38);
+  transition: transform .15s;
+}
+.float-btn:active { transform: scale(.92); }
+.float-label {
+  background: rgba(20,24,34,0.95); color: var(--text);
+  font-size: 11px; font-weight: 700; padding: 4px 9px; border-radius: 8px;
+  border: 1px solid var(--border); white-space: nowrap;
+  opacity: 0; pointer-events: none; transition: opacity .2s;
+}
+.float-btn-wrap:hover .float-label,
+.float-btn-wrap:focus-within .float-label { opacity: 1; }
 
 /* ── Modal ── */
-.modal{display:none;position:fixed;z-index:100;left:0;top:0;width:100%;height:100%;background:rgba(0,0,0,0.6);}
-.modal-content{background:white;width:92%;max-width:640px;margin:6vh auto;border-radius:22px;padding:22px;max-height:84vh;overflow:auto;}
-.close{float:right;font-size:28px;cursor:pointer;font-weight:900;line-height:1;}
+.modal { display: none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.72); }
+.modal-content {
+  background: var(--surface); backdrop-filter: blur(18px);
+  border: 1px solid var(--border); color: var(--text);
+  width: 92%; max-width: 640px; margin: 6vh auto;
+  border-radius: 22px; padding: 22px; max-height: 84vh; overflow: auto;
+}
+.close { float: right; font-size: 28px; cursor: pointer; font-weight: 900; line-height: 1; color: var(--text-sub); }
 
-/* ── Ticket Modal ── */
-.ticket-section{margin-bottom:18px;}
-.ticket-section h3{margin:0 0 9px;font-size:14px;color:#173434;display:flex;align-items:center;gap:6px;}
-.ticket-row{display:flex;align-items:flex-start;gap:9px;padding:9px 0;border-bottom:1px solid #f0f0f0;font-size:13px;}
-.ticket-row:last-child{border-bottom:none;}
-.ticket-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;margin-top:5px;}
-.dot-red{background:#ef4444;}.dot-yellow{background:#f59e0b;}.dot-green{background:#10b981;}
-.ticket-name{font-weight:700;margin-bottom:2px;}
-.ticket-note{color:#666;font-size:12px;line-height:1.5;}
+/* ── Ticket / Modal Sections ── */
+.ticket-section { margin-bottom: 18px; }
+.ticket-section h3 { margin: 0 0 9px; font-size: 14px; color: var(--text); display: flex; align-items: center; gap: 6px; }
+.ticket-row { display: flex; align-items: flex-start; gap: 9px; padding: 9px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+.ticket-row:last-child { border-bottom: none; }
+.ticket-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+.dot-red { background: #ef4444; } .dot-yellow { background: var(--amber); } .dot-green { background: var(--green); }
+.ticket-name { font-weight: 700; margin-bottom: 2px; }
+.ticket-note { color: var(--text-sub); font-size: 12px; line-height: 1.5; }
 
-.sub-text { font-size:12px; color:#666; }
-.todo-list { list-style:none; padding:0; margin:5px 0 0; }
-.todo-list li { margin-bottom:6px; display:flex; align-items:flex-start; gap:8px; }
-.todo-list input[type="checkbox"] { margin-top:4px; }
-
-/* ── Checkpoint table ── */
-.checkpoint-table{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:4px;}
-.checkpoint-table th{background:#f6f8fa;color:#888;padding:8px 9px;text-align:left;font-weight:700;font-size:11px;letter-spacing:.5px;border-bottom:1px solid #eee;}
-.checkpoint-table td{padding:9px 9px;vertical-align:top;border-bottom:1px solid #eee;color:#222;line-height:1.6;}
-.checkpoint-table tr:last-child td{border-bottom:none;}
-.checkpoint-table .ck-date{white-space:nowrap;font-weight:800;color:#214949;font-size:12px;}
-.checkpoint-table .ck-time{white-space:nowrap;font-weight:800;color:#c53030;}
-.checkpoint-table .ck-note{color:#666;font-size:12px;}
+/* ── Checkpoint Table ── */
+.checkpoint-table { width: 100%; border-collapse: collapse; font-size: 12.5px; margin-top: 4px; }
+.checkpoint-table th { background: rgba(255,255,255,0.07); color: var(--text-sub); padding: 8px 9px; text-align: left; font-weight: 700; font-size: 11px; letter-spacing: .5px; border-bottom: 1px solid var(--border); }
+.checkpoint-table td { padding: 9px 9px; vertical-align: top; border-bottom: 1px solid rgba(255,255,255,0.05); color: var(--text); line-height: 1.6; }
+.checkpoint-table tr:last-child td { border-bottom: none; }
+.checkpoint-table .ck-date { white-space: nowrap; font-weight: 800; color: var(--accent); font-size: 12px; }
+.checkpoint-table .ck-time { white-space: nowrap; font-weight: 800; color: var(--food-l); }
+.checkpoint-table .ck-note { color: var(--text-sub); font-size: 12px; }
 
 /* ── Fare Table ── */
-.fare-table{width:100%;border-collapse:collapse;font-size:12.5px;margin:8px 0;}
-.fare-table td{padding:6px 4px;border-bottom:1px solid #eee;}
-.fare-table tr:last-child td{border-bottom:none;}
-.fare-day{font-weight:800;color:#214949;white-space:nowrap;}
-.fare-route{color:#555;}
-.fare-price{text-align:right;font-weight:700;white-space:nowrap;}
+.fare-table { width: 100%; border-collapse: collapse; font-size: 12.5px; margin: 8px 0; }
+.fare-table td { padding: 6px 4px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+.fare-table tr:last-child td { border-bottom: none; }
+.fare-day   { font-weight: 800; color: var(--accent); white-space: nowrap; }
+.fare-route { color: var(--text-sub); }
+.fare-price { text-align: right; font-weight: 700; white-space: nowrap; color: var(--text); }
 
-@media(max-width:380px){
-  .header h1{font-size:17px;}
-  .tab .tab-date{font-size:13px;}
-  .title{font-size:15px;}
+/* ── Divider ── */
+.dashed-divider { border: none; border-top: 1px dashed rgba(255,255,255,0.15); margin: 10px 0; }
+
+/* ── Tactical Alert ── */
+.tactic-box {
+  background: rgba(95,168,255,0.08); border: 1px solid rgba(95,168,255,0.3);
+  border-left: 4px solid var(--accent); border-radius: 12px;
+  padding: 10px 13px; margin-top: 9px; font-size: 13px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 380px) {
+  .header h1   { font-size: 17px; }
+  .tab .tab-date { font-size: 13px; }
+  .title       { font-size: 15px; }
 }
 </style>
-
-<!-- =========================
-macOS 26 Dark Mode Patch
-========================= -->
-<style>
-html,body{background:linear-gradient(180deg,#0f1115 0%,#151821 100%) !important;color:#f5f7fa !important;}
-.version-bar{background:#0b0d12 !important;color:#8ea3b5 !important;border-bottom:1px solid rgba(255,255,255,0.06);}
-.header{background:linear-gradient(135deg,#171b24,#202633) !important;border-bottom:1px solid rgba(255,255,255,0.08);box-shadow:0 10px 30px rgba(0,0,0,0.35);}
-.header h1{color:#f7fafc !important;}
-.header p{color:#aab6c5 !important;}
-.tab-bar{background:rgba(18,22,30,0.82) !important;backdrop-filter:blur(22px);border-bottom:1px solid rgba(255,255,255,0.08);}
-.tab{color:rgba(210,220,235,0.45) !important;}
-.tab.active{color:#ffffff !important;border-bottom-color:#5fa8ff !important;}
-.info-panel,.focus-box,.food-box,.warning-box,.success-box,.nav-box,.route-map,.taxi-card,.modal-content{background:rgba(28,32,42,0.88) !important;color:#f5f7fa !important;border:1px solid rgba(255,255,255,0.07) !important;backdrop-filter:blur(18px);box-shadow:0 8px 24px rgba(0,0,0,0.28);}
-.custom-details {background:rgba(28,32,42,0.6) !important;border:1px solid rgba(255,255,255,0.07) !important;}
-.custom-details summary {color:#8fc2ff !important;}
-.focus-box{border-left:4px solid #f6c453 !important;}
-.food-box{border-left:4px solid #ff9b5e !important;}
-.warning-box{border-left:4px solid #ff7070 !important;}
-.success-box{border-left:4px solid #4ade80 !important;}
-.info-item{background:rgba(255,255,255,0.04) !important;}
-.info-label{color:#94a3b8 !important;}
-.info-value{color:#f5f7fa !important;}
-.day-stats{background:rgba(255,255,255,0.05) !important;color:#d6dee8 !important;border:1px solid rgba(255,255,255,0.05);}
-.day-stats .sep{color:rgba(255,255,255,0.18) !important;}
-.timeline{border-left:2px solid rgba(255,255,255,0.08) !important;}
-.event::before{background:#5fa8ff !important;border:2px solid #151821 !important;box-shadow:0 0 0 2px rgba(255,255,255,0.04);}
-.time{color:#8fc2ff !important;}
-.title{color:#ffffff !important;}
-.route-line-name{color:#f8fafc !important;}
-.route-detail{color:#aeb8c7 !important;}
-.exit-box{background:#5fa8ff !important;color:#081018 !important;}
-.btn{background:linear-gradient(135deg,#2f6df6,#4f8cff) !important;color:white !important;border:1px solid rgba(255,255,255,0.08);box-shadow:0 6px 16px rgba(47,109,246,0.35);}
-.btn.secondary{background:rgba(255,255,255,0.06) !important;color:#f5f7fa !important;border:1px solid rgba(255,255,255,0.08);}
-.float-btn{background:rgba(30,36,48,0.92) !important;color:#ffffff !important;border:1px solid rgba(255,255,255,0.08);backdrop-filter:blur(20px);box-shadow:0 10px 24px rgba(0,0,0,0.38);}
-.modal{background:rgba(0,0,0,0.72) !important;}
-.close{color:#dbe4ee !important;}
-.today-banner{background:linear-gradient(135deg,#23405f,#2f6df6) !important;color:white !important;}
-.taxi-jp{color:#ff9c9c !important;}
-.info-panel h2{color:#f5f7fa !important;}
-.airport-time{color:#8fc2ff !important;}
-.sub-text {color:#aab6c5 !important;}
-
-/* Dark Mode Checkpoint & Fare table */
-.checkpoint-table th{background:rgba(255,255,255,0.07);color:#aab6c5;border-bottom:1px solid rgba(255,255,255,0.08);}
-.checkpoint-table td{border-bottom:1px solid rgba(255,255,255,0.05);color:#f5f7fa;}
-.checkpoint-table .ck-date{color:#8fc2ff;}
-.checkpoint-table .ck-time{color:#ff9b5e;}
-.checkpoint-table .ck-note{color:#aab6c5;}
-
-.fare-table td{border-bottom:1px solid rgba(255,255,255,0.05);}
-.fare-day{color:#8fc2ff;}
-.fare-route{color:#aab6c5;}
-.fare-price{color:#f5f7fa;}
-</style>
-
 </head>
 <body>
 
-<div class="version-bar">✦ V24 Final ｜ 2026.06 名古屋之旅 (精算數據實戰版) ✦</div>
+<div class="version-bar">✦ V27 Final ｜ 2026.06 名古屋之旅 · 終極大師版 ✦</div>
 
 <div class="header">
   <h1>2026 名古屋工藝 × 美食 × 科技之旅</h1>
   <p>Nagoya Craft · Food · Technology ｜ Kelly 帶隊</p>
 </div>
 
-<!-- ── Tab Bar ── -->
 <div class="tab-bar" id="tabBar">
-  <div class="tab" data-page="p0" onclick="switchTab(0)">
-    <span class="tab-date">總覽</span>
-    <span>資訊</span>
-  </div>
-  <div class="tab" data-page="p1" onclick="switchTab(1)">
-    <span class="tab-date">6/11</span>
-    <span>四・Day1</span>
-  </div>
-  <div class="tab" data-page="p2" onclick="switchTab(2)">
-    <span class="tab-date">6/12</span>
-    <span>五・Day2</span>
-  </div>
-  <div class="tab" data-page="p3" onclick="switchTab(3)">
-    <span class="tab-date">6/13</span>
-    <span>六・Day3</span>
-  </div>
-  <div class="tab" data-page="p4" onclick="switchTab(4)">
-    <span class="tab-date">6/14</span>
-    <span>日・Day4</span>
-  </div>
-  <div class="tab" data-page="p5" onclick="switchTab(5)">
-    <span class="tab-date">6/15</span>
-    <span>一・Day5</span>
-  </div>
+  <div class="tab" onclick="switchTab(0)"><span class="tab-date">總覽</span><span>資訊</span></div>
+  <div class="tab" onclick="switchTab(1)"><span class="tab-date">6/11</span><span>四・Day1</span></div>
+  <div class="tab" onclick="switchTab(2)"><span class="tab-date">6/12</span><span>五・Day2</span></div>
+  <div class="tab" onclick="switchTab(3)"><span class="tab-date">6/13</span><span>六・Day3</span></div>
+  <div class="tab" onclick="switchTab(4)"><span class="tab-date">6/14</span><span>日・Day4</span></div>
+  <div class="tab" onclick="switchTab(5)"><span class="tab-date">6/15</span><span>一・Day5</span></div>
 </div>
 
 <div class="pages">
 
-<!-- ══════════════ PAGE 0：總覽 (極簡儀表板) ══════════════ -->
 <div class="page" id="p0">
 
-  <!-- 1. 真正目標 -->
   <div class="info-panel">
-    <h2 style="margin:0 0 10px;font-size:15px;">🎯 核心目標</h2>
-    <div class="success-box" style="font-size:13.5px;line-height:2;">
+    <h2 style="font-size:15px;">🎯 核心目標</h2>
+    <div class="success-box" style="font-size:13.5px;line-height:2.1;">
       ✔ 名古屋城<br>
       ✔ 豐田產業技術紀念館<br>
       ✔ 磁浮鐵道館<br>
       ✔ 名古屋市科學館<br>
       ✔ JPG-X100 土鍋<br>
-      <div style="border-top:1px dashed rgba(255,255,255,0.2);margin:8px 0;"></div>
-      <b style="color:#ff9b5e;">其餘皆為加分項。</b><br>
-      <span style="font-size:12px;color:#aab6c5;line-height:1.6;display:block;margin-top:4px;">
-        只要完成這五點，整趟旅行就達成了 90% 目標。<br>
-        累了就休息，沒逛完也沒關係。
-      </span>
+      <hr class="dashed-divider">
+      <b style="color:var(--food-l);">其餘皆為加分項。</b><br>
+      <span class="sub-text" style="display:block;margin-top:4px;">只要完成這五點，整趟旅行就達成了 90% 目標。<br>累了就休息，沒逛完也沒關係。</span>
     </div>
   </div>
 
-  <!-- 2. 導遊級防呆系統 & 聯絡原則 -->
   <div class="info-panel warning-panel">
     <h2>🚨 導遊級防呆系統</h2>
     <ul style="margin:0;padding-left:18px;font-size:13.5px;line-height:1.9;">
@@ -283,7 +342,7 @@ html,body{background:linear-gradient(180deg,#0f1115 0%,#151821 100%) !important;
       <li><b>雨天模式：</b>便利商店透明傘。</li>
       <li><b>晚間撤退：</b>21:30 前回榮站最穩定。</li>
     </ul>
-    <div style="margin-top:10px;font-size:13px;font-weight:700;color:#c53030;">📱 聯絡原則</div>
+    <div style="margin-top:10px;font-size:13px;font-weight:700;color:#ff9c9c;">📱 聯絡原則</div>
     <ul style="margin:5px 0 0;padding-left:18px;font-size:13px;">
       <li>LINE 傳送即時位置</li>
       <li>共享 Google Maps 定位</li>
@@ -291,33 +350,68 @@ html,body{background:linear-gradient(180deg,#0f1115 0%,#151821 100%) !important;
     </ul>
   </div>
 
-  <!-- 3. 基本資料 -->
   <div class="info-panel">
-    <h2 style="margin:0 0 10px;font-size:15px;">✈️ 基本資料</h2>
+    <h2 style="font-size:15px;">✈️ 基本資料</h2>
     <div class="info-grid">
       <div class="info-item"><div class="info-label">去程航班</div><div class="info-value">虎航 IT706</div></div>
       <div class="info-item"><div class="info-label">回程航班</div><div class="info-value">虎航 IT206</div></div>
-      <div class="info-item"><div class="info-label">住宿 (榮站 4 號出口)</div><div class="info-value">Royal Park Hotel Iconic</div></div>
+      <div class="info-item"><div class="info-label">住宿（榮站 4 號出口）</div><div class="info-value">Royal Park Hotel Iconic</div></div>
       <div class="info-item"><div class="info-label">核心任務</div><div class="info-value">JPG‑X100 土鍋內鍋</div></div>
     </div>
   </div>
 
-  <!-- 4. 出門確認 -->
   <div class="info-panel">
-    <h2 style="margin:0 0 10px;font-size:15px;">📦 出門確認</h2>
-    <div class="focus-box" style="font-size:14px;font-weight:700;line-height:2.2;">
-      ✔ 護照　✔ 手機　✔ 行動電源<br>
-      ✔ IC 卡　✔ 雨傘<br>
+    <h2 style="font-size:15px;">📦 出門確認</h2>
+    <div class="focus-box" style="font-size:14px;font-weight:700;line-height:2.3;">
+      ✔ 護照 ✔ 手機 ✔ 行動電源<br>
+      ✔ IC 卡 ✔ 雨傘<br>
       <span class="sub-text" style="font-weight:400;">即可出發。慢慢看，比趕景點更重要。</span>
     </div>
   </div>
 
-  <div style="text-align:center;color:#aab6c5;font-size:12px;padding:10px 0 20px;">
-    💡 詳細攻略、交通預估、卡點與美食，請點擊右下角按鈕。
+  <details class="custom-details">
+    <summary>🔄 機動方案 (Day 1 抵達後決定)</summary>
+    <div class="details-content">
+      <div class="focus-box" style="line-height:1.9;">
+        目前已切換為最佳體驗版（10:00 樂高）：<br>
+        <b>Day 2（五）：樂高 + 大須</b><br>
+        <b>Day 3（六）：名古屋城 + 豐田館</b><br><br>
+        若大家覺得 Day 2 想睡更晚、改走室內展館，隨時可將 Day 2 與 Day 3 對調。
+      </div>
+    </div>
+  </details>
+
+  <details class="custom-details">
+    <summary>🛍 可留意採買項目</summary>
+    <div class="details-content">
+      <div class="focus-box" style="line-height:2.1;">
+        🍲 JPG-X100 內鍋（優先）<br>
+        日本限定配件<br>
+        旅行收納小物<br>
+        音響器材 / 職人工具<br>
+        💊 蒸氣眼罩 / 痠痛貼布（藥妝店順手看）<br>
+        <span class="sub-text">有興趣再看，不強求。</span>
+      </div>
+    </div>
+  </details>
+
+  <details class="custom-details">
+    <summary>🏨 飯店資訊（計程車備用）</summary>
+    <div class="details-content">
+      <div class="focus-box" style="line-height:2.1;">
+        <b>ザ ロイヤルパークホテル アイコニック 名古屋</b><br>
+        <span class="sub-text">The Royal Park Hotel Iconic Nagoya</span><br>
+        愛知県名古屋市中区栄4丁目1番1号 中日ビル 25F～32F<br>
+        <span class="sub-text">手機沒電 / 迷路時直接給計程車司機看</span>
+      </div>
+    </div>
+  </details>
+
+  <div style="text-align:center;color:var(--text-sub);font-size:12px;padding:14px 0 20px;">
+    💡 詳細攻略、交通預估、購票與美食，請點右下角按鈕。
   </div>
 </div>
 
-<!-- ══════════════ PAGE 1：6/11 ══════════════ -->
 <div class="page" id="p1">
   <div id="banner1"></div>
   <div class="day-stats">
@@ -331,18 +425,16 @@ html,body{background:linear-gradient(180deg,#0f1115 0%,#151821 100%) !important;
     <div class="event">
       <div class="time">17:20 → 21:15</div>
       <div class="title">桃園 (T1) → 中部國際 (T2)</div>
-      <div class="info-row">
-        <span class="info-chip">虎航 IT706</span>
-        <span class="info-chip">飛行約 3h 50m</span>
+      <div class="info-row" style="display:flex;flex-wrap:wrap;gap:7px;margin-top:9px;">
+        <span style="background:rgba(255,255,255,0.08);border-radius:18px;padding:4px 11px;font-size:12px;font-weight:700;">虎航 IT706</span>
+        <span style="background:rgba(255,255,255,0.08);border-radius:18px;padding:4px 11px;font-size:12px;font-weight:700;">飛行約 3h 50m</span>
       </div>
     </div>
 
     <div class="event">
       <div class="time">22:00</div>
       <div class="title">前往飯店</div>
-      
-      <!-- 🚉 交通路線（大方向）- Visible -->
-      <div style="font-size:12px;color:#aab6c5;margin-bottom:6px;font-weight:700;margin-top:9px;">🚉 交通路線（大方向）</div>
+      <div style="font-size:12px;color:var(--text-sub);margin-bottom:6px;font-weight:700;margin-top:9px;">🚉 交通路線（大方向）</div>
       <div class="route-map">
         <div class="route-node">✈️ 中部國際機場 T2</div>
         <div class="route-line red-line"></div>
@@ -350,16 +442,15 @@ html,body{background:linear-gradient(180deg,#0f1115 0%,#151821 100%) !important;
         <div class="route-line purple"></div>
         <div class="route-node">🚇 名城線</div>
         <div class="route-line green-line"></div>
-        <div class="route-node">🏨 榮站 / 飯店</div>
+        <div class="route-node">🏨 榮站 4 號出口 / 飯店</div>
       </div>
       <div class="nav-box" style="margin-top:8px;">
         <div style="margin-bottom:5px;">1️⃣ 機場找 <b>Meitetsu 名鐵線</b> 指標</div>
         <div style="margin-bottom:5px;">2️⃣ 搭至 <b>金山站</b>（轉乘比名古屋站輕鬆很多）</div>
-        <div style="margin-bottom:5px;">3️⃣ 轉 <b>地鐵名城線</b> 往榮方向（<span style="color:#c53030;font-weight:700;">不要刷卡出站</span>）</div>
+        <div style="margin-bottom:5px;">3️⃣ 轉 <b>地鐵名城線</b> 往榮方向（<span style="color:#ff7070;font-weight:700;">不要刷卡出站</span>）</div>
         <div>4️⃣ <b>榮站 4 號出口</b> 直結「中日大廈」飯店</div>
       </div>
 
-      <!-- Collapse 1: 出關流程 -->
       <details class="custom-details" style="margin-top:12px;">
         <summary>📋 展開出關至名鐵搭乘流程</summary>
         <div class="details-content">
@@ -368,88 +459,145 @@ html,body{background:linear-gradient(180deg,#0f1115 0%,#151821 100%) !important;
             <div class="nav-step"><div class="step-num">1</div><span>入境審查</span></div>
             <div class="nav-step"><div class="step-num">2</div><span>領取行李</span></div>
             <div class="nav-step"><div class="step-num">3</div><span>海關</span></div>
-            <div class="nav-step"><div class="step-num">4</div><span>跟著 <b>Access Plaza</b> 指標走</span></div>
-            <div class="nav-step"><div class="step-num">5</div><span>步行約 5～10 分鐘</span></div>
-            <div class="nav-step"><div class="step-num">6</div><span>找到「<b>名鐵線のりば / Meitetsu</b>」</span></div>
-            <div class="nav-step"><div class="step-num">7</div><span>iPhone <b>Suica / ICOCA</b> 刷進站</span></div>
-            <div class="nav-step" style="padding-left:31px;flex-direction:column;align-items:flex-start;gap:3px;margin-top:4px;">
-              <div class="sub-text">📍 Google Maps 搜尋：<b>「金山站」</b></div>
-              <div class="sub-text">↓ 依 Google Maps 顯示的</div>
-              <div class="sub-text" style="padding-left:12px;">• 發車時間　• 月台　• 車種</div>
-              <div class="sub-text">前往月台</div>
-              <div class="sub-text">↓ 搭乘 Google Maps 指定、</div>
-              <div class="sub-text" style="padding-left:12px;">且有停靠金山站的列車</div>
-            </div>
+            <div class="nav-step"><div class="step-num">4</div><span>跟著 <b>Access Plaza</b> 指標走（步行約 5～10 分鐘）</span></div>
+            <div class="nav-step"><div class="step-num">5</div><span>找到「<b>名鐵線のりば / Meitetsu</b>」刷卡進站</span></div>
+            <div class="nav-step"><div class="step-num">6</div><span>依 Google Maps 指示搭乘 → <b>金山站</b>下車</span></div>
           </div>
+          <div class="warning-box" style="margin-top:10px;font-size:12.5px;">⛔ 金山站下車後<b>不要急著刷卡出站</b><br>跟著 <b>地下鉄 Subway 名城線</b> 指標站內轉乘</div>
+          <div class="nav-steps" style="margin-top:9px;">
+            <div class="nav-step"><div class="step-num">7</div><span>名城線搭至 <b>榮站</b></span></div>
+            <div class="nav-step"><div class="step-num">8</div><span><b>榮站 4 號出口</b> → 中日大廈 → 飯店專用電梯 → Lobby 辦理入住</span></div>
+          </div>
+          <div class="focus-box" style="margin-top:9px;font-size:12.5px;">💡 4 號出口可直接從地下道走進中日大廈，不需出到地面。<br>地下街迷路請上地面找：<b>名古屋電視塔（MIRAI TOWER）</b>定位。</div>
         </div>
       </details>
 
-      <!-- Collapse 2: 金山站轉乘 -->
-      <details class="custom-details">
-        <summary>🚇 展開金山站轉乘名城線教學</summary>
-        <div class="details-content">
-          <div class="nav-steps">
-            <div class="nav-step"><div class="step-num">8</div><span><b>金山站</b>下車</span></div>
-            <div class="nav-step"><div class="step-num">1</div><span>名鐵下車</span></div>
-            <div class="nav-step" style="padding-left:31px;">
-              <span style="color:#c53030;font-weight:700;font-size:12px;">⛔ 不要急著刷卡出站</span>
-            </div>
-            <div class="nav-step"><div class="step-num">2</div><span>跟著
-              <span style="background:rgba(139,92,246,0.15);border:1px solid #8b5cf6;border-radius:7px;padding:2px 7px;color:#6d28d9;font-weight:900;font-size:11.5px;">🟣 地下鉄 Subway 名城線</span>
-              指標前進
-            </span></div>
-            <div class="nav-step" style="padding-left:31px;">
-              <span style="font-size:11.5px;" class="sub-text">📱 依 Google Maps 指示搭乘即可。<br>不用研究順時針或逆時針。</span>
-            </div>
-            <div class="nav-step"><div class="step-num">3</div><span>Google Maps 搜尋：<b>榮站（Sakae）</b></span></div>
-            <div class="nav-step"><div class="step-num">4</div><span>依 Google Maps 指示前往月台</span></div>
-            <div class="nav-step"><div class="step-num">5</div><span>搭乘指定班次</span></div>
-            <div class="nav-step"><div class="step-num">6</div><span>約 8 分鐘抵達榮站</span></div>
-          </div>
-        </div>
-      </details>
-
-      <!-- Collapse 3: 榮站步行至飯店 -->
-      <details class="custom-details">
-        <summary>🏨 展開榮站地下道直結飯店指引</summary>
-        <div class="details-content">
-          <div class="nav-steps">
-            <div class="nav-step"><div class="step-num">7</div><span><b>榮站 4 號出口</b></span></div>
-          </div>
-          <div class="exit-box">榮站 4 號出口</div>
-          <div class="focus-box" style="margin-top:7px;font-size:12.5px;">
-            💡 4 號出口可直接從地下道走進「中日大廈」，不需出到地面。
-          </div>
-          <div class="nav-steps" style="margin-top:10px;">
-            <div class="nav-step"><div class="step-num">🏨</div><span><b>榮站 4 號出口</b></span></div>
-            <div class="nav-step"><div class="step-num">↓</div><span>中日大廈</span></div>
-            <div class="nav-step"><div class="step-num">↓</div><span>尋找 <b>Royal Park Hotel Iconic Nagoya</b></span></div>
-            <div class="nav-step"><div class="step-num">↓</div><span>搭乘<b>飯店專用電梯</b></span></div>
-            <div class="nav-step"><div class="step-num">↓</div><span>Lobby 辦理入住</span></div>
-          </div>
-          <div class="focus-box">💡 地下街迷路直接上地面找：<b>名古屋電視塔（MIRAI TOWER）</b></div>
-        </div>
-      </details>
-
-      <div class="food-box">🍙 <b>宵夜：</b>Lawson 炸雞、7-11 飯糰、布丁。超商就夠。</div>
-      <div class="warning-box" style="font-size:12.5px;">⚠️ <b>先完成 Check-in，再考慮宵夜或逛街。</b></div>
+      <div class="food-box" style="margin-top:9px;">🍙 <b>宵夜：</b>Lawson 炸雞、7-11 飯糰、布丁。超商就夠了。</div>
+      <div class="warning-box">⚠️ <b>先完成 Check-in，再考慮宵夜。</b>今天沒有其他任務。</div>
+      <div class="focus-box">🚕 <b>機場直達飯店備案：</b>約 12,000～15,000 円（疲憊時直接喊計程車）</div>
       <div class="btn-group">
         <a class="btn" target="_blank" href="https://maps.google.com/?q=Royal+Park+Hotel+Iconic+Nagoya">🗺 飯店導航</a>
+        <button class="btn secondary" onclick="openModal('trafficModal')">🚇 交通教學</button>
       </div>
+
+      <details class="custom-details" style="margin-top:12px;">
+        <summary>🎯 Day 1 成功條件</summary>
+        <div class="details-content">
+          <div class="success-box" style="line-height:2.1;">
+            ✔ 抵達飯店 ✔ 完成 Check-in<br>
+            ✔ 買到宵夜 ✔ 洗澡睡覺<br>
+            <span class="sub-text">今天沒有其他任務。</span>
+          </div>
+        </div>
+      </details>
     </div>
 
   </div>
 </div>
 
-<!-- ══════════════ PAGE 2：6/12 ══════════════ -->
 <div class="page" id="p2">
   <div id="banner2"></div>
+  <div class="day-stats">
+    <span>🚶 步數：中</span><span class="sep">|</span>
+    <span>🧠 腦力：中</span><span class="sep">|</span>
+    <span>🍜 大須亂吃</span><span class="sep">|</span>
+    <span>☔ 雨天影響：中</span>
+  </div>
+  <div class="timeline">
+
+    <div class="event">
+      <div class="time">08:30</div>
+      <div class="title">☕ 早餐小旅程：Conpal（コンパル）</div>
+      <div class="focus-box" style="line-height:1.8;">
+        <b>名古屋老派喫茶店文化</b><br>
+        <span class="sub-text">昨日晚睡，今天 08:00 再起床即可。推薦名物炸蝦三明治，悠閒吃完再去搭車。</span>
+      </div>
+    </div>
+
+    <div class="event">
+      <div class="time">10:00</div>
+      <div class="title">樂高樂園 & SEA LIFE <span class="fee">~7,000円</span></div>
+      <details class="custom-details">
+        <summary>🧱 展開樂高樂園詳情</summary>
+        <div class="details-content">
+          <div class="nav-box">📍 Google Maps 搜尋：<b>「LEGOLAND Japan」</b><br><span class="sub-text">終點：金城ふ頭站（Aonami Line）</span></div>
+          <div class="focus-box">⏱ <b>建議停留 4～5 小時</b>，15:00 左右離開即可。</div>
+          <div class="warning-box" style="font-size:12.5px;">⚠️ 本次重點是散步與拍照：✔ Miniland ✔ 建築模型 ✔ SEA LIFE<br><span class="sub-text">不必執著玩遍所有設施。平日來空間感極佳。</span></div>
+          <div class="focus-box">🔭 Miniland 建築比例還原、SEA LIFE 數位互動照明。兩處相鄰，不需大移動。</div>
+          <div class="food-box">🍔 樂園餐點偏貴，可錯峰吃飯避免排隊。</div>
+        </div>
+      </details>
+      <div class="btn-group">
+        <a class="btn" target="_blank" href="https://maps.google.com/?q=Legoland+Japan">🗺 樂高樂園導航</a>
+      </div>
+    </div>
+
+    <div class="event">
+      <div class="time">15:00</div>
+      <div class="title">前往大須商店街</div>
+      <div class="nav-box">📍 Google Maps 搜尋：<b>「大須觀音」</b><br><span class="sub-text">金城ふ頭 → 名古屋 → 上前津，約 45～60 分鐘。</span></div>
+      <div class="warning-box" style="font-size:12.5px;">⚠️ <b>大須店家普遍較早打烊。</b>16:00 前抵達最舒服，17:00 後部分店家開始收攤。</div>
+    </div>
+
+    <div class="event">
+      <div class="time">16:00</div>
+      <div class="title">大須商店街</div>
+      <div class="food-box">
+        🍢 <b>大須亂吃原則</b><br>
+        ✔ 章魚燒 ✔ 唐揚雞 ✔ 鯛魚燒<br>
+        ✔ 炸肉餅 ✔ 抹茶甜點<br>
+        <span class="sub-text">不要追名店。看到想吃就買。</span>
+      </div>
+      <div class="focus-box" style="font-size:12.5px;line-height:1.9;">
+        💡 <b>今天沒有時間壓力。</b>喜歡就停下來看看。
+      </div>
+      <div class="btn-group">
+        <a class="btn" target="_blank" href="https://maps.google.com/?q=Osu+Shopping+Street+Nagoya">🗺 大須導航</a>
+      </div>
+    </div>
+
+    <div class="event">
+      <div class="time">19:00</div>
+      <div class="title">🍲 返回榮商圈 ＆ 土鍋扣庫存</div>
+      <div class="nav-box" style="margin-top:9px;">🏨 <b>返回飯店周邊：</b>Google Maps 搜尋 <b>「榮站」</b></div>
+      <div class="food-box">
+        🍺 <b>晚餐：</b> 於榮商圈自由選擇（如：世界の山ちゃん 或 矢場とん）。
+      </div>
+      
+      <div class="tactic-box">
+        <b>⚡ 實戰戰術（必做）</b><br>
+        晚餐後步行至榮商圈電器行（Bic Camera 榮店或附近廚具行），<b>確認 JPG-X100 土鍋庫存並先結帳，約定 Day 5 再提貨。</b>
+      </div>
+      <div class="warning-box" style="font-size:12.5px;">
+        ⚠️ <b>為什麼現在要做？</b><br>
+        高階土鍋容易缺貨。若拖到 Day 5 中午才去買，萬一沒貨，連跑去名古屋站調貨的時間都沒有。<br>
+        <b>今晚扣住庫存 → Day 5 才能優雅去機場。</b>
+      </div>
+    </div>
+
+    <details class="custom-details">
+      <summary>🎯 Day 2 成功條件</summary>
+      <div class="details-content">
+        <div class="success-box" style="line-height:2.1;">
+          ✔ 樂高樂園 ✔ SEA LIFE<br>
+          ✔ 大須散策 ✔ <b>土鍋庫存已扣住</b><br>
+          <span class="sub-text">今天就是成功的一天。</span>
+        </div>
+      </div>
+    </details>
+
+  </div>
+</div>
+
+<div class="page" id="p3">
+  <div id="banner3"></div>
   <div class="day-stats">
     <span>🚶 步數：高</span><span class="sep">|</span>
     <span>🧠 腦力：高</span><span class="sep">|</span>
     <span>🍜 味噌豬排</span><span class="sep">|</span>
     <span>☔ 雨天影響：低</span>
   </div>
+  
   <div class="timeline">
 
     <div class="event">
@@ -464,7 +612,6 @@ html,body{background:linear-gradient(180deg,#0f1115 0%,#151821 100%) !important;
     <div class="event">
       <div class="time">09:30</div>
       <div class="title">名古屋城 <span class="fee">500円</span></div>
-      
       <details class="custom-details">
         <summary>🏯 展開名古屋城詳情</summary>
         <div class="details-content">
@@ -477,12 +624,11 @@ html,body{background:linear-gradient(180deg,#0f1115 0%,#151821 100%) !important;
           <div class="focus-box">🔭 <b>重點：</b>本丸御殿榫接木造工法、石垣堆疊結構、金鯱工藝。</div>
           <div class="food-box">
             🍱 <b>午餐（擇一即可）</b><br>
-            ① <b>金鯱橫丁</b>　最順路<br>
-            ② <b>矢場とん</b>　名古屋代表味噌豬排
+            ① <b>金鯱橫丁</b> 最順路<br>
+            ② <b>矢場とん</b> 名古屋代表味噌豬排
           </div>
         </div>
       </details>
-      
       <div class="btn-group">
         <a class="btn" target="_blank" href="https://maps.google.com/?q=Nagoya+Castle">🗺 名古屋城導航</a>
       </div>
@@ -491,14 +637,13 @@ html,body{background:linear-gradient(180deg,#0f1115 0%,#151821 100%) !important;
     <div class="event">
       <div class="time">13:30</div>
       <div class="title">豐田產業技術紀念館 <span class="badge">必去</span><span class="fee">500円</span></div>
-      
       <details class="custom-details">
         <summary>🚗 展開豐田館詳情與交通</summary>
         <div class="details-content">
           <div class="taxi-card">
             🚕 <b>從名古屋城直接搭計程車（約 1,500 円）</b>
             <div class="taxi-jp">トヨタ産業技術記念館へお願いします</div>
-            <div class="sub-text" style="margin-top:5px;">2～4 人分攤很划算，比轉車更省體力。</div>
+            <div class="sub-text" style="margin-top:5px;">2～4 人分攤很划算，比週末轉車更省體力。</div>
           </div>
           <div class="focus-box">⏱ <b>建議停留 3～4 小時。</b>機械、汽車、製造業愛好者可能停留更久。</div>
           <div class="focus-box">🔧 <b>重點：</b>自動織布機邏輯、引擎剖面、懸吊與沖壓結構。</div>
@@ -506,7 +651,6 @@ html,body{background:linear-gradient(180deg,#0f1115 0%,#151821 100%) !important;
           <div class="food-box">☕ 資訊量很大，中途務必補水休息。</div>
         </div>
       </details>
-      
       <div class="btn-group">
         <a class="btn" target="_blank" href="https://maps.google.com/?q=Toyota+Commemorative+Museum+of+Industry+and+Technology">🗺 豐田館導航</a>
       </div>
@@ -518,107 +662,26 @@ html,body{background:linear-gradient(180deg,#0f1115 0%,#151821 100%) !important;
       <div class="nav-box">📍 Google Maps 搜尋：<b>「榮站」</b>，依導航返回即可。</div>
       <div class="food-box">
         🍺 <b>晚餐（擇一即可）</b><br>
-        ① 世界の山ちゃん（名古屋雞翅）<br>
-        ② 矢場とん（味噌豬排）<br>
-        ③ CoCo壱番屋（快速補充體力）
+        於榮商圈自由選擇。
       </div>
     </div>
 
-  </div>
-</div>
-
-<!-- ══════════════ PAGE 3：6/13 ══════════════ -->
-<div class="page" id="p3">
-  <div id="banner3"></div>
-  <div class="day-stats">
-    <span>🚶 步數：中</span><span class="sep">|</span>
-    <span>🧠 腦力：中</span><span class="sep">|</span>
-    <span>🍜 大須亂吃</span><span class="sep">|</span>
-    <span>☔ 雨天影響：中</span>
-  </div>
-  
-  <div class="warning-box" style="margin-bottom:18px;font-size:13px;line-height:1.9;">
-    🔄 <b>機動方案</b><br>
-    若 Day 1 抵達後團隊狀態良好，<b style="color:#c53030;">Day 2 ↔ Day 3 可互換。</b><br>
-    原則：樂高放平日、大須放週六，體驗品質最佳。
-  </div>
-
-  <div class="timeline">
-
-    <div class="event">
-      <div class="time">07:30</div>
-      <div class="title">☕ 早餐小旅程：Conpal</div>
-      <div class="focus-box" style="line-height:1.8;">
-        <b>名古屋老派喫茶店文化 (コンパル)</b><br>
-        <span class="sub-text">推薦名物炸蝦三明治 (エビフライサンド)，濃郁的昭和風情。大須商圈內有分店，亦可至榮地下街尋找。</span>
-      </div>
-    </div>
-
-    <div class="event">
-      <div class="time">09:00</div>
-      <div class="title">樂高樂園 & SEA LIFE <span class="fee">~7,000円</span></div>
-      
-      <details class="custom-details">
-        <summary>🧱 展開樂高樂園詳情</summary>
-        <div class="details-content">
-          <div class="nav-box">
-            📍 Google Maps 搜尋：<b>「LEGOLAND Japan」</b><br>
-            <span class="sub-text">依導航搭車即可。終點：金城ふ頭站（Aonami Line）</span>
-          </div>
-          <div class="focus-box">⏱ <b>建議停留 4～6 小時</b>，15:00 左右離開即可。</div>
-          <div class="warning-box" style="font-size:12.5px;">
-            ⚠️ <b>導遊提醒：</b>樂高樂園以親子客為主。本次重點：<br>
-            ✔ Miniland　✔ 建築模型　✔ SEA LIFE<br>
-            <span style="font-size:12px;">不必執著玩遍所有設施。</span>
-          </div>
-          <div class="focus-box">🔭 <b>重點：</b>Miniland 建築比例還原、SEA LIFE 數位互動照明。兩處相鄰，不需大移動。</div>
-          <div class="food-box">🍔 樂園餐點偏貴，可錯峰吃飯避免排隊。</div>
+    <details class="custom-details">
+      <summary>🎯 Day 3 成功條件</summary>
+      <div class="details-content">
+        <div class="success-box" style="line-height:2.1;">
+          ✔ 名古屋城<br>
+          ✔ 豐田產業技術紀念館<br>
+          ✔ 吃到味噌料理<br>
+          ✔ 平安回到榮站<br>
+          <span class="sub-text">今天就是成功的一天。</span>
         </div>
-      </details>
-      
-      <div class="btn-group">
-        <a class="btn" target="_blank" href="https://maps.google.com/?q=Legoland+Japan">🗺 樂高樂園導航</a>
       </div>
-    </div>
-
-    <div class="event">
-      <div class="time">15:00</div>
-      <div class="title">前往大須商店街</div>
-      <div class="nav-box">
-        📍 Google Maps 搜尋：<b>「大須觀音」</b><br>
-        <span class="sub-text">依導航搭車。金城ふ頭 → 名古屋 → 上前津，約 45～60 分鐘。</span>
-      </div>
-      <div class="warning-box" style="font-size:12.5px;">⚠️ <b>大須店家普遍較早打烊。</b>16:00 前抵達最舒服，17:00 後部分店家開始收攤。</div>
-    </div>
-
-    <div class="event">
-      <div class="time">16:00</div>
-      <div class="title">大須商店街</div>
-      <div class="food-box">
-        🍢 <b>大須亂吃原則</b><br>
-        ✔ 章魚燒　✔ 唐揚雞　✔ 鯛魚燒<br>
-        ✔ 炸肉餅　✔ 抹茶甜點<br>
-        <span style="font-size:12px;">不要追名店。看到想吃就買。</span>
-      </div>
-      <div class="food-box">🍜 <b>晚餐自由模式：</b>大須亂吃即可，不必特別安排餐廳。</div>
-      <div class="focus-box" style="font-size:12.5px;line-height:1.9;">
-        💡 <b>Day 3 氣氛日</b><br>
-        今天沒有時間壓力。<br>
-        喜歡就停下來看看。
-      </div>
-      <div class="nav-box" style="margin-top:9px;">
-        🏨 <b>返回飯店</b><br>
-        📍 Google Maps 搜尋：<b>「Royal Park Hotel Iconic Nagoya」</b>，依導航返回即可。
-      </div>
-      <div class="btn-group">
-        <a class="btn" target="_blank" href="https://maps.google.com/?q=Osu+Shopping+Street+Nagoya">🗺 大須導航</a>
-      </div>
-    </div>
+    </details>
 
   </div>
 </div>
 
-<!-- ══════════════ PAGE 4：6/14 ══════════════ -->
 <div class="page" id="p4">
   <div id="banner4"></div>
   <div class="day-stats">
@@ -629,72 +692,37 @@ html,body{background:linear-gradient(180deg,#0f1115 0%,#151821 100%) !important;
   </div>
   <div class="warning-box" style="margin-bottom:12px;font-size:13px;line-height:1.9;">
     ⚠️ <b>Day 4 為本次最燒腦行程</b><br>
-    磁浮鐵道館 ＋ 名古屋市科學館，皆屬高資訊密度景點。<br>
+    名古屋市科學館 ＋ 磁浮鐵道館，皆屬高資訊密度展館。<br>
     務必安排休息與補水，不要硬撐。
   </div>
   <div class="timeline">
 
     <div class="event">
       <div class="time">08:30</div>
-      <div class="title">☕ 早餐小旅程：Kato Coffee</div>
+      <div class="title">☕ 早餐小旅程：Kato Coffee（加藤珈琲店）</div>
       <div class="focus-box" style="line-height:1.8;">
         <b>職人咖啡 × 科技日前的腦力補給</b><br>
-        <span class="sub-text">以自家烘焙咖啡豆聞名，享受高水準的咖啡體驗，為今日燒腦行程儲備能量。位於久屋大通站附近 (加藤珈琲店)。</span>
+        <span class="sub-text">自家烘焙豆，享受高水準咖啡體驗。位於久屋大通站附近，吃完前往伏見科學館非常順路。</span>
       </div>
     </div>
 
     <div class="event">
-      <div class="time">10:00</div>
-      <div class="title">磁浮鐵道館 <span class="badge">路線 B</span><span class="fee">1,000円</span></div>
-      
-      <details class="custom-details">
-        <summary>🚄 展開鐵道館詳情</summary>
-        <div class="details-content">
-          <div class="nav-box">
-            📍 Google Maps 搜尋：<b>「リニア・鉄道館」</b>（或 SCMAGLEV and Railway Park）<br>
-            <span class="sub-text">依導航搭車即可。終點：金城ふ頭站（あおなみ線 / Aonami Line）</span>
-          </div>
-          <div class="focus-box">⏱ <b>建議停留 3～4 小時。</b>鐵道迷可能更久。</div>
-          <div class="focus-box">🚄 <b>重點：</b>超導磁浮、轉向架機械工程、氣動設計。<br>💡 館內 Wi-Fi 可使用免費中文語音導覽。</div>
-          <div class="warning-box" style="font-size:12.5px;">⚠️ <b>建議 13:00 前離開磁浮館</b>，避免壓縮科學館參觀時間。</div>
-        </div>
-      </details>
-      
-      <div class="btn-group">
-        <a class="btn" target="_blank" href="https://maps.google.com/?q=SCMAGLEV+and+Railway+Park">🗺 鐵道館導航</a>
-      </div>
-    </div>
-
-    <div class="event">
-      <div class="time">13:00</div>
-      <div class="title">前往名古屋市科學館</div>
-      <div class="nav-box">
-        📍 Google Maps 搜尋：<b>「名古屋市科学館」</b><br>
-        <span class="sub-text">依導航搭車即可。金城ふ頭 → 伏見站，約 30～40 分鐘。</span>
-      </div>
-    </div>
-
-    <div class="event">
-      <div class="time">14:00</div>
+      <div class="time">09:30</div>
       <div class="title">名古屋市科學館 <span class="fee">800円</span></div>
       <div class="exit-box">地鐵伏見站 4 號出口</div>
-      
-      <div class="warning-box" style="font-size:13px;line-height:1.8;margin-top:10px;">
-        ⚠️ <b>抵達科學館第一件事：先確認天文館場次！</b><br>
-        <span style="color:#c53030;">熱門場次極易額滿，請優先購票劃位。</span>
+
+      <div class="warning-box" style="font-size:13px;line-height:1.9;margin-top:10px;border-left-color:#ef4444;">
+        🚨 <b>進門第一秒：全團直衝天文館售票口！</b><br>
+        <span style="color:#ff9c9c;">如果想體驗世界最大球體天文館，進門直接買票劃位。</span><br>
+        早上剛開館是保證拿到票的最佳時機，無壓力搶位。
       </div>
 
       <details class="custom-details" style="margin-top:12px;">
         <summary>🌌 展開科學館詳情</summary>
         <div class="details-content">
-          <div class="focus-box">⏱ <b>建議停留 2～3 小時。</b>資訊量非常大，不要試圖全部看完。</div>
-          <div class="warning-box" style="font-size:12.5px;">⚠️ <b>16:30 最後入館，17:00 閉館。</b>不要在磁浮館超時。<br><span style="font-size:11.5px;color:#aab6c5;">出發前一週建議至官網確認最新營業時間。</span></div>
+          <div class="focus-box">⏱ <b>建議停留 2.5～3 小時。</b>資訊量非常大，不要試圖全部看完。</div>
           <div class="focus-box">🌌 <b>重點：</b>懸浮球體天文館構造、放電實驗室、極寒實驗。</div>
-          <div class="food-box">
-            ☕ <b>強制回血：Komeda Coffee</b><br>
-            推薦：冰與火（シロノワール）<br>
-            <span style="font-size:12px;">資訊過載時務必休息，不要硬撐。</span>
-          </div>
+          <div class="food-box">☕ <b>強制回血：Komeda Coffee</b>（冰與火 シロノワール）<br><span class="sub-text">在伏見附近休息，資訊過載時務必給腦袋補糖。</span></div>
         </div>
       </details>
       
@@ -704,26 +732,61 @@ html,body{background:linear-gradient(180deg,#0f1115 0%,#151821 100%) !important;
     </div>
 
     <div class="event">
-      <div class="time">17:30</div>
-      <div class="title">返回榮站 × 晚餐</div>
-      <div class="nav-box">
-        📍 Google Maps 搜尋：<b>「榮站」</b>，依導航返回即可。
+      <div class="time">13:00</div>
+      <div class="title">🚇 轉乘與午餐時間</div>
+      <div class="nav-box">📍 伏見站搭地鐵至<b>名古屋站</b>，轉乘<b>青波線（Aonami Line）</b>。<br><span class="sub-text">可於名古屋站周邊吃午餐，或直接前往磁浮館買便當。</span></div>
+    </div>
+
+    <div class="event">
+      <div class="time">14:30</div>
+      <div class="title">磁浮鐵道館 <span class="badge">路線 B</span><span class="fee">1,000円</span></div>
+      
+      <div class="tactic-box" style="margin-bottom:10px;">
+        <b>🍱 實戰戰術：館內鐵道便當</b><br>
+        如果中午還沒吃，直接至館內二樓購買<b>特色鐵道便當（駅弁）</b>，邊休息邊補血。
       </div>
-      <div class="food-box">
-        🍜 <b>晚餐自由模式</b><br>
-        榮商圈自由選擇即可。今天重點不是美食，是腦力消耗。<br>
-        吃飽、休息比什麼都重要。
-      </div>
-      <div class="nav-box" style="margin-top:9px;">
-        🏨 <b>返回飯店</b><br>
-        📍 Google Maps 搜尋：<b>「Royal Park Hotel Iconic Nagoya」</b>，依導航返回即可。
+
+      <details class="custom-details">
+        <summary>🚄 展開鐵道館詳情</summary>
+        <div class="details-content">
+          <div class="nav-box">📍 Google Maps 搜尋：<b>「リニア・鉄道館」</b><br><span class="sub-text">終點：金城ふ頭站（あおなみ線 / Aonami Line）</span></div>
+          <div class="focus-box">⏱ <b>建議停留 2.5～3 小時。</b>下午人潮逐漸減少，更適合專注觀賞。</div>
+          <div class="focus-box">🚄 <b>重點：</b>超導磁浮、轉向架機械工程、氣動設計。<br>💡 館內 Wi-Fi 可使用免費中文語音導覽。</div>
+          <div class="warning-box" style="font-size:12.5px;">⚠️ <b>展館 17:30 閉館</b>，閉館後直接搭車返回市區。</div>
+        </div>
+      </details>
+
+      <div class="btn-group">
+        <a class="btn" target="_blank" href="https://maps.google.com/?q=SCMAGLEV+and+Railway+Park">🗺 鐵道館導航</a>
       </div>
     </div>
+
+    <div class="event">
+      <div class="time">17:30</div>
+      <div class="title">返回榮站 × 晚餐</div>
+      <div class="nav-box">📍 Google Maps 搜尋：<b>「榮站」</b>，依導航搭乘青波線轉地鐵返回即可。</div>
+      <div class="food-box">
+        🍜 <b>晚餐自由模式</b><br>
+        榮商圈自由選擇。今天重點是腦力消耗，吃飽休息比什麼都重要。
+      </div>
+    </div>
+
+    <details class="custom-details">
+      <summary>🎯 Day 4 成功條件</summary>
+      <div class="details-content">
+        <div class="success-box" style="line-height:2.1;">
+          ✔ 名古屋市科學館<br>
+          ✔ 天文館（早起搶票保證班）<br>
+          ✔ 磁浮鐵道館<br>
+          ✔ 保留體力給 Day 5<br>
+          <span class="sub-text">今天就是完美雙館連擊的一天。</span>
+        </div>
+      </div>
+    </details>
 
   </div>
 </div>
 
-<!-- ══════════════ PAGE 5：6/15 ══════════════ -->
 <div class="page" id="p5">
   <div id="banner5"></div>
   <div class="day-stats">
@@ -739,71 +802,62 @@ html,body{background:linear-gradient(180deg,#0f1115 0%,#151821 100%) !important;
       <div class="title">☕ 早餐小旅程：Komeda Morning 再訪</div>
       <div class="focus-box" style="line-height:1.8;">
         <b>最後一次名古屋早餐</b><br>
-        <span class="sub-text">用熟悉的味道為旅程畫下句點，準備迎接今日的採買任務。可在飯店退房前後就近安排。</span>
+        <span class="sub-text">用熟悉的味道為旅程畫下句點，可在退房前後就近安排。</span>
       </div>
     </div>
 
     <div class="event">
-      <div class="time">21:50</div>
-      <div class="title">虎航 IT206　NGO → TPE</div>
-      <div class="warning-box">🚨 <b>最晚撤退：17:30 前離開榮站。</b><br>名鐵班次間隔 + 土鍋整理 + 機場報到 + 安檢排隊。</div>
+      <div class="time">出發前</div>
+      <div class="title">📦 行李最終確認</div>
+      <div class="focus-box" style="line-height:2.1;">
+        ✔ 護照 ✔ 手機 ✔ 錢包<br>
+        ✔ 行動電源（<b>隨身，勿托運</b>）<br>
+        ✔ <b style="color:#ff9c9c;">土鍋（隨身，勿托運）</b><br>
+        ✔ 藥品 ✔ 充電線<br>
+        <span class="sub-text">Day 5 唯一真正會出事的，是東西忘在飯店。</span>
+      </div>
     </div>
 
     <div class="event">
       <div class="time">11:00 ～ 16:30</div>
-      <div class="title">最後採買 × 土鍋任務</div>
-      <div class="focus-box" style="line-height:2.1;">
-        🍲 <b>土鍋任務</b><br>
-        購買後請務必：<br>
-        ✔ 當場檢查是否有裂痕<br>
-        ✔ 保留原包裝<br>
-        ✔ 氣泡紙不要丟<br>
-        ✔ 隨身攜帶上機（<b style="color:#c53030;">⛔ 不要托運</b>）
+      <div class="title">最後採買 × 土鍋提貨</div>
+      <div class="tactic-box">
+        <b>🍲 土鍋提貨（Day 2 已結帳）</b><br>
+        前往 Day 2 結帳的店家取貨。<br>
+        ✔ 當場檢查是否有裂痕 ✔ 保留原包裝 ✔ 氣泡紙不要丟<br>
+        ✔ <b style="color:#ff9c9c;">隨身攜帶上機，絕對不要托運</b>
       </div>
-      <div class="food-box">🍱 <b>今日策略：</b>榮地下街採買、整理行李、機場晚餐。平穩收尾。</div>
+      <div class="food-box">🍱 <b>今日策略：</b>榮地下街採買 → 整理行李 → 機場晚餐。平穩收尾。</div>
     </div>
 
     <div class="event">
       <div class="time">17:30</div>
       <div class="title">前往中部國際機場</div>
-      
-      <details class="custom-details">
+      <div class="warning-box">🚨 <b>最晚撤退：17:30 前離開榮站。</b><br>名鐵班次間隔 + 土鍋重量 + 機場報到 + 安檢排隊。</div>
+
+      <details class="custom-details" style="margin-top:12px;">
         <summary>✈️ 展開機場交通與報到細節</summary>
         <div class="details-content">
           <div class="route-map">
             <div class="route-step">
               <div class="route-icon">🚇</div>
-              <div>
-                <div class="route-line-name">名城線</div>
-                <div class="route-detail">榮站 → 金山站（約 8 分鐘）</div>
-              </div>
+              <div><div class="route-line-name">名城線</div><div class="route-detail">榮站 → 金山站（約 8 分鐘）</div></div>
             </div>
             <div class="route-step">
               <div class="route-icon">🚉</div>
-              <div>
-                <div class="route-line-name">名鐵特急</div>
-                <div class="route-detail">金山 → 中部機場 T2（約 35 分鐘）</div>
-              </div>
+              <div><div class="route-line-name">名鐵特急</div><div class="route-detail">金山 → 中部機場 T2（約 35 分鐘）</div></div>
             </div>
           </div>
           <div class="focus-box" style="font-size:12.5px;">
             💡 <b>名鐵班次說明</b><br>
             μSky（ミュースカイ）需加購 360 円 μ 車票。<br>
-            普通特急不需額外付費。<br>
-            依 Google Maps 指示選擇班次即可。
+            普通特急不需額外付費。依 Google Maps 指示選擇即可。
           </div>
-          <div class="nav-steps">
-            <div class="nav-step"><div class="step-num">1</div><div>榮站搭名城線往金山</div></div>
-            <div class="nav-step"><div class="step-num">2</div><div>金山站轉乘名鐵特急</div></div>
-            <div class="nav-step"><div class="step-num">3</div><div>約 35 分鐘抵達中部國際機場 T2</div></div>
-            <div class="nav-step"><div class="step-num">4</div><div>抵達後立刻完成報到</div></div>
-          </div>
-          <div class="warning-box">⚠️ 名鐵有班次間隔，不要壓線。回程行李更重、精神更疲勞。</div>
-          <div class="focus-box" style="font-size:12.5px;">💡 若錯過預定班次，直接搭下一班即可。不要為了趕車奔跑。</div>
-          <div class="success-box">
+          <div class="warning-box">⚠️ 名鐵有班次間隔，不要壓線。回程行李更重、精神更疲勞。<br>若錯過班次，直接搭下一班，不要為了趕車奔跑。</div>
+          <div class="success-box" style="margin-top:10px;">
             <b>✈️ 機場節奏</b>
             <div class="airport-tl">
-              <div class="airport-row"><span class="airport-time">18:30 左右</span>抵達機場</div>
+              <div class="airport-row"><span class="airport-time">18:30</span>抵達機場</div>
               <div class="airport-row"><span class="airport-time">19:00</span>完成報到</div>
               <div class="airport-row"><span class="airport-time">19:30</span>🍱 機場晚餐 / 最後採買</div>
               <div class="airport-row"><span class="airport-time">20:30</span>安檢</div>
@@ -815,24 +869,47 @@ html,body{background:linear-gradient(180deg,#0f1115 0%,#151821 100%) !important;
       </details>
     </div>
 
+    <div class="event">
+      <div class="time">21:50</div>
+      <div class="title">虎航 IT206 NGO → TPE 🛫</div>
+      <details class="custom-details" style="margin-top:10px;">
+        <summary>🎯 Day 5 成功條件 × 旅程總結</summary>
+        <div class="details-content">
+          <div class="success-box" style="line-height:2.1;">
+            ✔ 土鍋安全上機<br>
+            ✔ 完成報到 ✔ 準時通過安檢<br>
+            ✔ 平安返台<br>
+            <hr class="dashed-divider">
+            <b style="color:var(--success-l);">本次旅程圓滿完成。</b><br>
+            <span class="sub-text">名古屋城 ✔ 豐田館 ✔ 磁浮館 ✔<br>科學館 ✔ 土鍋 ✔ 愉快回憶 ✔</span>
+          </div>
+        </div>
+      </details>
+    </div>
+
   </div>
 </div>
 
-</div><!-- /pages -->
-
-<!-- ── Floating Menu ── -->
-<div class="floating-menu">
-  <button class="float-btn" onclick="openModal('ticketModal')">🎟</button>
-  <button class="float-btn" onclick="openModal('foodModal')">🍜</button>
-  <button class="float-btn" onclick="openModal('trafficModal')">🚇</button>
+</div><div class="floating-menu">
+  <div class="float-btn-wrap">
+    <span class="float-label">購票攻略</span>
+    <button class="float-btn" onclick="openModal('ticketModal')">🎟</button>
+  </div>
+  <div class="float-btn-wrap">
+    <span class="float-label">美食總表</span>
+    <button class="float-btn" onclick="openModal('foodModal')">🍜</button>
+  </div>
+  <div class="float-btn-wrap">
+    <span class="float-label">交通時程</span>
+    <button class="float-btn" onclick="openModal('trafficModal')">🚇</button>
+  </div>
 </div>
 
-<!-- ── Ticket Modal ── -->
 <div id="ticketModal" class="modal">
   <div class="modal-content">
     <span class="close" onclick="closeModal('ticketModal')">×</span>
     <h2>🎟 購票攻略</h2>
-    <p style="font-size:12.5px;color:#aab6c5;margin-top:-6px;margin-bottom:16px;">出發前搞定，行程中不用再研究。</p>
+    <p style="font-size:12.5px;color:var(--text-sub);margin-top:-6px;margin-bottom:16px;">出發前搞定，行程中不用再看。</p>
 
     <div class="ticket-section">
       <h3><span style="background:#ef4444;color:white;border-radius:6px;padding:2px 8px;font-size:11px;">唯一預購項目</span></h3>
@@ -842,65 +919,61 @@ html,body{background:linear-gradient(180deg,#0f1115 0%,#151821 100%) !important;
           <div class="ticket-name">🧱 樂高樂園 + SEA LIFE</div>
           <div class="ticket-note">
             建議於 KKday / Klook 預購。<br>
-            ✔ 週末票價較高　✔ QR Code 直接入園　✔ 不用現場排隊<br><br>
-            <b style="color:#c53030;">⚠️ 若 Day 2 / Day 3 可能對調</b><br>
-            請於 6/11 晚上確認後再購買。
+            ✔ 票價較便宜 ✔ QR Code 直接入園 ✔ 不用排隊<br><br>
+            <b style="color:#ff9c9c;">💡 機動方案確認後再買：</b><br>
+            決定 Day 2 或 Day 3 去樂高後，立刻線上刷卡購票即可。
           </div>
         </div>
       </div>
     </div>
 
     <div class="ticket-section">
-      <h3><span style="background:#10b981;color:white;border-radius:6px;padding:2px 8px;font-size:11px;">現場購買即可</span></h3>
+      <h3><span style="background:var(--green);color:white;border-radius:6px;padding:2px 8px;font-size:11px;">現場購買即可</span></h3>
       <div class="ticket-row">
         <div class="ticket-dot dot-green"></div>
         <div>
-          <div class="ticket-name" style="line-height:1.8;">
-            🏯 名古屋城　500円<br>
-            🏭 豐田產業技術紀念館　500円<br>
-            🚄 磁浮鐵道館　1,000円<br>
-            🌌 名古屋市科學館　800円
+          <div class="ticket-name" style="line-height:1.9;">
+            🏯 名古屋城 500円<br>
+            🏭 豐田產業技術紀念館 500円<br>
+            🚄 磁浮鐵道館 1,000円<br>
+            🌌 名古屋市科學館 800円
           </div>
+          <div class="ticket-note">無排隊壓力，現場購票即可。</div>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ── Traffic & Schedule Modal ── -->
 <div id="trafficModal" class="modal">
   <div class="modal-content">
     <span class="close" onclick="closeModal('trafficModal')">×</span>
     <h2>🚇 交通與時程</h2>
 
     <div class="ticket-section">
-      <h3><span style="background:#8b5cf6;color:white;border-radius:6px;padding:2px 8px;font-size:11px;">交通策略與預估</span></h3>
+      <h3><span style="background:#8b5cf6;color:white;border-radius:6px;padding:2px 8px;font-size:11px;">交通策略</span></h3>
       <div class="focus-box" style="font-size:13px;line-height:1.9;">
-        <b>iPhone Wallet 加入 Suica / ICOCA</b><br>
-        全程直接刷卡即可。<br><br>
-        本次行程包含：<br>
-        ✔ 名鐵　✔ 地下鐵　✔ 青波線　✔ 計程車<br><br>
-        <div style="border-top:1px dashed rgba(255,255,255,0.2); margin:8px 0;"></div>
-        <b>📊 交通費預估（每人）</b><br>
+        <b>iPhone Wallet 加入 Suica / ICOCA</b>，全程直接刷卡。<br>
+        本次行程包含：✔ 名鐵 ✔ 地下鐵 ✔ 青波線 ✔ 計程車<br>
+        <hr class="dashed-divider">
+        <b>📊 交通費預估（每人）</b>
         <table class="fare-table">
           <tr><td class="fare-day">Day 1</td><td class="fare-route">機場→金山→榮</td><td class="fare-price">約 1,220 円</td></tr>
-          <tr><td class="fare-day">Day 2</td><td class="fare-route">榮→名古屋城 / 豐田館→榮</td><td class="fare-price">約 460 円</td></tr>
-          <tr><td class="fare-day">Day 3</td><td class="fare-route">榮↔樂高 / 大須→榮</td><td class="fare-price">約 1,400 円</td></tr>
-          <tr><td class="fare-day">Day 4</td><td class="fare-route">榮↔磁浮館 / 伏見→榮</td><td class="fare-price">約 1,350 円</td></tr>
+          <tr><td class="fare-day">Day 2</td><td class="fare-route">榮↔樂高 / 大須→榮</td><td class="fare-price">約 1,400 円</td></tr>
+          <tr><td class="fare-day">Day 3</td><td class="fare-route">榮→名古屋城 / 豐田館→榮</td><td class="fare-price">約 460 円</td></tr>
+          <tr><td class="fare-day">Day 4</td><td class="fare-route">榮→伏見 / 伏見↔磁浮館 / 磁浮館→榮</td><td class="fare-price">約 1,350 円</td></tr>
           <tr><td class="fare-day">Day 5</td><td class="fare-route">榮→金山→機場</td><td class="fare-price">約 1,220 円</td></tr>
-          <tr><td colspan="3" style="border-top:1px solid rgba(255,255,255,0.1); padding-top:6px; text-align:right; font-weight:bold; color:#ff9b5e;">總計約 5,650 円</td></tr>
+          <tr><td colspan="3" style="padding-top:8px;text-align:right;font-weight:900;color:var(--food-l);">總計約 5,650 円</td></tr>
         </table>
-        <div style="border-top:1px dashed rgba(255,255,255,0.2); margin:8px 0;"></div>
-        <b>🚕 計程車預估</b><br>
-        名古屋城 → 豐田館 約 1,500 円/車 (2~4人分攤)<br>
-        <div style="border-top:1px dashed rgba(255,255,255,0.2); margin:8px 0;"></div>
-        <b>💳 Suica 建議儲值：10,000 円</b><br>
-        實際車資約 6,000 円。剩餘金額可用於：<br>
-        超商、自動販賣機、餐廳，Day 5 機場保證能花完。<br>
-        <div style="background:rgba(255,112,112,0.1);border:1px solid #ff7070;border-radius:8px;padding:10px;margin-top:12px;">
+        <hr class="dashed-divider">
+        🚕 <b>計程車預估</b>：名古屋城 → 豐田館 約 1,500 円/車（2~4人分攤）<br>
+        <hr class="dashed-divider">
+        💳 <b>Suica 建議儲值：10,000 円</b><br>
+        實際車資約 6,000 円。剩餘可用於超商、自販機、餐廳，Day 5 機場保證花完。
+        <div style="background:var(--red-soft);border:1px solid var(--warn-l);border-radius:8px;padding:10px;margin-top:12px;font-size:12.5px;">
           <b style="color:#ff9c9c;">⚠️ 本次行程不適合研究票券</b><br>
           地下鐵券不划算 / Me~guru 不適用 / JR Pass 不需要。<br>
-          <span style="font-weight:900;font-size:14px;">Suica + Google Maps 就是唯一正解。</span>
+          <b style="font-size:13.5px;">Suica + Google Maps 就是唯一正解。</b>
         </div>
       </div>
     </div>
@@ -908,45 +981,13 @@ html,body{background:linear-gradient(180deg,#0f1115 0%,#151821 100%) !important;
     <div class="ticket-section" style="margin-top:20px;">
       <h3><span style="background:#214949;color:white;border-radius:6px;padding:2px 8px;font-size:11px;">五天卡點時間表</span></h3>
       <table class="checkpoint-table">
-        <thead>
-          <tr>
-            <th>日期</th>
-            <th>目標</th>
-            <th>最晚撤退</th>
-            <th>防呆提醒</th>
-          </tr>
-        </thead>
+        <thead><tr><th>日期</th><th>目標</th><th>最晚撤退</th><th>防呆提醒</th></tr></thead>
         <tbody>
-          <tr>
-            <td class="ck-date">6/11<br>四</td>
-            <td>Day 1<br>機場撤退</td>
-            <td class="ck-time">22:00<br>回飯店</td>
-            <td class="ck-note">超商宵夜是其次，先搞定房間。</td>
-          </tr>
-          <tr>
-            <td class="ck-date">6/12<br>五</td>
-            <td>Day 2<br>名古屋城</td>
-            <td class="ck-time">12:30<br>前離開</td>
-            <td class="ck-note">避免壓縮豐田館黃金參觀時間。</td>
-          </tr>
-          <tr>
-            <td class="ck-date">6/13<br>六</td>
-            <td>Day 3<br>大須</td>
-            <td class="ck-time">16:00<br>前抵達</td>
-            <td class="ck-note">17:00 後部分攤位開始收攤。</td>
-          </tr>
-          <tr>
-            <td class="ck-date">6/14<br>日</td>
-            <td>Day 4<br>科學館</td>
-            <td class="ck-time">16:30<br>最後入館</td>
-            <td class="ck-note">17:00 準時閉館。</td>
-          </tr>
-          <tr>
-            <td class="ck-date">6/15<br>一</td>
-            <td>Day 5<br>總撤退</td>
-            <td class="ck-time">17:30<br>離開榮站</td>
-            <td class="ck-note">留足時間給名鐵、土鍋整理與安檢。</td>
-          </tr>
+          <tr><td class="ck-date">6/11<br>四</td><td>Day 1<br>機場撤退</td><td class="ck-time">22:00<br>回飯店</td><td class="ck-note">超商宵夜是其次，先搞定房間。</td></tr>
+          <tr><td class="ck-date">6/12<br>五</td><td>Day 2<br>樂高大須</td><td class="ck-time">16:00<br>前抵達大須</td><td class="ck-note">17:00 後部分攤位開始收攤。</td></tr>
+          <tr><td class="ck-date">6/13<br>六</td><td>Day 3<br>城與豐田</td><td class="ck-time">12:30<br>前離城</td><td class="ck-note">避免壓縮豐田館黃金參觀時間。</td></tr>
+          <tr><td class="ck-date">6/14<br>日</td><td>Day 4<br>科學與磁浮</td><td class="ck-time">12:30<br>科學館撤退</td><td class="ck-note">17:30 磁浮鐵道館閉館。</td></tr>
+          <tr><td class="ck-date">6/15<br>一</td><td>Day 5<br>總撤退</td><td class="ck-time">17:30<br>離開榮站</td><td class="ck-note">留足時間給名鐵、土鍋整理與安檢。</td></tr>
         </tbody>
       </table>
     </div>
@@ -954,14 +995,14 @@ html,body{background:linear-gradient(180deg,#0f1115 0%,#151821 100%) !important;
     <div class="ticket-section" style="margin-top:20px;">
       <h3><span style="background:#173434;color:white;border-radius:6px;padding:2px 8px;font-size:11px;">✈️ 機場進出重點</span></h3>
       <div class="ticket-row">
-        <div class="ticket-dot" style="background:#8fc2ff;"></div>
+        <div class="ticket-dot" style="background:var(--accent);"></div>
         <div>
           <div class="ticket-name">Day 1：金山轉乘最輕鬆</div>
-          <div class="ticket-note">機場搭「名鐵」至金山站，直接站內轉乘「地鐵名城線」至榮站。不要去名古屋站人擠人。</div>
+          <div class="ticket-note">機場搭「名鐵」至金山站，站內轉乘「地鐵名城線」至榮站。不要去名古屋站人擠人。</div>
         </div>
       </div>
       <div class="ticket-row">
-        <div class="ticket-dot" style="background:#8fc2ff;"></div>
+        <div class="ticket-dot" style="background:var(--accent);"></div>
         <div>
           <div class="ticket-name">Day 5：提前抵達機場</div>
           <div class="ticket-note">提著土鍋與戰利品移動較慢。機場 T2 有充足時間吃晚餐。</div>
@@ -971,226 +1012,112 @@ html,body{background:linear-gradient(180deg,#0f1115 0%,#151821 100%) !important;
   </div>
 </div>
 
-<!-- ── Food Modal ── -->
 <div id="foodModal" class="modal">
   <div class="modal-content">
     <span class="close" onclick="closeModal('foodModal')">×</span>
     <h2>🍜 早晚餐總表</h2>
-    
+
     <div class="ticket-section">
-      <h3><span style="background:#f59e0b;color:white;border-radius:6px;padding:2px 8px;font-size:11px;">☕ 早餐小旅程</span></h3>
-      <div class="ticket-row">
-        <div class="ticket-dot dot-yellow"></div>
-        <div>
-          <div class="ticket-name">Day 2 ｜ Komeda Morning</div>
-          <div class="ticket-note">榮商圈周邊。第一次體驗名古屋 Morning Service。</div>
-        </div>
-      </div>
-      <div class="ticket-row">
-        <div class="ticket-dot dot-yellow"></div>
-        <div>
-          <div class="ticket-name">Day 3 ｜ Conpal (コンパル)</div>
-          <div class="ticket-note">大須商圈或榮地下街。體驗名古屋老派喫茶店文化。</div>
-        </div>
-      </div>
-      <div class="ticket-row">
-        <div class="ticket-dot dot-yellow"></div>
-        <div>
-          <div class="ticket-name">Day 4 ｜ Kato Coffee (加藤珈琲店)</div>
-          <div class="ticket-note">久屋大通站附近。職人自家烘焙咖啡，科技日腦力補給。</div>
-        </div>
-      </div>
-      <div class="ticket-row">
-        <div class="ticket-dot dot-yellow"></div>
-        <div>
-          <div class="ticket-name">Day 5 ｜ Komeda Morning 再訪</div>
-          <div class="ticket-note">飯店退房前後就近安排。為旅程畫下句點。</div>
-        </div>
-      </div>
+      <h3><span style="background:var(--amber);color:white;border-radius:6px;padding:2px 8px;font-size:11px;">☕ 早餐小旅程</span></h3>
+      <div class="ticket-row"><div class="ticket-dot dot-yellow"></div><div><div class="ticket-name">Day 2 ｜ Conpal（コンパル）</div><div class="ticket-note">榮地下街或大須。炸蝦三明治，名古屋老派喫茶店文化。</div></div></div>
+      <div class="ticket-row"><div class="ticket-dot dot-yellow"></div><div><div class="ticket-name">Day 3 ｜ Komeda Morning</div><div class="ticket-note">榮商圈周邊。第一次體驗名古屋 Morning Service。</div></div></div>
+      <div class="ticket-row"><div class="ticket-dot dot-yellow"></div><div><div class="ticket-name">Day 4 ｜ Kato Coffee（加藤珈琲店）</div><div class="ticket-note">久屋大通站附近。職人自家烘焙咖啡，科技日腦力補給。</div></div></div>
+      <div class="ticket-row"><div class="ticket-dot dot-yellow"></div><div><div class="ticket-name">Day 5 ｜ Komeda Morning 再訪</div><div class="ticket-note">退房前後就近安排，為旅程畫下句點。</div></div></div>
     </div>
 
     <div class="ticket-section">
       <h3><span style="background:#ef4444;color:white;border-radius:6px;padding:2px 8px;font-size:11px;">🍽 晚餐地圖</span></h3>
-      <div class="ticket-row">
-        <div class="ticket-dot dot-red"></div>
-        <div>
-          <div class="ticket-name">Day 1 ｜ 超商宵夜</div>
-          <div class="ticket-note">Lawson 炸雞、7-11 飯糰或布丁。先 Check-in 為主。</div>
-        </div>
-      </div>
-      <div class="ticket-row">
-        <div class="ticket-dot dot-red"></div>
-        <div>
-          <div class="ticket-name">Day 2 ｜ 榮商圈自由選</div>
-          <div class="ticket-note">世界の山ちゃん (雞翅) / 矢場とん (味噌豬排) / CoCo壱番屋。</div>
-        </div>
-      </div>
-      <div class="ticket-row">
-        <div class="ticket-dot dot-red"></div>
-        <div>
-          <div class="ticket-name">Day 3 ｜ 大須亂吃模式</div>
-          <div class="ticket-note">章魚燒、鯛魚燒、唐揚雞。不必特別安排餐廳。</div>
-        </div>
-      </div>
-      <div class="ticket-row">
-        <div class="ticket-dot dot-red"></div>
-        <div>
-          <div class="ticket-name">Day 4 ｜ 榮商圈回血</div>
-          <div class="ticket-note">自由選擇。重點是腦力消耗後的休息與吃飽。</div>
-        </div>
-      </div>
-      <div class="ticket-row">
-        <div class="ticket-dot dot-red"></div>
-        <div>
-          <div class="ticket-name">Day 5 ｜ 機場晚餐</div>
-          <div class="ticket-note">抵達中部國際機場後用餐，避免在市區趕時間。</div>
-        </div>
-      </div>
+      <div class="ticket-row"><div class="ticket-dot dot-red"></div><div><div class="ticket-name">Day 1 ｜ 超商宵夜</div><div class="ticket-note">Lawson 炸雞、7-11 飯糰或布丁。先 Check-in 為主。</div></div></div>
+      <div class="ticket-row"><div class="ticket-dot dot-red"></div><div><div class="ticket-name">Day 2 ｜ 榮商圈自由選 & 土鍋預購</div><div class="ticket-note">世界の山ちゃん / 矢場とん 等。餐後執行土鍋扣庫存任務。</div></div></div>
+      <div class="ticket-row"><div class="ticket-dot dot-red"></div><div><div class="ticket-name">Day 3 ｜ 榮商圈自由選</div><div class="ticket-note">回到榮商圈尋找美食，不必特別安排餐廳。</div></div></div>
+      <div class="ticket-row"><div class="ticket-dot dot-red"></div><div><div class="ticket-name">Day 4 ｜ 榮商圈回血</div><div class="ticket-note">自由選擇。今天重點是腦力消耗後的吃飽與休息。</div></div></div>
+      <div class="ticket-row"><div class="ticket-dot dot-red"></div><div><div class="ticket-name">Day 5 ｜ 機場晚餐</div><div class="ticket-note">抵達中部國際機場後用餐，避免在市區趕時間。</div></div></div>
     </div>
 
   </div>
 </div>
 
 <script>
-// ── 日期對應 ──
-const DAY_DATES = {
-  1: '2026-06-11',
-  2: '2026-06-12',
-  3: '2026-06-13',
-  4: '2026-06-14',
-  5: '2026-06-15',
-};
+const DAY_DATES = {1:'2026-06-11',2:'2026-06-12',3:'2026-06-13',4:'2026-06-14',5:'2026-06-15'};
 
-function getToday(){
-  const now = new Date();
-  return now.toISOString().slice(0,10);
-}
+function getToday(){return new Date().toISOString().slice(0,10);}
 
 function getTodayPageIndex(){
   const today = getToday();
-  for(let [day, date] of Object.entries(DAY_DATES)){
-    if(date === today) return parseInt(day);
+  for(let [day,date] of Object.entries(DAY_DATES)){
+    if(date===today) return parseInt(day);
   }
   return null;
 }
 
 function switchTab(idx){
-  document.querySelectorAll('.tab').forEach((t,i) => t.classList.toggle('active', i === idx));
-  document.querySelectorAll('.page').forEach((p,i) => p.classList.toggle('active', i === idx));
-  window.scrollTo({top:0, behavior:'smooth'});
+  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',i===idx));
+  document.querySelectorAll('.page').forEach((p,i)=>p.classList.toggle('active',i===idx));
+  window.scrollTo({top:0,behavior:'smooth'});
 }
 
 function injectBanner(dayNum){
-  const el = document.getElementById('banner'+dayNum);
+  const el=document.getElementById('banner'+dayNum);
   if(!el) return;
-  const today = getToday();
-  const date = DAY_DATES[dayNum];
-  if(date === today){
-    el.innerHTML = `<div class="today-banner">📍 <span><b>今天就是這天！</b> 加油，旅途愉快 🎌</span></div>`;
+  if(DAY_DATES[dayNum]===getToday()){
+    el.innerHTML='<div class="today-banner">📍 <span><b>今天就是這天！</b> 加油，旅途愉快 🎌</span></div>';
   }
 }
 
 function init(){
-  const todayIdx = getTodayPageIndex();
-  // Mark today tab
-  if(todayIdx !== null){
-    const tabs = document.querySelectorAll('.tab');
+  const todayIdx=getTodayPageIndex();
+  for(let d=1;d<=5;d++) injectBanner(d);
+  if(todayIdx!==null){
+    const tabs=document.querySelectorAll('.tab');
     if(tabs[todayIdx]) tabs[todayIdx].classList.add('today-tab');
     switchTab(todayIdx);
-    for(let d=1;d<=5;d++) injectBanner(d);
   } else {
-    switchTab(0); // 旅程外顯示總覽
+    switchTab(0);
   }
 }
 
 function openModal(id){document.getElementById(id).style.display='block';}
 function closeModal(id){document.getElementById(id).style.display='none';}
-window.onclick=function(e){if(e.target.className==='modal')e.target.style.display='none';}
+window.onclick=function(e){if(e.target.classList.contains('modal'))e.target.style.display='none';};
 
 init();
 
-// ── PWA：動態注入 Manifest ──
+// ── PWA Manifest ──
 (function(){
-  const manifest = {
-    name: '2026 名古屋之旅',
-    short_name: '名古屋之旅',
-    description: '2026 名古屋工藝 × 美食 × 科技之旅行程手冊',
-    start_url: location.href,
-    scope: location.href,
-    display: 'standalone',
-    orientation: 'portrait',
-    background_color: '#111827',
-    theme_color: '#173434',
-    icons: [
-      {
-        src: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='32' fill='%23173434'/><text y='130' x='96' text-anchor='middle' font-size='110'>🎌</text></svg>",
-        sizes: '192x192',
-        type: 'image/svg+xml'
-      },
-      {
-        src: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='80' fill='%23173434'/><text y='360' x='256' text-anchor='middle' font-size='300'>🎌</text></svg>",
-        sizes: '512x512',
-        type: 'image/svg+xml'
-      }
+  const manifest={
+    name:'2026 名古屋之旅',short_name:'名古屋之旅',
+    description:'2026 名古屋工藝 × 美食 × 科技之旅行程手冊',
+    start_url:location.href,scope:location.href,
+    display:'standalone',orientation:'portrait',
+    background_color:'#0f1115',theme_color:'#0f1115',
+    icons:[
+      {src:"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='32' fill='%230f1115'/><text y='130' x='96' text-anchor='middle' font-size='110'>🎌</text></svg>",sizes:'192x192',type:'image/svg+xml'},
+      {src:"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='80' fill='%230f1115'/><text y='360' x='256' text-anchor='middle' font-size='300'>🎌</text></svg>",sizes:'512x512',type:'image/svg+xml'}
     ]
   };
-  const blob = new Blob([JSON.stringify(manifest)], {type:'application/json'});
-  const url = URL.createObjectURL(blob);
-  document.getElementById('pwa-manifest').href = url;
+  const blob=new Blob([JSON.stringify(manifest)],{type:'application/json'});
+  document.getElementById('pwa-manifest').href=URL.createObjectURL(blob);
 })();
 
-// ── PWA：註冊 Service Worker（快取離線用）──
+// ── Service Worker ──
 if('serviceWorker' in navigator){
-  const swCode = `
-const CACHE = 'nagoya-2026-v24';
-self.addEventListener('install', e => {
-  e.waitUntil(
-    caches.open(CACHE).then(cache => {
-      return cache.add(self.location.href.replace(/\\/[^/]*$/, '/') || '/');
-    }).then(() => self.skipWaiting())
-  );
-});
-self.addEventListener('activate', e => {
-  e.waitUntil(
-    caches.keys().then(keys =>
-      Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k)))
-    ).then(() => clients.claim())
-  );
-});
-self.addEventListener('fetch', e => {
-  e.respondWith(
-    caches.match(e.request).then(cached => {
-      if(cached) return cached;
-      return fetch(e.request).then(resp => {
-        const clone = resp.clone();
-        caches.open(CACHE).then(cache => cache.put(e.request, clone));
-        return resp;
-      }).catch(() => cached);
-    })
-  );
-});
+  const swCode=`
+const CACHE='nagoya-2026-v27';
+self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.add(self.location.href.replace(/\\/[^/]*$/,'/')||'/')).then(()=>self.skipWaiting()));});
+self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>clients.claim()));});
+self.addEventListener('fetch',e=>{e.respondWith(caches.match(e.request).then(cached=>{if(cached)return cached;return fetch(e.request).then(resp=>{const clone=resp.clone();caches.open(CACHE).then(c=>c.put(e.request,clone));return resp;}).catch(()=>cached);}));});
   `;
-  const swBlob = new Blob([swCode], {type:'text/javascript'});
-  const swUrl = URL.createObjectURL(swBlob);
-  navigator.serviceWorker.register(swUrl, {scope: './'})
-    .then(reg => {
-      // 主動把當前頁面 URL 快取進去（第一次安裝時用）
-      if(reg.active) return;
-      reg.addEventListener('updatefound', () => {
-        const sw = reg.installing;
-        sw.addEventListener('statechange', () => {
-          if(sw.state === 'activated'){
-            caches.open('nagoya-2026-v24').then(cache => cache.add(location.href));
-          }
-        });
+  const swUrl=URL.createObjectURL(new Blob([swCode],{type:'text/javascript'}));
+  navigator.serviceWorker.register(swUrl,{scope:'./'}).then(reg=>{
+    if(reg.active)return;
+    reg.addEventListener('updatefound',()=>{
+      reg.installing.addEventListener('statechange',function(){
+        if(this.state==='activated') caches.open('nagoya-2026-v27').then(c=>c.add(location.href));
       });
-    }).catch(()=>{});
-
-  // 額外保險：頁面載入完成後主動快取自己
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.ready.then(() => {
-      caches.open('nagoya-2026-v24').then(cache => cache.add(location.href));
     });
+  }).catch(()=>{});
+  window.addEventListener('load',()=>{
+    navigator.serviceWorker.ready.then(()=>caches.open('nagoya-2026-v27').then(c=>c.add(location.href)));
   });
 }
 </script>
