@@ -3,13 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>V27 Final ｜ 2026 名古屋之旅</title>
+<title>V27 Final | 2026 名古屋之旅</title>
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="名古屋之旅">
 <meta name="theme-color" content="#0f1115">
 <link rel="manifest" id="pwa-manifest">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%230f1115'/><text y='75' x='50' text-anchor='middle' font-size='70'>🎌</text></svg>">
 <style>
 /* ── CSS Variables ── */
 :root {
@@ -46,7 +47,7 @@
 html, body {
   margin: 0; height: 100%;
   background: linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
-  font-family: 'Noto Sans TC','PingFang TC','Microsoft JhengHei','Heiti TC','Hiragino Sans GB', sans-serif;
+  font-family: 'Noto Sans TC','PingFang TC','Microsoft JhengHei', sans-serif;
   color: var(--text); line-height: 1.7; overscroll-behavior: none;
 }
 
@@ -1032,7 +1033,7 @@ html, body {
 
     <div class="ticket-section">
       <h3><span style="background:var(--amber);color:white;border-radius:6px;padding:2px 8px;font-size:11px;">☕ 早餐小旅程</span></h3>
-      <div class="ticket-row"><div class="ticket-dot dot-yellow"></div><div><div class="ticket-name">Day 2 ｜ Conpal（コンパル）</div><div class="ticket-note">榮地下街或大須。炸蝦三明治，名古屋老派喫茶店文化。</div><a class="breakfast-nav" href="https://maps.google.com/?q=コンパル+大須本店+名古屋" target="_blank"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>導航前往</a></div></div>
+      <div class="ticket-row"><div class="ticket-dot dot-yellow"></div><div><div class="ticket-name">Day 2 ｜ Conpal（コンパル）</div><div class="ticket-note">榮地下街。炸蝦三明治，名古屋老派喫茶店文化。飯店下樓直達。</div><a class="breakfast-nav" href="https://maps.google.com/?q=コンパル+栄+名古屋" target="_blank"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>導航前往</a></div></div>
       <div class="ticket-row"><div class="ticket-dot dot-yellow"></div><div><div class="ticket-name">Day 3 ｜ Komeda Morning</div><div class="ticket-note">榮商圈周邊。第一次體驗名古屋 Morning Service。</div><a class="breakfast-nav" href="https://maps.google.com/?q=コメダ珈琲店+栄+名古屋" target="_blank"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>導航前往</a></div></div>
       <div class="ticket-row"><div class="ticket-dot dot-yellow"></div><div><div class="ticket-name">Day 4 ｜ Kato Coffee（加藤珈琲店）</div><div class="ticket-note">久屋大通站附近。職人自家烘焙咖啡，科技日腦力補給。</div><a class="breakfast-nav" href="https://maps.google.com/?q=加藤珈琲店+名古屋+久屋大通" target="_blank"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>導航前往</a></div></div>
       <div class="ticket-row"><div class="ticket-dot dot-yellow"></div><div><div class="ticket-name">Day 5 ｜ Komeda Morning 再訪</div><div class="ticket-note">退房前後就近安排，為旅程畫下句點。</div><a class="breakfast-nav" href="https://maps.google.com/?q=コメダ珈琲店+栄+名古屋" target="_blank"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>導航前往</a></div></div>
@@ -1064,8 +1065,14 @@ function getTodayPageIndex(){
 }
 
 function switchTab(idx){
-  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',i===idx));
-  document.querySelectorAll('.page').forEach((p,i)=>p.classList.toggle('active',i===idx));
+  document.querySelectorAll('.tab').forEach((t,i)=>{
+    if(i===idx) t.classList.add('active');
+    else t.classList.remove('active');
+  });
+  document.querySelectorAll('.page').forEach((p,i)=>{
+    if(i===idx) p.classList.add('active');
+    else p.classList.remove('active');
+  });
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
@@ -1093,6 +1100,15 @@ function openModal(id){document.getElementById(id).style.display='block';}
 function closeModal(id){document.getElementById(id).style.display='none';}
 window.onclick=function(e){if(e.target.classList.contains('modal'))e.target.style.display='none';};
 
+// ── ESC 鍵關閉 Modal 支持（無障礙性改進） ──
+document.addEventListener('keydown', (e) => {
+  if(e.key === 'Escape') {
+    document.querySelectorAll('.modal').forEach(modal => {
+      if(modal.style.display === 'block') modal.style.display = 'none';
+    });
+  }
+});
+
 init();
 
 // ── PWA Manifest ──
@@ -1116,7 +1132,7 @@ init();
 if('serviceWorker' in navigator){
   const swCode=`
 const CACHE='nagoya-2026-v27';
-self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.add(self.location.href.replace(/\\/[^/]*$/,'/')||'/')).then(()=>self.skipWaiting()));});
+self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.add(self.location.href||'/')).then(()=>self.skipWaiting()));});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>clients.claim()));});
 self.addEventListener('fetch',e=>{e.respondWith(caches.match(e.request).then(cached=>{if(cached)return cached;return fetch(e.request).then(resp=>{const clone=resp.clone();caches.open(CACHE).then(c=>c.put(e.request,clone));return resp;}).catch(()=>cached);}));});
   `;
