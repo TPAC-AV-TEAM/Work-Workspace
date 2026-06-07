@@ -181,21 +181,22 @@ html, body {
 }
 .custom-details summary::-webkit-details-marker { display: none; }
 .custom-details summary::after {
-  content: '▼'; font-size: 13px;
-  color: var(--accent);
-  transition: transform .2s;
-  animation: pulse-glow 2s ease-in-out infinite;
+  content: '❤'; /* 1. 換成心型 */
+  font-size: 14px; /* 稍微放大一點點，視覺比例更好 */
+  color: #ff69b4; /* 2. 設定為粉紅色 (HotPink) */
+  transition: transform .3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* 讓點開的瞬間有一點 Q 彈的旋轉感 */
+  animation: pulse-glow-pink 2s ease-in-out infinite; /* 3. 套用專屬的粉紅呼吸燈 */
   display: inline-block;
-  filter: drop-shadow(0 0 4px var(--accent));
+  filter: drop-shadow(0 0 4px #ff69b4); /* 粉紅色光暈 */
 }
 .custom-details[open] summary::after {
-  transform: rotate(-180deg);
+  transform: rotate(180deg) scale(1.1); /* 打開時讓愛心倒轉並微微放大 */
   animation: none;
-  color: var(--text-sub);
+  color: var(--text-sub); /* 打開後變回低調的顏色，表示已讀 */
   filter: none;
 }
-@keyframes pulse-glow {
-  0%, 100% { opacity: 1;   filter: drop-shadow(0 0 3px var(--accent)); }
+@keyframes pulse-glow-pink {
+  0%, 100% { opacity: 1;   filter: drop-shadow(0 0 4px #ff69b4); }
   50%       { opacity: 0.4; filter: drop-shadow(0 0 0px transparent); }
 }
 .custom-details .details-content {
