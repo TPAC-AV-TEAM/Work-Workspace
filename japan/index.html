@@ -1554,23 +1554,41 @@ loadWeather();
 
 // ── Service Worker ──
 if('serviceWorker' in navigator){
-  const swCode=`
-const CACHE='nagoya-2026-v27';
-self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.add(self.location.href||'/')).then(()=>self.skipWaiting()));});
-self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>clients.claim()));});
-self.addEventListener('fetch',e=>{e.respondWith(caches.match(e.request).then(cached=>{if(cached)return cached;return fetch(e.request).then(resp=>{const clone=resp.clone();caches.open(CACHE).then(c=>c.put(e.request,clone));return resp;}).catch(()=>cached);}));});
+  const CACHE_NAME = 'nagoya-2026-v27'; // 統一版本號
+  
+  const swCode = `
+    const CACHE = '${CACHE_NAME}';
+    self.addEventListener('install', e => {
+      e.waitUntil(caches.open(CACHE).then(c => c.add(self.location.href || '/')).then(() => self.skipWaiting()));
+    });
+    self.addEventListener('activate', e => {
+      e.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k)))).then(() => clients.claim()));
+    });
+    self.addEventListener('fetch', e => {
+      e.respondWith(caches.match(e.request).then(cached => {
+        if(cached) return cached;
+        return fetch(e.request).then(resp => {
+          const clone = resp.clone();
+          caches.open(CACHE).then(c => c.put(e.request, clone));
+          return resp;
+        }).catch(() => cached);
+      }));
+    });
   `;
-  const swUrl=URL.createObjectURL(new Blob([swCode],{type:'text/javascript'}));
-  navigator.serviceWorker.register(swUrl,{scope:'./'}).then(reg=>{
-    if(reg.active)return;
-    reg.addEventListener('updatefound',()=>{
-      reg.installing.addEventListener('statechange',function(){
-        if(this.state==='activated') caches.open('nagoya-2026-v27').then(c=>c.add(location.href));
+  
+  const swUrl = URL.createObjectURL(new Blob([swCode], {type: 'text/javascript'}));
+  
+  navigator.serviceWorker.register(swUrl, {scope: './'}).then(reg => {
+    if(reg.active) return;
+    reg.addEventListener('updatefound', () => {
+      reg.installing.addEventListener('statechange', function(){
+        if(this.state === 'activated') caches.open(CACHE_NAME).then(c => c.add(location.href));
       });
     });
   }).catch(()=>{});
-  window.addEventListener('load',()=>{
-    navigator.serviceWorker.ready.then(()=>caches.open('nagoya-2026-v27').then(c=>c.add(location.href)));
+  
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.ready.then(() => caches.open(CACHE_NAME).then(c => c.add(location.href)));
   });
 }
 </script>
