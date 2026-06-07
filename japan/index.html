@@ -114,6 +114,31 @@ html, body {
 .info-item { background: var(--surface-alt); border-radius: 14px; padding: 12px; }
 .info-label { font-size: 10px; color: var(--text-sub); margin-bottom: 3px; }
 .info-value { font-size: 13px; font-weight: 700; color: var(--text); }
+.flight-value {
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 7px;
+}
+.flight-live-link {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 30px; padding: 4px 9px;
+  border: 1px solid rgba(95,168,255,0.45);
+  border-radius: 9px;
+  background: rgba(95,168,255,0.1);
+  color: #91c5ff;
+  text-decoration: none;
+  font-size: 11px; font-weight: 800; line-height: 1;
+  white-space: nowrap;
+  transition: background .15s, border-color .15s, color .15s;
+}
+.flight-live-link:hover,
+.flight-live-link:focus-visible {
+  background: rgba(95,168,255,0.22);
+  border-color: rgba(145,197,255,0.85);
+  color: #fff;
+}
+.flight-live-link:focus-visible {
+  outline: 3px solid var(--focus-l); outline-offset: 2px;
+}
 
 /* ── Day Stats ── */
 .day-stats {
@@ -469,8 +494,20 @@ html, body {
   <div class="info-panel">
     <h2 style="font-size:15px;">✈️ 基本資料</h2>
     <div class="info-grid">
-      <div class="info-item"><div class="info-label">去程航班</div><div class="info-value">虎航 IT706</div></div>
-      <div class="info-item"><div class="info-label">回程航班</div><div class="info-value">虎航 IT206</div></div>
+      <div class="info-item">
+        <div class="info-label">去程航班</div>
+        <div class="info-value flight-value">
+          <span>虎航 IT706</span>
+          <a class="flight-live-link" href="https://www.taoyuan-airport.com/flight_depart" target="_blank" rel="noopener noreferrer" aria-label="前往桃園國際機場查詢虎航 IT706 即時航班">即時查詢 ↗</a>
+        </div>
+      </div>
+      <div class="info-item">
+        <div class="info-label">回程航班</div>
+        <div class="info-value flight-value">
+          <span>虎航 IT206</span>
+          <a class="flight-live-link" href="https://www.centrair.jp/tzh/flight/search/index.html" target="_blank" rel="noopener noreferrer" aria-label="前往中部國際機場查詢虎航 IT206 即時航班">即時查詢 ↗</a>
+        </div>
+      </div>
       <div class="info-item"><div class="info-label">住宿（榮站 4 號出口）</div><div class="info-value">Royal Park Hotel Iconic</div></div>
       <div class="info-item"><div class="info-label">核心任務</div><div class="info-value">JPG‑X100 土鍋內鍋</div></div>
     </div>
