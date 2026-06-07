@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>V29 | 2026 名古屋之旅</title>
+<title>V30 | 2026 名古屋之旅</title>
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -180,8 +180,24 @@ html, body {
   user-select: none; width: 100%; min-height: 48px;
 }
 .custom-details summary::-webkit-details-marker { display: none; }
-.custom-details summary::after { content: '▼'; font-size: 11px; color: var(--text-sub); transition: transform .2s; }
-.custom-details[open] summary::after { transform: rotate(-180deg); }
+.custom-details summary::after {
+  content: '▼'; font-size: 13px;
+  color: #f472b6;
+  transition: transform .2s;
+  animation: pulse-glow 2s ease-in-out infinite;
+  display: inline-block;
+  filter: drop-shadow(0 0 4px #f472b6);
+}
+.custom-details[open] summary::after {
+  transform: rotate(-180deg);
+  animation: none;
+  color: var(--text-sub);
+  filter: none;
+}
+@keyframes pulse-glow {
+  0%, 100% { opacity: 1;   filter: drop-shadow(0 0 3px #f472b6); }
+  50%       { opacity: 0.4; filter: drop-shadow(0 0 0px transparent); }
+}
 .custom-details .details-content {
   padding: 0 14px 14px; font-size: 13px;
   background: rgba(0,0,0,0.22);
@@ -430,7 +446,7 @@ html, body {
     <ul style="margin:0;padding-left:18px;font-size:13.5px;line-height:1.9;">
       <li><b>交通：</b>Suica 刷到底，Google Maps 聽指揮。</li>
       <li><b>雨天：</b>便利商店買透明傘，10 分鐘解決。</li>
-      <li><b>晚間：</b>21:30 後開始往飯店(榮站)方向移動。</li>
+      <li><b>晚間：</b>21:30 前回榮站最穩定。</li>
     </ul>
     <div style="margin-top:10px;font-size:13px;font-weight:700;color:#ff9c9c;">📱 聯絡原則</div>
     <ul style="margin:5px 0 0;padding-left:18px;font-size:13px;">
@@ -1236,7 +1252,7 @@ loadWeather();
 // ── Service Worker ──
 if('serviceWorker' in navigator){
   const swCode=`
-const CACHE='nagoya-2026-v27';
+const CACHE='nagoya-2026-v30';
 self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.add(self.location.href||'/')).then(()=>self.skipWaiting()));});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>clients.claim()));});
 self.addEventListener('fetch',e=>{e.respondWith(caches.match(e.request).then(cached=>{if(cached)return cached;return fetch(e.request).then(resp=>{const clone=resp.clone();caches.open(CACHE).then(c=>c.put(e.request,clone));return resp;}).catch(()=>cached);}));});
@@ -1246,12 +1262,12 @@ self.addEventListener('fetch',e=>{e.respondWith(caches.match(e.request).then(cac
     if(reg.active)return;
     reg.addEventListener('updatefound',()=>{
       reg.installing.addEventListener('statechange',function(){
-        if(this.state==='activated') caches.open('nagoya-2026-v27').then(c=>c.add(location.href));
+        if(this.state==='activated') caches.open('nagoya-2026-v30').then(c=>c.add(location.href));
       });
     });
   }).catch(()=>{});
   window.addEventListener('load',()=>{
-    navigator.serviceWorker.ready.then(()=>caches.open('nagoya-2026-v27').then(c=>c.add(location.href)));
+    navigator.serviceWorker.ready.then(()=>caches.open('nagoya-2026-v30').then(c=>c.add(location.href)));
   });
 }
 </script>
