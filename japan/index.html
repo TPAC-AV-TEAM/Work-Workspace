@@ -186,23 +186,49 @@ html, body {
 }
 .custom-details summary::-webkit-details-marker { display: none; }
 .custom-details summary::after {
-  content: '❤';
-  font-size: 20px;
-  color: #ff69b4;
-  transition: transform .3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  animation: pulse-glow-pink 2s ease-in-out infinite;
-  display: inline-block;
-  filter: drop-shadow(0 0 4px #ff69b4);
+  content: '展開細節 ▼';
+  margin-left: 12px;
+  flex-shrink: 0;
+  padding: 6px 11px;
+  border-radius: 999px;
+  border: 1px solid rgba(95,168,255,0.65);
+  background: rgba(95,168,255,0.14);
+  color: #91c5ff;
+  font-size: 13px;
+  font-weight: 900;
+  line-height: 1.2;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+  box-shadow: 0 0 0 rgba(95,168,255,0);
+  animation: details-cta-pulse 1.8s ease-in-out infinite;
+  transition: color .2s, background .2s, border-color .2s, box-shadow .2s;
 }
 .custom-details[open] summary::after {
-  transform: rotate(180deg) scale(1.1);
+  content: '收合細節 ▲';
+  color: var(--accent);
+  background: rgba(95,168,255,0.08);
+  border-color: rgba(95,168,255,0.32);
+  box-shadow: none;
   animation: none;
-  color: var(--text-sub);
-  filter: none;
 }
-@keyframes pulse-glow-pink {
-  0%, 100% { opacity: 1;   filter: drop-shadow(0 0 4px #ff69b4); }
-  50%       { opacity: 0.4; filter: drop-shadow(0 0 0px transparent); }
+@keyframes details-cta-pulse {
+  0%, 100% {
+    color: #91c5ff;
+    border-color: rgba(95,168,255,0.5);
+    background: rgba(95,168,255,0.11);
+    box-shadow: 0 0 0 0 rgba(95,168,255,0);
+    transform: translateY(0);
+  }
+  50% {
+    color: #fff;
+    border-color: rgba(145,197,255,0.95);
+    background: rgba(95,168,255,0.28);
+    box-shadow: 0 0 14px rgba(95,168,255,0.42);
+    transform: translateY(1px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .custom-details summary::after { animation: none; }
 }
 .custom-details .details-content {
   padding: 0 14px 14px; font-size: 13px;
@@ -677,7 +703,7 @@ html, body {
     <div class="event">
       <div class="time">22:00</div>
       <div class="title">前往飯店</div>
-      <div class="event-hint"><span class="go">名鐵 → 金山站</span>，站內轉<span style="color:#a855f7;font-weight:700;">名城線（紫色） → 榮站 4 號出口</span>。<span class="warn">（金山勿刷卡出站）</span></div>
+      <div class="event-hint"><span class="go">名鐵 → 金山站</span>，站內轉<span style="color:#a855f7;font-weight:700;">名城線（紫色） → 榮站 4 號出口</span>。<span class="warn">金山勿刷卡出站。</span></div>
       <div class="btn-group">
         <a class="btn" target="_blank" rel="noopener noreferrer" href="https://maps.google.com/?q=Royal+Park+Hotel+Iconic+Nagoya">🗺 飯店導航</a>
         <button class="btn secondary" onclick="openModal('trafficModal')">🚇 交通教學</button>
@@ -822,15 +848,15 @@ html, body {
 
     <div class="event">
       <div class="time">19:00</div>
-      <div class="title">🍲 榮商圈晚餐 ＆ 土鍋確認庫存</div>
+      <div class="title">🍲 榮商圈晚餐 ＆ 土鍋扣庫存</div>
       <div class="event-hint"><b>晚餐後必做：</b>前往 Bic Camera 榮店確認 JPG-X100 庫存並<span class="warn">先結帳</span>，Day 5 再提貨。</div>
       <details class="custom-details" style="margin-top:10px;">
-        <summary>⚡ 為什麼今晚要確認庫存？</summary>
+        <summary>⚡ 為什麼今晚要扣庫存？</summary>
         <div class="details-content">
           <div class="food-box">🍺 晚餐：世界の山ちゃん 或 矢場とん，榮商圈自由選。</div>
           <div class="tactic-box" style="margin-top:9px;">
             <b>土鍋庫存戰術</b><br>
-            高階土鍋容易缺貨。今晚先結帳確認庫存，約定 Day 5 提貨，Day 5 才能優雅去機場。<br>
+            高階土鍋容易缺貨。今晚先結帳扣庫存，約定 Day 5 提貨，Day 5 才能優雅去機場。<br>
             萬一拖到 Day 5 才買，沒貨就沒有補救時間。
           </div>
         </div>
@@ -1378,7 +1404,7 @@ html, body {
     <div class="ticket-section">
       <h3><span style="background:#ef4444;color:white;border-radius:6px;padding:2px 8px;font-size:11px;">🍽 晚餐地圖</span></h3>
       <div class="ticket-row"><div class="ticket-dot dot-red"></div><div><div class="ticket-name">Day 1 ｜ 超商宵夜</div><div class="ticket-note">Lawson 炸雞、7-11 飯糰或布丁。先 Check-in 為主。</div></div></div>
-      <div class="ticket-row"><div class="ticket-dot dot-red"></div><div><div class="ticket-name">Day 2 ｜ 榮商圈自由選 & 土鍋預購</div><div class="ticket-note">世界の山ちゃん / 矢場とん 等。餐後執行土鍋確認庫存任務。</div></div></div>
+      <div class="ticket-row"><div class="ticket-dot dot-red"></div><div><div class="ticket-name">Day 2 ｜ 榮商圈自由選 & 土鍋預購</div><div class="ticket-note">世界の山ちゃん / 矢場とん 等。餐後執行土鍋扣庫存任務。</div></div></div>
       <div class="ticket-row"><div class="ticket-dot dot-red"></div><div><div class="ticket-name">Day 3 ｜ 榮商圈自由選</div><div class="ticket-note">回到榮商圈尋找美食，不必特別安排餐廳。</div></div></div>
       <div class="ticket-row"><div class="ticket-dot dot-red"></div><div><div class="ticket-name">Day 4 ｜ 榮商圈回血</div><div class="ticket-note">自由選擇。今天重點是腦力消耗後的吃飽與休息。</div></div></div>
       <div class="ticket-row"><div class="ticket-dot dot-red"></div><div><div class="ticket-name">Day 5 ｜ 機場晚餐</div><div class="ticket-note">抵達中部國際機場後用餐，避免在市區趕時間。</div></div></div>
