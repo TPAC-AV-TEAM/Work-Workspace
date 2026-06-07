@@ -9,7 +9,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="名古屋之旅">
 <meta name="theme-color" content="#0f1115">
-<link rel="manifest" id="pwa-manifest">
+<link rel="manifest" href="./manifest.webmanifest">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%230f1115'/><text y='75' x='50' text-anchor='middle' font-size='70'>🎌</text></svg>">
 <style>
 /* ── CSS Variables ── */
@@ -82,9 +82,14 @@ html, body {
   text-align: center; cursor: pointer;
   color: var(--text-dim); font-size: 11px; font-weight: 700; line-height: 1.3;
   border-bottom: 3px solid transparent; margin-bottom: -1px; transition: color .2s;
+  border-top: 0; border-left: 0; border-right: 0;
+  background: transparent; font-family: inherit;
 }
 .tab .tab-date { font-size: 14px; font-weight: 900; display: block; }
 .tab.active { color: #fff; border-bottom-color: var(--accent); }
+.tab:focus-visible, .close:focus-visible, .float-btn:focus-visible, .btn:focus-visible {
+  outline: 3px solid var(--focus-l); outline-offset: -3px;
+}
 .tab.today-tab .tab-date::after {
   content: '●'; font-size: 6px; color: #ef4444;
   vertical-align: super; margin-left: 2px;
@@ -284,7 +289,11 @@ html, body {
   width: 92%; max-width: 640px; margin: 6vh auto;
   border-radius: 22px; padding: 22px; max-height: 84vh; overflow: auto;
 }
-.close { float: right; font-size: 28px; cursor: pointer; font-weight: 900; line-height: 1; color: var(--text-sub); }
+.close {
+  float: right; font-size: 28px; cursor: pointer; font-weight: 900;
+  line-height: 1; color: var(--text-sub); background: transparent;
+  border: 0; padding: 4px 8px; font-family: inherit;
+}
 
 /* ── Ticket / Modal Sections ── */
 .ticket-section { margin-bottom: 18px; }
@@ -417,13 +426,13 @@ html, body {
   <p>工藝 × 美食 × 科技 ｜ Kelly 帶隊 · 6/11–6/15</p>
 </div>
 
-<div class="tab-bar" id="tabBar">
-  <div class="tab" onclick="switchTab(0)"><span class="tab-date">總覽</span></div>
-  <div class="tab" onclick="switchTab(1)"><span class="tab-date">Day 1</span><span>6/11 四</span><span class="tab-weather" id="tw1"></span></div>
-  <div class="tab" onclick="switchTab(2)"><span class="tab-date">Day 2</span><span>6/12 五</span><span class="tab-weather" id="tw2"></span></div>
-  <div class="tab" onclick="switchTab(3)"><span class="tab-date">Day 3</span><span>6/13 六</span><span class="tab-weather" id="tw3"></span></div>
-  <div class="tab" onclick="switchTab(4)"><span class="tab-date">Day 4</span><span>6/14 日</span><span class="tab-weather" id="tw4"></span></div>
-  <div class="tab" onclick="switchTab(5)"><span class="tab-date">Day 5</span><span>6/15 一</span><span class="tab-weather" id="tw5"></span></div>
+<div class="tab-bar" id="tabBar" role="tablist" aria-label="行程日期">
+  <button type="button" class="tab" role="tab" aria-controls="p0" onclick="switchTab(0)"><span class="tab-date">總覽</span></button>
+  <button type="button" class="tab" role="tab" aria-controls="p1" onclick="switchTab(1)"><span class="tab-date">Day 1</span><span>6/11 四</span><span class="tab-weather" id="tw1"></span></button>
+  <button type="button" class="tab" role="tab" aria-controls="p2" onclick="switchTab(2)"><span class="tab-date">Day 2</span><span>6/12 五</span><span class="tab-weather" id="tw2"></span></button>
+  <button type="button" class="tab" role="tab" aria-controls="p3" onclick="switchTab(3)"><span class="tab-date">Day 3</span><span>6/13 六</span><span class="tab-weather" id="tw3"></span></button>
+  <button type="button" class="tab" role="tab" aria-controls="p4" onclick="switchTab(4)"><span class="tab-date">Day 4</span><span>6/14 日</span><span class="tab-weather" id="tw4"></span></button>
+  <button type="button" class="tab" role="tab" aria-controls="p5" onclick="switchTab(5)"><span class="tab-date">Day 5</span><span>6/15 一</span><span class="tab-weather" id="tw5"></span></button>
 </div>
 
 <div class="pages">
@@ -1278,10 +1287,10 @@ html, body {
   </div>
 </div>
 
-<div id="ticketModal" class="modal">
-  <div class="modal-content">
-    <span class="close" onclick="closeModal('ticketModal')">×</span>
-    <h2>🎟 購票攻略</h2>
+<div id="ticketModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="ticketModalTitle" aria-hidden="true">
+  <div class="modal-content" tabindex="-1">
+    <button type="button" class="close" aria-label="關閉購票攻略" onclick="closeModal('ticketModal')">×</button>
+    <h2 id="ticketModalTitle">🎟 購票攻略</h2>
     <p style="font-size:12.5px;color:var(--text-sub);margin-top:-6px;margin-bottom:16px;">出發前搞定，行程中不用再看。</p>
 
     <div class="ticket-section">
@@ -1317,10 +1326,10 @@ html, body {
   </div>
 </div>
 
-<div id="trafficModal" class="modal">
-  <div class="modal-content">
-    <span class="close" onclick="closeModal('trafficModal')">×</span>
-    <h2>🚇 交通與時程</h2>
+<div id="trafficModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="trafficModalTitle" aria-hidden="true">
+  <div class="modal-content" tabindex="-1">
+    <button type="button" class="close" aria-label="關閉交通與時程" onclick="closeModal('trafficModal')">×</button>
+    <h2 id="trafficModalTitle">🚇 交通與時程</h2>
 
     <div class="ticket-section">
       <h3><span style="background:#8b5cf6;color:white;border-radius:6px;padding:2px 8px;font-size:11px;">交通策略</span></h3>
@@ -1353,17 +1362,17 @@ html, body {
   </div>
 </div>
 
-<div id="foodModal" class="modal">
-  <div class="modal-content">
-    <span class="close" onclick="closeModal('foodModal')">×</span>
-    <h2>🍜 早晚餐總表</h2>
+<div id="foodModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="foodModalTitle" aria-hidden="true">
+  <div class="modal-content" tabindex="-1">
+    <button type="button" class="close" aria-label="關閉早晚餐總表" onclick="closeModal('foodModal')">×</button>
+    <h2 id="foodModalTitle">🍜 早晚餐總表</h2>
 
     <div class="ticket-section">
       <h3><span style="background:var(--amber);color:white;border-radius:6px;padding:2px 8px;font-size:11px;">☕ 早餐小旅程</span></h3>
-      <div class="ticket-row"><div class="ticket-dot dot-yellow"></div><div><div class="ticket-name">Day 2 ｜ Conpal（コンパル）</div><div class="ticket-note">榮地下街。炸蝦三明治，名古屋老派喫茶店文化。飯店下樓直達。</div><a class="breakfast-nav" href="https://maps.google.com/?q=コンパル+栄+名古屋" target="_blank"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>導航前往</a></div></div>
-      <div class="ticket-row"><div class="ticket-dot dot-yellow"></div><div><div class="ticket-name">Day 3 ｜ Komeda Morning</div><div class="ticket-note">榮商圈周邊。第一次體驗名古屋 Morning Service。</div><a class="breakfast-nav" href="https://maps.google.com/?q=コメダ珈琲店+栄+名古屋" target="_blank"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>導航前往</a></div></div>
-      <div class="ticket-row"><div class="ticket-dot dot-yellow"></div><div><div class="ticket-name">Day 4 ｜ Kato Coffee（加藤珈琲店）</div><div class="ticket-note">久屋大通站附近。職人自家烘焙咖啡，科技日腦力補給。</div><a class="breakfast-nav" href="https://maps.google.com/?q=加藤珈琲店+名古屋+久屋大通" target="_blank"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>導航前往</a></div></div>
-      <div class="ticket-row"><div class="ticket-dot dot-yellow"></div><div><div class="ticket-name">Day 5 ｜ Komeda Morning 再訪</div><div class="ticket-note">退房前後就近安排，為旅程畫下句點。</div><a class="breakfast-nav" href="https://maps.google.com/?q=コメダ珈琲店+栄+名古屋" target="_blank"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>導航前往</a></div></div>
+      <div class="ticket-row"><div class="ticket-dot dot-yellow"></div><div><div class="ticket-name">Day 2 ｜ Conpal（コンパル）</div><div class="ticket-note">榮地下街。炸蝦三明治，名古屋老派喫茶店文化。飯店下樓直達。</div><a class="breakfast-nav" href="https://maps.google.com/?q=コンパル+栄+名古屋" target="_blank" rel="noopener noreferrer"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>導航前往</a></div></div>
+      <div class="ticket-row"><div class="ticket-dot dot-yellow"></div><div><div class="ticket-name">Day 3 ｜ Komeda Morning</div><div class="ticket-note">榮商圈周邊。第一次體驗名古屋 Morning Service。</div><a class="breakfast-nav" href="https://maps.google.com/?q=コメダ珈琲店+栄+名古屋" target="_blank" rel="noopener noreferrer"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>導航前往</a></div></div>
+      <div class="ticket-row"><div class="ticket-dot dot-yellow"></div><div><div class="ticket-name">Day 4 ｜ Kato Coffee（加藤珈琲店）</div><div class="ticket-note">久屋大通站附近。職人自家烘焙咖啡，科技日腦力補給。</div><a class="breakfast-nav" href="https://maps.google.com/?q=加藤珈琲店+名古屋+久屋大通" target="_blank" rel="noopener noreferrer"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>導航前往</a></div></div>
+      <div class="ticket-row"><div class="ticket-dot dot-yellow"></div><div><div class="ticket-name">Day 5 ｜ Komeda Morning 再訪</div><div class="ticket-note">退房前後就近安排，為旅程畫下句點。</div><a class="breakfast-nav" href="https://maps.google.com/?q=コメダ珈琲店+栄+名古屋" target="_blank" rel="noopener noreferrer"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>導航前往</a></div></div>
     </div>
 
     <div class="ticket-section">
@@ -1382,11 +1391,12 @@ html, body {
 const DAY_DATES = {1:'2026-06-11',2:'2026-06-12',3:'2026-06-13',4:'2026-06-14',5:'2026-06-15'};
 
 function getToday(){
-  const d = new Date();
-  const y = d.getFullYear();
-  const m = String(d.getMonth()+1).padStart(2,'0');
-  const day = String(d.getDate()).padStart(2,'0');
-  return `${y}-${m}-${day}`;
+  return new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'Asia/Tokyo',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit'
+  }).format(new Date());
 }
 
 function getTodayPageIndex(){
@@ -1399,12 +1409,15 @@ function getTodayPageIndex(){
 
 function switchTab(idx){
   document.querySelectorAll('.tab').forEach((t,i)=>{
-    if(i===idx) t.classList.add('active');
-    else t.classList.remove('active');
+    const selected = i === idx;
+    t.classList.toggle('active', selected);
+    t.setAttribute('aria-selected', String(selected));
+    t.tabIndex = selected ? 0 : -1;
   });
   document.querySelectorAll('.page').forEach((p,i)=>{
-    if(i===idx) p.classList.add('active');
-    else p.classList.remove('active');
+    const selected = i === idx;
+    p.classList.toggle('active', selected);
+    p.hidden = !selected;
   });
   window.scrollTo({top:0,behavior:'smooth'});
 }
@@ -1429,15 +1442,46 @@ function init(){
   }
 }
 
-function openModal(id){document.getElementById(id).style.display='block';}
-function closeModal(id){document.getElementById(id).style.display='none';}
-window.onclick=function(e){if(e.target.classList.contains('modal'))e.target.style.display='none';};
+let modalOpener = null;
+function openModal(id){
+  const modal = document.getElementById(id);
+  if(!modal) return;
+  modalOpener = document.activeElement;
+  modal.style.display = 'block';
+  modal.setAttribute('aria-hidden', 'false');
+  modal.querySelector('.modal-content').focus();
+}
+function closeModal(id){
+  const modal = document.getElementById(id);
+  if(!modal) return;
+  modal.style.display = 'none';
+  modal.setAttribute('aria-hidden', 'true');
+  if(modalOpener) modalOpener.focus();
+}
+window.addEventListener('click', (e) => {
+  if(e.target.classList.contains('modal')) closeModal(e.target.id);
+});
+
+document.getElementById('tabBar').addEventListener('keydown', (e) => {
+  if(!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(e.key)) return;
+  const tabs = [...document.querySelectorAll('.tab')];
+  const current = tabs.indexOf(document.activeElement);
+  if(current < 0) return;
+  e.preventDefault();
+  let next = current;
+  if(e.key === 'ArrowLeft') next = (current - 1 + tabs.length) % tabs.length;
+  if(e.key === 'ArrowRight') next = (current + 1) % tabs.length;
+  if(e.key === 'Home') next = 0;
+  if(e.key === 'End') next = tabs.length - 1;
+  switchTab(next);
+  tabs[next].focus();
+});
 
 // ── ESC 鍵關閉 Modal 支持（無障礙性改進） ──
 document.addEventListener('keydown', (e) => {
   if(e.key === 'Escape') {
     document.querySelectorAll('.modal').forEach(modal => {
-      if(modal.style.display === 'block') modal.style.display = 'none';
+      if(modal.style.display === 'block') closeModal(modal.id);
     });
   }
 });
@@ -1528,67 +1572,19 @@ async function loadWeather() {
   } catch(e) {
     document.getElementById('weatherContent').innerHTML =
       `<div class="weather-err">⚠️ 天氣資料載入失敗（可能需要網路）<br>
-       <a href="https://www.jma.go.jp/bosai/forecast/" target="_blank">📡 點此查閱日本氣象廳預報</a></div>`;
+       <a href="https://www.jma.go.jp/bosai/forecast/" target="_blank" rel="noopener noreferrer">📡 點此查閱日本氣象廳預報</a></div>`;
   }
 }
 
 init();
 loadWeather();
 
-// ── PWA Manifest ──
-(function(){
-  const manifest={
-    name:'2026 名古屋之旅',short_name:'名古屋之旅',
-    description:'2026 名古屋工藝 × 美食 × 科技之旅行程手冊',
-    start_url:location.href,scope:location.href,
-    display:'standalone',orientation:'portrait',
-    background_color:'#0f1115',theme_color:'#0f1115',
-    icons:[
-      {src:"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='32' fill='%230f1115'/><text y='130' x='96' text-anchor='middle' font-size='110'>🎌</text></svg>",sizes:'192x192',type:'image/svg+xml'},
-      {src:"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='80' fill='%230f1115'/><text y='360' x='256' text-anchor='middle' font-size='300'>🎌</text></svg>",sizes:'512x512',type:'image/svg+xml'}
-    ]
-  };
-  const blob=new Blob([JSON.stringify(manifest)],{type:'application/json'});
-  document.getElementById('pwa-manifest').href=URL.createObjectURL(blob);
-})();
-
 // ── Service Worker ──
-if('serviceWorker' in navigator){
-  const CACHE_NAME = 'nagoya-2026-v27'; // 統一版本號
-  
-  const swCode = `
-    const CACHE = '${CACHE_NAME}';
-    self.addEventListener('install', e => {
-      e.waitUntil(caches.open(CACHE).then(c => c.add(self.location.href || '/')).then(() => self.skipWaiting()));
-    });
-    self.addEventListener('activate', e => {
-      e.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k)))).then(() => clients.claim()));
-    });
-    self.addEventListener('fetch', e => {
-      e.respondWith(caches.match(e.request).then(cached => {
-        if(cached) return cached;
-        return fetch(e.request).then(resp => {
-          const clone = resp.clone();
-          caches.open(CACHE).then(c => c.put(e.request, clone));
-          return resp;
-        }).catch(() => cached);
-      }));
-    });
-  `;
-  
-  const swUrl = URL.createObjectURL(new Blob([swCode], {type: 'text/javascript'}));
-  
-  navigator.serviceWorker.register(swUrl, {scope: './'}).then(reg => {
-    if(reg.active) return;
-    reg.addEventListener('updatefound', () => {
-      reg.installing.addEventListener('statechange', function(){
-        if(this.state === 'activated') caches.open(CACHE_NAME).then(c => c.add(location.href));
-      });
-    });
-  }).catch(()=>{});
-  
+if('serviceWorker' in navigator && location.protocol !== 'file:'){
   window.addEventListener('load', () => {
-    navigator.serviceWorker.ready.then(() => caches.open(CACHE_NAME).then(c => c.add(location.href)));
+    navigator.serviceWorker.register('./sw.js').catch((error) => {
+      console.warn('Service Worker registration failed:', error);
+    });
   });
 }
 </script>
