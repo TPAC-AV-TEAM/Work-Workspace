@@ -382,9 +382,9 @@ html, body {
   background: rgba(10,14,22,0.92);
   border: 1px solid var(--border);
   border-radius: 18px;
-  padding: 14px 10px 10px;
+  padding: 14px 10px 14px;
   margin-top: 18px;
-  margin-bottom: 8px;
+  margin-bottom: 140px; /* clear floating menu */
   overflow: hidden;
 }
 .svg-map-title {
@@ -479,7 +479,7 @@ html, body {
     <ul style="margin:0;padding-left:18px;font-size:13.5px;line-height:1.9;">
       <li><b>交通：</b>Suica 刷到底，Google Maps 聽指揮。</li>
       <li><b>雨天：</b>便利商店買透明傘，10 分鐘解決。</li>
-      <li><b>晚間：</b>21:30 後開始往飯店(榮站)方向移動。</li>
+      <li><b>晚間：</b>21:30 前回榮站最穩定。</li>
     </ul>
     <div style="margin-top:10px;font-size:13px;font-weight:700;color:#ff9c9c;">📱 聯絡原則</div>
     <ul style="margin:5px 0 0;padding-left:18px;font-size:13px;">
@@ -718,31 +718,31 @@ html, body {
       <div class="svg-map-wrap" style="margin-top:20px;">
         <div class="svg-map-title">📍 Day 1 路線圖 — 到達名古屋</div>
         <svg viewBox="0 0 300 180" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans TC','PingFang TC',sans-serif">
-          <defs><filter id="g1a"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+          <defs>
+            <filter id="g1a"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            <style>.lbl1{paint-order:stroke fill;stroke:#0a0e16;stroke-width:3px;stroke-linejoin:round;}</style>
+          </defs>
           <!-- Route line: Airport → Kanayama → Sakae -->
           <polyline points="250,140 150,100 70,60" fill="none" stroke="#4e9eff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" filter="url(#g1a)"/>
-          <!-- Arrow at Sakae end -->
-          <polygon points="70,60 82,54 78,66" fill="#4e9eff" opacity="0.9"/>
-          <!-- Transport labels on line -->
-          <text x="210" y="128" text-anchor="middle" font-size="9" fill="#4e9eff" transform="rotate(-20,210,128)">名鐵 ~25分</text>
-          <text x="108" y="74" text-anchor="middle" font-size="9" fill="#a78bfa" transform="rotate(-20,108,74)">名城線 ~8分</text>
-          <!-- Transfer circle at Kanayama -->
+          <!-- Transport labels -->
+          <text class="lbl1" x="210" y="128" text-anchor="middle" font-size="9" fill="#4e9eff" transform="rotate(-20,210,128)">名鐵 ~25分</text>
+          <text class="lbl1" x="108" y="74" text-anchor="middle" font-size="9" fill="#a78bfa" transform="rotate(-20,108,74)">名城線 ~8分</text>
+          <!-- Kanayama transfer -->
           <circle cx="150" cy="100" r="8" fill="#1a2035" stroke="#8b9cc8" stroke-width="1.8"/>
-          <text x="150" y="118" text-anchor="middle" font-size="9" fill="#aab6c5">金山站</text>
-          <text x="150" y="129" text-anchor="middle" font-size="8" fill="#8b9cc8">⚠ 站內轉乘</text>
+          <text class="lbl1" x="150" y="118" text-anchor="middle" font-size="9" fill="#aab6c5">金山站</text>
+          <text class="lbl1" x="150" y="129" text-anchor="middle" font-size="8" fill="#ff9c9c">⚠ 站內轉乘</text>
           <!-- Airport -->
           <circle cx="250" cy="140" r="10" fill="#1a2035" stroke="#4e9eff" stroke-width="2"/>
           <text x="250" y="144" text-anchor="middle" font-size="10" fill="#fff">✈</text>
-          <text x="250" y="158" text-anchor="middle" font-size="8.5" fill="#aab6c5">中部機場</text>
-          <text x="250" y="168" text-anchor="middle" font-size="8" fill="#aab6c5">T2</text>
+          <text class="lbl1" x="250" y="158" text-anchor="middle" font-size="8.5" fill="#aab6c5">中部機場 T2</text>
           <!-- Sakae Hotel -->
           <circle cx="70" cy="60" r="11" fill="#0f1115" stroke="#5fa8ff" stroke-width="2.5"/>
           <circle cx="70" cy="60" r="7" fill="#5fa8ff" opacity="0.2"/>
           <text x="70" y="64" text-anchor="middle" font-size="10" fill="#fff">🏨</text>
-          <text x="70" y="80" text-anchor="middle" font-size="9" fill="#fff" font-weight="900">榮站・飯店</text>
-          <text x="70" y="91" text-anchor="middle" font-size="8" fill="#5fa8ff">4號出口</text>
-          <!-- Step labels -->
-          <rect x="10" y="10" width="68" height="16" rx="4" fill="rgba(78,158,255,0.15)" stroke="rgba(78,158,255,0.4)" stroke-width="1"/>
+          <text class="lbl1" x="70" y="80" text-anchor="middle" font-size="9" fill="#fff" font-weight="900">榮站・飯店</text>
+          <text class="lbl1" x="70" y="91" text-anchor="middle" font-size="8" fill="#5fa8ff">4號出口</text>
+          <!-- Day badge -->
+          <rect x="10" y="10" width="68" height="16" rx="4" fill="rgba(78,158,255,0.2)" stroke="rgba(78,158,255,0.5)" stroke-width="1"/>
           <text x="44" y="22" text-anchor="middle" font-size="9" fill="#4e9eff">6/11 四 抵達</text>
         </svg>
       </div>
@@ -840,37 +840,39 @@ html, body {
     <!-- Day 2 Route Map -->
     <div class="svg-map-wrap" style="margin-top:20px;">
       <div class="svg-map-title">📍 Day 2 路線圖 — 樂高・大須</div>
-      <svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans TC','PingFang TC',sans-serif">
-        <defs><filter id="g2a"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
-        <!-- Sakae → Nagoya Sta → Legoland (Kinjo Futo) -->
-        <polyline points="200,80 120,110 50,170" fill="none" stroke="#f87171" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#g2a)"/>
+      <svg viewBox="0 0 300 210" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans TC','PingFang TC',sans-serif">
+        <defs>
+          <filter id="g2a"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          <style>.lbl2{paint-order:stroke fill;stroke:#0a0e16;stroke-width:3px;stroke-linejoin:round;}</style>
+        </defs>
+        <!-- Sakae → Nagoya Sta → Legoland -->
+        <polyline points="220,60 130,95 45,160" fill="none" stroke="#f87171" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#g2a)"/>
         <!-- Legoland → Osu -->
-        <polyline points="50,170 130,160" fill="none" stroke="#f87171" stroke-width="2.5" stroke-dasharray="5,3" stroke-linecap="round" stroke-linejoin="round" filter="url(#g2a)"/>
+        <polyline points="45,160 140,152" fill="none" stroke="#f87171" stroke-width="2.5" stroke-dasharray="5,3" stroke-linecap="round" stroke-linejoin="round" filter="url(#g2a)"/>
         <!-- Osu → Sakae -->
-        <polyline points="130,160 200,80" fill="none" stroke="#f87171" stroke-width="2" stroke-dasharray="3,4" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/>
-        <!-- Labels on lines -->
-        <text x="84" y="133" text-anchor="middle" font-size="8.5" fill="#f87171" transform="rotate(20,84,133)">青波線 ~24分</text>
-        <text x="92" y="165" text-anchor="middle" font-size="8.5" fill="#f87171">→ 大須</text>
-        <text x="170" y="110" text-anchor="middle" font-size="8" fill="#f87171" transform="rotate(-32,170,110)">← 回榮站</text>
+        <polyline points="140,152 220,60" fill="none" stroke="#f87171" stroke-width="2" stroke-dasharray="3,4" stroke-linecap="round" stroke-linejoin="round" opacity="0.65"/>
+        <!-- Line labels -->
+        <text class="lbl2" x="78" y="118" text-anchor="middle" font-size="8.5" fill="#f87171" transform="rotate(22,78,118)">青波線 ~24分</text>
+        <text class="lbl2" x="196" y="112" text-anchor="middle" font-size="8" fill="#f87171" transform="rotate(-38,196,112)">← 回榮站</text>
         <!-- Sakae Hotel -->
-        <circle cx="200" cy="80" r="11" fill="#0f1115" stroke="#5fa8ff" stroke-width="2.5"/>
-        <text x="200" y="84" text-anchor="middle" font-size="10" fill="#fff">🏨</text>
-        <text x="200" y="100" text-anchor="middle" font-size="9" fill="#fff" font-weight="900">榮站・飯店</text>
+        <circle cx="220" cy="60" r="11" fill="#0f1115" stroke="#5fa8ff" stroke-width="2.5"/>
+        <text x="220" y="64" text-anchor="middle" font-size="10" fill="#fff">🏨</text>
+        <text class="lbl2" x="220" y="80" text-anchor="middle" font-size="9" fill="#fff" font-weight="900">榮站・飯店</text>
         <!-- Nagoya Sta -->
-        <circle cx="120" cy="110" r="6" fill="#1a2035" stroke="#8b9cc8" stroke-width="1.5"/>
-        <text x="120" y="126" text-anchor="middle" font-size="8.5" fill="#aab6c5">名古屋駅</text>
-        <!-- Legoland / Kinjo -->
-        <circle cx="50" cy="170" r="10" fill="#1a2035" stroke="#f87171" stroke-width="2"/>
-        <text x="50" y="174" text-anchor="middle" font-size="10" fill="#fff">🧱</text>
-        <text x="50" y="188" text-anchor="middle" font-size="8.5" fill="#f87171">樂高樂園</text>
-        <text x="50" y="197" text-anchor="middle" font-size="8" fill="#aab6c5">金城埠頭</text>
+        <circle cx="130" cy="95" r="6" fill="#1a2035" stroke="#8b9cc8" stroke-width="1.5"/>
+        <text class="lbl2" x="130" y="111" text-anchor="middle" font-size="8.5" fill="#aab6c5">名古屋駅</text>
+        <!-- Legoland -->
+        <circle cx="45" cy="160" r="10" fill="#1a2035" stroke="#f87171" stroke-width="2"/>
+        <text x="45" y="164" text-anchor="middle" font-size="10" fill="#fff">🧱</text>
+        <text class="lbl2" x="45" y="179" text-anchor="middle" font-size="8.5" fill="#f87171">樂高樂園</text>
+        <text class="lbl2" x="45" y="190" text-anchor="middle" font-size="8" fill="#aab6c5">金城埠頭</text>
         <!-- Osu -->
-        <circle cx="130" cy="160" r="8" fill="#1a2035" stroke="#f87171" stroke-width="1.8"/>
-        <text x="130" y="164" text-anchor="middle" font-size="9" fill="#fff">🛍</text>
-        <text x="130" y="178" text-anchor="middle" font-size="8.5" fill="#f87171">大須商店街</text>
-        <!-- Day label -->
-        <rect x="10" y="10" width="68" height="16" rx="4" fill="rgba(248,113,113,0.15)" stroke="rgba(248,113,113,0.4)" stroke-width="1"/>
-        <text x="44" y="22" text-anchor="middle" font-size="9" fill="#f87171">6/12 五 樂高大須</text>
+        <circle cx="140" cy="152" r="8" fill="#1a2035" stroke="#f87171" stroke-width="1.8"/>
+        <text x="140" y="156" text-anchor="middle" font-size="9" fill="#fff">🛍</text>
+        <text class="lbl2" x="140" y="170" text-anchor="middle" font-size="8.5" fill="#f87171">大須商店街</text>
+        <!-- Day badge -->
+        <rect x="10" y="10" width="76" height="16" rx="4" fill="rgba(248,113,113,0.2)" stroke="rgba(248,113,113,0.5)" stroke-width="1"/>
+        <text x="48" y="22" text-anchor="middle" font-size="9" fill="#f87171">6/12 五 樂高大須</text>
       </svg>
     </div>
 
@@ -968,32 +970,35 @@ html, body {
     <div class="svg-map-wrap" style="margin-top:20px;">
       <div class="svg-map-title">📍 Day 3 路線圖 — 名古屋城・豐田館</div>
       <svg viewBox="0 0 300 210" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans TC','PingFang TC',sans-serif">
-        <defs><filter id="g3a"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
-        <!-- Sakae → Nagoya Castle (名城線) -->
-        <polyline points="200,150 155,60" fill="none" stroke="#34d399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#g3a)"/>
-        <!-- Castle → Toyota Museum (taxi) -->
-        <polyline points="155,60 65,80" fill="none" stroke="#34d399" stroke-width="2.5" stroke-dasharray="6,3" stroke-linecap="round" stroke-linejoin="round" filter="url(#g3a)"/>
-        <!-- Toyota → Sakae -->
-        <polyline points="65,80 200,150" fill="none" stroke="#34d399" stroke-width="2" stroke-dasharray="3,4" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/>
+        <defs>
+          <filter id="g3a"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          <style>.lbl3{paint-order:stroke fill;stroke:#0a0e16;stroke-width:3px;stroke-linejoin:round;}</style>
+        </defs>
+        <!-- Sakae → Nagoya Castle -->
+        <polyline points="220,170 160,55" fill="none" stroke="#34d399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#g3a)"/>
+        <!-- Castle → Toyota Museum (taxi dashed) -->
+        <polyline points="160,55 58,80" fill="none" stroke="#34d399" stroke-width="2.5" stroke-dasharray="6,3" stroke-linecap="round" stroke-linejoin="round" filter="url(#g3a)"/>
+        <!-- Toyota → Sakae (return) -->
+        <polyline points="58,80 220,170" fill="none" stroke="#34d399" stroke-width="2" stroke-dasharray="3,4" stroke-linecap="round" stroke-linejoin="round" opacity="0.55"/>
         <!-- Labels -->
-        <text x="182" y="98" text-anchor="middle" font-size="8.5" fill="#34d399" transform="rotate(-65,182,98)">名城線~12分</text>
-        <text x="108" y="63" text-anchor="middle" font-size="8.5" fill="#34d399" transform="rotate(-10,108,63)">計程車~1500円</text>
-        <text x="148" y="128" text-anchor="middle" font-size="8" fill="#34d399" transform="rotate(-40,148,128)">名城線~17分</text>
+        <text class="lbl3" x="200" y="102" text-anchor="middle" font-size="8.5" fill="#34d399" transform="rotate(-70,200,102)">名城線~12分</text>
+        <text class="lbl3" x="107" y="58" text-anchor="middle" font-size="8.5" fill="#34d399">計程車~1,500円</text>
+        <text class="lbl3" x="162" y="140" text-anchor="middle" font-size="8" fill="#34d399" transform="rotate(-42,162,140)">名城線~17分</text>
         <!-- Sakae Hotel -->
-        <circle cx="200" cy="150" r="11" fill="#0f1115" stroke="#5fa8ff" stroke-width="2.5"/>
-        <text x="200" y="154" text-anchor="middle" font-size="10" fill="#fff">🏨</text>
-        <text x="200" y="170" text-anchor="middle" font-size="9" fill="#fff" font-weight="900">榮站・飯店</text>
+        <circle cx="220" cy="170" r="11" fill="#0f1115" stroke="#5fa8ff" stroke-width="2.5"/>
+        <text x="220" y="174" text-anchor="middle" font-size="10" fill="#fff">🏨</text>
+        <text class="lbl3" x="220" y="190" text-anchor="middle" font-size="9" fill="#fff" font-weight="900">榮站・飯店</text>
         <!-- Nagoya Castle -->
-        <circle cx="155" cy="60" r="10" fill="#1a2035" stroke="#34d399" stroke-width="2"/>
-        <text x="155" y="64" text-anchor="middle" font-size="10" fill="#fff">🏯</text>
-        <text x="155" y="80" text-anchor="middle" font-size="8.5" fill="#34d399">名古屋城</text>
+        <circle cx="160" cy="55" r="10" fill="#1a2035" stroke="#34d399" stroke-width="2"/>
+        <text x="160" y="59" text-anchor="middle" font-size="10" fill="#fff">🏯</text>
+        <text class="lbl3" x="160" y="75" text-anchor="middle" font-size="8.5" fill="#34d399">名古屋城</text>
         <!-- Toyota Museum -->
-        <circle cx="65" cy="80" r="10" fill="#1a2035" stroke="#34d399" stroke-width="2"/>
-        <text x="65" y="84" text-anchor="middle" font-size="9" fill="#fff">🏭</text>
-        <text x="65" y="99" text-anchor="middle" font-size="8.5" fill="#34d399">豐田產業</text>
-        <text x="65" y="109" text-anchor="middle" font-size="8" fill="#34d399">技術紀念館</text>
-        <!-- Day label -->
-        <rect x="10" y="10" width="78" height="16" rx="4" fill="rgba(52,211,153,0.15)" stroke="rgba(52,211,153,0.4)" stroke-width="1"/>
+        <circle cx="58" cy="80" r="10" fill="#1a2035" stroke="#34d399" stroke-width="2"/>
+        <text x="58" y="84" text-anchor="middle" font-size="9" fill="#fff">🏭</text>
+        <text class="lbl3" x="58" y="100" text-anchor="middle" font-size="8.5" fill="#34d399">豐田產業</text>
+        <text class="lbl3" x="58" y="111" text-anchor="middle" font-size="8" fill="#34d399">技術紀念館</text>
+        <!-- Day badge -->
+        <rect x="10" y="10" width="78" height="16" rx="4" fill="rgba(52,211,153,0.2)" stroke="rgba(52,211,153,0.5)" stroke-width="1"/>
         <text x="49" y="22" text-anchor="middle" font-size="9" fill="#34d399">6/13 六 城・豐田</text>
       </svg>
     </div>
@@ -1093,38 +1098,41 @@ html, body {
     <!-- Day 4 Route Map -->
     <div class="svg-map-wrap" style="margin-top:20px;">
       <div class="svg-map-title">📍 Day 4 路線圖 — 科學館・磁浮館</div>
-      <svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans TC','PingFang TC',sans-serif">
-        <defs><filter id="g4a"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
-        <!-- Sakae → Science Museum (Fushimi/Higashiyama line) -->
-        <polyline points="200,100 95,90" fill="none" stroke="#a78bfa" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#g4a)"/>
-        <!-- Science Museum → Nagoya Sta → Scmaglev (Aonami) -->
-        <polyline points="95,90 140,130 50,160" fill="none" stroke="#a78bfa" stroke-width="2.5" stroke-dasharray="6,3" stroke-linecap="round" stroke-linejoin="round" filter="url(#g4a)"/>
+      <svg viewBox="0 0 300 210" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans TC','PingFang TC',sans-serif">
+        <defs>
+          <filter id="g4a"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          <style>.lbl4{paint-order:stroke fill;stroke:#0a0e16;stroke-width:3px;stroke-linejoin:round;}</style>
+        </defs>
+        <!-- Sakae → Science Museum -->
+        <polyline points="230,105 90,88" fill="none" stroke="#a78bfa" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#g4a)"/>
+        <!-- Science Museum → Nagoya Sta → Scmaglev -->
+        <polyline points="90,88 148,140 42,168" fill="none" stroke="#a78bfa" stroke-width="2.5" stroke-dasharray="6,3" stroke-linecap="round" stroke-linejoin="round" filter="url(#g4a)"/>
         <!-- Scmaglev → Sakae -->
-        <polyline points="50,160 200,100" fill="none" stroke="#a78bfa" stroke-width="2" stroke-dasharray="3,4" stroke-linecap="round" stroke-linejoin="round" opacity="0.6"/>
-        <!-- Labels -->
-        <text x="148" y="83" text-anchor="middle" font-size="8.5" fill="#a78bfa">東山線~13分</text>
-        <text x="100" y="128" text-anchor="middle" font-size="8.5" fill="#a78bfa" transform="rotate(20,100,128)">青波線~24分</text>
-        <text x="150" y="148" text-anchor="middle" font-size="8" fill="#a78bfa" transform="rotate(-22,150,148)">← 返回榮站</text>
+        <polyline points="42,168 230,105" fill="none" stroke="#a78bfa" stroke-width="2" stroke-dasharray="3,4" stroke-linecap="round" stroke-linejoin="round" opacity="0.5"/>
+        <!-- Labels — positioned away from nodes -->
+        <text class="lbl4" x="160" y="82" text-anchor="middle" font-size="8.5" fill="#a78bfa">東山線~13分</text>
+        <text class="lbl4" x="92" y="128" text-anchor="middle" font-size="8.5" fill="#a78bfa" transform="rotate(22,92,128)">青波線~24分</text>
+        <text class="lbl4" x="175" y="155" text-anchor="middle" font-size="8" fill="#a78bfa" transform="rotate(-20,175,155)">← 返回榮站</text>
         <!-- Sakae Hotel -->
-        <circle cx="200" cy="100" r="11" fill="#0f1115" stroke="#5fa8ff" stroke-width="2.5"/>
-        <text x="200" y="104" text-anchor="middle" font-size="10" fill="#fff">🏨</text>
-        <text x="200" y="120" text-anchor="middle" font-size="9" fill="#fff" font-weight="900">榮站・飯店</text>
+        <circle cx="230" cy="105" r="11" fill="#0f1115" stroke="#5fa8ff" stroke-width="2.5"/>
+        <text x="230" y="109" text-anchor="middle" font-size="10" fill="#fff">🏨</text>
+        <text class="lbl4" x="230" y="125" text-anchor="middle" font-size="9" fill="#fff" font-weight="900">榮站・飯店</text>
         <!-- Science Museum -->
-        <circle cx="95" cy="90" r="10" fill="#1a2035" stroke="#a78bfa" stroke-width="2"/>
-        <text x="95" y="94" text-anchor="middle" font-size="10" fill="#fff">🔭</text>
-        <text x="95" y="109" text-anchor="middle" font-size="8.5" fill="#a78bfa">科學館</text>
-        <text x="95" y="119" text-anchor="middle" font-size="8" fill="#aab6c5">伏見站</text>
+        <circle cx="90" cy="88" r="10" fill="#1a2035" stroke="#a78bfa" stroke-width="2"/>
+        <text x="90" y="92" text-anchor="middle" font-size="10" fill="#fff">🔭</text>
+        <text class="lbl4" x="90" y="107" text-anchor="middle" font-size="8.5" fill="#a78bfa">科學館</text>
+        <text class="lbl4" x="90" y="117" text-anchor="middle" font-size="8" fill="#aab6c5">伏見站</text>
         <!-- Nagoya Sta transit -->
-        <circle cx="140" cy="130" r="6" fill="#1a2035" stroke="#8b9cc8" stroke-width="1.5"/>
-        <text x="140" y="145" text-anchor="middle" font-size="8" fill="#aab6c5">名古屋駅</text>
+        <circle cx="148" cy="140" r="6" fill="#1a2035" stroke="#8b9cc8" stroke-width="1.5"/>
+        <text class="lbl4" x="148" y="156" text-anchor="middle" font-size="8" fill="#aab6c5">名古屋駅</text>
         <!-- Scmaglev Railway -->
-        <circle cx="50" cy="160" r="10" fill="#1a2035" stroke="#a78bfa" stroke-width="2"/>
-        <text x="50" y="164" text-anchor="middle" font-size="10" fill="#fff">🚄</text>
-        <text x="50" y="179" text-anchor="middle" font-size="8.5" fill="#a78bfa">磁浮鐵道館</text>
-        <text x="50" y="189" text-anchor="middle" font-size="8" fill="#aab6c5">金城埠頭</text>
-        <!-- Day label -->
-        <rect x="10" y="10" width="82" height="16" rx="4" fill="rgba(167,139,250,0.15)" stroke="rgba(167,139,250,0.4)" stroke-width="1"/>
-        <text x="51" y="22" text-anchor="middle" font-size="9" fill="#a78bfa">6/14 日 科學・磁浮</text>
+        <circle cx="42" cy="168" r="10" fill="#1a2035" stroke="#a78bfa" stroke-width="2"/>
+        <text x="42" y="172" text-anchor="middle" font-size="10" fill="#fff">🚄</text>
+        <text class="lbl4" x="42" y="188" text-anchor="middle" font-size="8.5" fill="#a78bfa">磁浮鐵道館</text>
+        <text class="lbl4" x="42" y="199" text-anchor="middle" font-size="8" fill="#aab6c5">金城埠頭</text>
+        <!-- Day badge -->
+        <rect x="10" y="10" width="84" height="16" rx="4" fill="rgba(167,139,250,0.2)" stroke="rgba(167,139,250,0.5)" stroke-width="1"/>
+        <text x="52" y="22" text-anchor="middle" font-size="9" fill="#a78bfa">6/14 日 科學・磁浮</text>
       </svg>
     </div>
 
@@ -1225,32 +1233,33 @@ html, body {
     <!-- Day 5 Route Map -->
     <div class="svg-map-wrap" style="margin-top:20px;">
       <div class="svg-map-title">📍 Day 5 路線圖 — 返程回台</div>
-      <svg viewBox="0 0 300 170" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans TC','PingFang TC',sans-serif">
-        <defs><filter id="g5a"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+      <svg viewBox="0 0 300 180" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans TC','PingFang TC',sans-serif">
+        <defs>
+          <filter id="g5a"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          <style>.lbl5{paint-order:stroke fill;stroke:#0a0e16;stroke-width:3px;stroke-linejoin:round;}</style>
+        </defs>
         <!-- Sakae → Kanayama → Airport -->
-        <polyline points="60,60 150,100 255,140" fill="none" stroke="#fb923c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" filter="url(#g5a)"/>
-        <!-- Arrow at airport end -->
-        <polygon points="255,140 243,135 248,147" fill="#fb923c" opacity="0.9"/>
-        <!-- Labels -->
-        <text x="100" y="72" text-anchor="middle" font-size="8.5" fill="#a78bfa" transform="rotate(20,100,72)">名城線~8分</text>
-        <text x="205" y="128" text-anchor="middle" font-size="8.5" fill="#fb923c" transform="rotate(20,205,128)">名鐵特急~35分</text>
+        <polyline points="52,55 152,108 268,152" fill="none" stroke="#fb923c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" filter="url(#g5a)"/>
+        <!-- Labels above/below line -->
+        <text class="lbl5" x="96" y="68" text-anchor="middle" font-size="8.5" fill="#a78bfa" transform="rotate(26,96,68)">名城線~8分</text>
+        <text class="lbl5" x="215" y="124" text-anchor="middle" font-size="8.5" fill="#fb923c" transform="rotate(26,215,124)">名鐵特急~35分</text>
         <!-- Sakae Hotel -->
-        <circle cx="60" cy="60" r="11" fill="#0f1115" stroke="#5fa8ff" stroke-width="2.5"/>
-        <text x="60" y="64" text-anchor="middle" font-size="10" fill="#fff">🏨</text>
-        <text x="60" y="80" text-anchor="middle" font-size="9" fill="#fff" font-weight="900">榮站・飯店</text>
-        <text x="60" y="91" text-anchor="middle" font-size="8" fill="#fb923c">⚠ 17:30出發</text>
+        <circle cx="52" cy="55" r="11" fill="#0f1115" stroke="#5fa8ff" stroke-width="2.5"/>
+        <text x="52" y="59" text-anchor="middle" font-size="10" fill="#fff">🏨</text>
+        <text class="lbl5" x="52" y="75" text-anchor="middle" font-size="9" fill="#fff" font-weight="900">榮站・飯店</text>
+        <text class="lbl5" x="52" y="86" text-anchor="middle" font-size="8" fill="#ff9c9c">⚠ 17:30出發</text>
         <!-- Kanayama transfer -->
-        <circle cx="150" cy="100" r="7" fill="#1a2035" stroke="#8b9cc8" stroke-width="1.5"/>
-        <text x="150" y="117" text-anchor="middle" font-size="8.5" fill="#aab6c5">金山站</text>
+        <circle cx="152" cy="108" r="7" fill="#1a2035" stroke="#8b9cc8" stroke-width="1.5"/>
+        <text class="lbl5" x="152" y="124" text-anchor="middle" font-size="8.5" fill="#aab6c5">金山站</text>
         <!-- Airport -->
-        <circle cx="255" cy="140" r="10" fill="#1a2035" stroke="#fb923c" stroke-width="2"/>
-        <text x="255" y="144" text-anchor="middle" font-size="10" fill="#fff">✈</text>
-        <text x="255" y="158" text-anchor="middle" font-size="8.5" fill="#fb923c">中部機場</text>
-        <!-- Day label -->
-        <rect x="10" y="10" width="72" height="16" rx="4" fill="rgba(251,146,60,0.15)" stroke="rgba(251,146,60,0.4)" stroke-width="1"/>
+        <circle cx="268" cy="152" r="10" fill="#1a2035" stroke="#fb923c" stroke-width="2"/>
+        <text x="268" y="156" text-anchor="middle" font-size="10" fill="#fff">✈</text>
+        <text class="lbl5" x="268" y="170" text-anchor="middle" font-size="8.5" fill="#fb923c">中部機場</text>
+        <!-- Day badge -->
+        <rect x="10" y="10" width="72" height="16" rx="4" fill="rgba(251,146,60,0.2)" stroke="rgba(251,146,60,0.5)" stroke-width="1"/>
         <text x="46" y="22" text-anchor="middle" font-size="9" fill="#fb923c">6/15 一 返程</text>
-        <!-- Farewell text -->
-        <text x="150" y="30" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.3)">旅程圓滿 ✨ 平安回家</text>
+        <!-- Farewell -->
+        <text class="lbl5" x="200" y="28" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.35)">旅程圓滿 ✨ 平安回家</text>
       </svg>
     </div>
 
