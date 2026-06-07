@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>V31 | 2026 名古屋之旅</title>
+<title>V32 | 2026 名古屋之旅</title>
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -49,6 +49,7 @@ html, body {
   background: linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
   font-family: 'Noto Sans TC','PingFang TC','Microsoft JhengHei', sans-serif;
   color: var(--text); line-height: 1.7; overscroll-behavior: none;
+  font-size: 15px; /* 全域基礎字體放大優化 */
 }
 
 /* ── Scrollbar ── */
@@ -57,8 +58,6 @@ html, body {
 ::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 8px; }
 ::-webkit-scrollbar-thumb:hover { background: #3b4656; }
 
-
-
 /* ── Header ── */
 .header {
   background: var(--header-bg); color: var(--text);
@@ -66,7 +65,7 @@ html, body {
   border-bottom: 1px solid var(--border);
   box-shadow: 0 10px 30px rgba(0,0,0,0.35);
 }
-.header h1 { margin: 0; font-size: 20px; font-weight: 900; letter-spacing: 1px; }
+.header h1 { margin: 0; font-size: 21px; font-weight: 900; letter-spacing: 1px; }
 .header p  { margin: 4px 0 0; color: var(--text-sub); font-size: 12px; }
 
 /* ── Tab Bar ── */
@@ -78,9 +77,9 @@ html, body {
 }
 .tab-bar::-webkit-scrollbar { display: none; }
 .tab {
-  flex: 1; min-width: 60px; padding: 10px 4px 8px;
+  flex: 1; min-width: 65px; padding: 10px 4px 8px;
   text-align: center; cursor: pointer;
-  color: var(--text-dim); font-size: 11px; font-weight: 700; line-height: 1.3;
+  color: var(--text-dim); font-size: 12px; font-weight: 700; line-height: 1.3;
   border-bottom: 3px solid transparent; margin-bottom: -1px; transition: color .2s;
 }
 .tab .tab-date { font-size: 14px; font-weight: 900; display: block; }
@@ -88,6 +87,16 @@ html, body {
 .tab.today-tab .tab-date::after {
   content: '●'; font-size: 6px; color: #ef4444;
   vertical-align: super; margin-left: 2px;
+}
+
+/* ── 上方導覽列天氣 (放大優化) ── */
+.tab-weather {
+  font-size: 12px;
+  font-weight: 800;
+  display: block;
+  margin-top: 3px;
+  color: #fff;
+  line-height: 1;
 }
 
 /* ── Pages ── */
@@ -107,17 +116,27 @@ html, body {
 .info-panel h2 { margin: 0 0 10px; font-size: 16px; color: var(--text); }
 .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .info-item { background: var(--surface-alt); border-radius: 14px; padding: 12px; }
-.info-label { font-size: 10px; color: var(--text-sub); margin-bottom: 3px; }
-.info-value { font-size: 13px; font-weight: 700; color: var(--text); }
+.info-label { font-size: 11px; color: var(--text-sub); margin-bottom: 3px; }
+.info-value { font-size: 14px; font-weight: 700; color: var(--text); }
 
 /* ── Day Stats ── */
 .day-stats {
   background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.05);
-  border-radius: 12px; padding: 9px 13px; margin-bottom: 14px;
-  font-size: 12px; color: #d6dee8;
-  display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: center;
+  border-radius: 12px; padding: 10px 13px; margin-bottom: 14px;
+  font-size: 13px; color: #d6dee8;
+  display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: center;
 }
 .day-stats .sep { color: rgba(255,255,255,0.18); }
+
+/* ── 單日天氣欄位 ── */
+.day-weather {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 13px; font-weight: 800;
+}
+.day-weather .dw-icon { font-size: 17px; line-height: 1; }
+.day-weather .dw-temp { color: #fff; }
+.day-weather .dw-rain { color: #60a5fa; }
+.day-weather .dw-rain.heavy { color: var(--warn-l); }
 
 /* ── Timeline ── */
 .timeline { border-left: 2px solid var(--timeline-line); margin-left: 8px; padding-left: 16px; }
@@ -128,53 +147,55 @@ html, body {
   background: var(--timeline-dot); border: 2px solid var(--bg2);
   box-shadow: 0 0 0 2px rgba(255,255,255,0.04);
 }
-.time  { color: var(--accent); font-size: 13px; font-weight: 800; }
+.time  { color: var(--accent); font-size: 13.5px; font-weight: 800; }
 .title { font-size: 17px; font-weight: 800; margin: 2px 0 7px; line-height: 1.3; color: #fff; }
-.badge { display: inline-block; background: #d9485f; color: white; border-radius: 7px; padding: 1px 7px; font-size: 10px; margin-left: 5px; }
-.fee   { background: rgba(255,255,255,0.08); color: var(--text-sub); padding: 1px 7px; border-radius: 7px; font-size: 10px; margin-left: 5px; }
+.badge { display: inline-block; background: #d9485f; color: white; border-radius: 7px; padding: 1px 7px; font-size: 11px; margin-left: 5px; }
+.fee   { background: rgba(255,255,255,0.08); color: var(--text-sub); padding: 1px 7px; border-radius: 7px; font-size: 11px; margin-left: 5px; }
 
-/* ── Info Boxes (3-type system) ── */
-/* hint-box: 提示、導航、戰術（藍） */
-/* food-box: 飲食資訊（橘）         */
-/* warning-box: 警告、注意（紅）    */
+/* ── Info Boxes ── */
 .hint-box, .food-box, .warning-box, .success-box {
   background: var(--surface); border: 1px solid var(--border);
-  border-radius: 12px; padding: 10px 13px; margin-top: 9px; font-size: 13px;
+  border-radius: 12px; padding: 11px 14px; margin-top: 9px; font-size: 14px;
   color: var(--text);
 }
 .hint-box    { border-left: 4px solid var(--accent); }
 .food-box    { border-left: 4px solid var(--food-l); }
 .warning-box { border-left: 4px solid var(--warn-l); }
 .success-box { border-left: 4px solid var(--success-l); }
-/* Legacy aliases – keep old class names working */
-.focus-box { background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: 12px; padding: 10px 13px; margin-top: 9px; font-size: 13px; color: var(--text); }
-.nav-box   { background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: 12px; padding: 10px 13px; margin-top: 9px; font-size: 13px; color: var(--text); }
-.tactic-box { background: rgba(95,168,255,0.08); border: 1px solid rgba(95,168,255,0.3); border-left: 4px solid var(--accent); border-radius: 12px; padding: 10px 13px; margin-top: 9px; font-size: 13px; }
-.sub-text    { font-size: 12px; color: var(--text-sub); }
+.focus-box { background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: 12px; padding: 11px 14px; margin-top: 9px; font-size: 14px; color: var(--text); }
+.nav-box   { background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: 12px; padding: 11px 14px; margin-top: 9px; font-size: 14px; color: var(--text); }
+.tactic-box { background: rgba(95,168,255,0.08); border: 1px solid rgba(95,168,255,0.3); border-left: 4px solid var(--accent); border-radius: 12px; padding: 11px 14px; margin-top: 9px; font-size: 14px; }
+.sub-text    { font-size: 12.5px; color: var(--text-sub); }
 
-/* ── Event Hint (one-liner always visible) ── */
+/* ── Event Hint ── */
 .event-hint {
-  font-size: 12.5px; color: var(--text-sub);
+  font-size: 13.5px; color: var(--text-sub);
   margin: 4px 0 8px; line-height: 1.5;
 }
 .event-hint b { color: var(--text); }
 .event-hint .warn { color: var(--warn-l); font-weight: 700; }
 .event-hint .go   { color: var(--accent); font-weight: 700; }
 
-/* ── Success Section (always visible) ── */
+/* ── Success Section ── */
 .success-section { margin-top: 20px; margin-bottom: 4px; }
 .success-label {
-  font-size: 13px; font-weight: 800; color: var(--success-l);
+  font-size: 14px; font-weight: 800; color: var(--success-l);
   margin-bottom: 6px; letter-spacing: 0.3px;
 }
 
-/* ── Collapsible ── */
+/* ── Collapsible (粉紅呼吸愛心 & 展開時的底色變換) ── */
 .custom-details {
   background: rgba(28,32,42,0.6); border-radius: 12px;
   border: 1px solid var(--border); margin-bottom: 12px; overflow: hidden;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+/* 展開狀態下給予明顯的底色與邊框變化 */
+.custom-details[open] {
+  background: rgba(40,46,60,0.95);
+  border-color: rgba(95,168,255,0.4);
 }
 .custom-details summary {
-  padding: 14px 14px; font-size: 13.5px; font-weight: 800;
+  padding: 14px 14px; font-size: 14px; font-weight: 800;
   color: var(--accent); cursor: pointer; list-style: none;
   display: flex; justify-content: space-between; align-items: center;
   user-select: none; width: 100%; min-height: 48px;
@@ -182,7 +203,7 @@ html, body {
 .custom-details summary::-webkit-details-marker { display: none; }
 .custom-details summary::after {
   content: '❤';
-  font-size: 20px;
+  font-size: 16px;
   color: #ff69b4;
   transition: transform .3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   animation: pulse-glow-pink 2s ease-in-out infinite;
@@ -200,26 +221,46 @@ html, body {
   50%       { opacity: 0.4; filter: drop-shadow(0 0 0px transparent); }
 }
 .custom-details .details-content {
-  padding: 0 14px 14px; font-size: 13px;
-  background: rgba(0,0,0,0.22);
+  padding: 0 14px 14px; font-size: 13.5px;
   border-top: 1px solid var(--border);
 }
 
-/* ── Route Map ── */
+/* ── 藥妝專用：永久展開免點擊區塊 ── */
+.no-fold-box {
+  background: rgba(28,32,42,0.4);
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  padding: 12px 14px;
+  margin-top: 10px;
+}
+.no-fold-title {
+  font-size: 13.5px; font-weight: 800; color: var(--accent);
+  margin-bottom: 8px; display: flex; align-items: center; gap: 6px;
+}
+
+/* ── Route Map SVG 高度約束 ── */
 .route-map { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 12px 14px; margin-top: 10px; }
-.route-node { display: flex; align-items: center; margin-bottom: 8px; font-size: 13px; font-weight: 700; }
+.page svg, .svg-map-wrap svg {
+  max-width: 100% !important;
+  height: auto !important;
+  max-height: 240px !important;
+  margin: 10px auto !important;
+  display: block;
+}
+.page svg text, .svg-map-wrap svg text { font-size: 12px !important; font-weight: 700; }
+.route-node { display: flex; align-items: center; margin-bottom: 8px; font-size: 13.5px; font-weight: 700; }
 .route-line { width: 4px; height: 20px; margin-left: 11px; border-radius: 8px; margin-bottom: 2px; }
 .route-step { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 9px; }
 .route-icon { font-size: 16px; min-width: 22px; }
-.route-line-name  { font-weight: 700; font-size: 13px; color: var(--text); }
-.route-detail     { font-size: 11.5px; color: var(--text-sub); }
+.route-line-name  { font-weight: 700; font-size: 13.5px; color: var(--text); }
+.route-detail     { font-size: 12px; color: var(--text-sub); }
 .purple    { background: #8b5cf6; }
 .red-line  { background: #ef4444; }
 .green-line{ background: var(--green); }
 
 /* ── Nav Steps ── */
 .nav-steps { display: flex; flex-direction: column; gap: 7px; margin-top: 9px; }
-.nav-step  { display: flex; align-items: center; gap: 9px; font-size: 13px; }
+.nav-step  { display: flex; align-items: center; gap: 9px; font-size: 13.5px; }
 .step-num  {
   background: var(--btn-bg); color: white;
   width: 22px; height: 22px; border-radius: 50%;
@@ -233,7 +274,7 @@ html, body {
 /* ── Taxi Card ── */
 .taxi-card {
   background: var(--surface); border-radius: 12px; padding: 11px; margin-top: 9px;
-  border: 1px solid rgba(255,159,64,0.3); text-align: center; font-size: 13px;
+  border: 1px solid rgba(255,159,64,0.3); text-align: center; font-size: 13.5px;
 }
 .taxi-jp { font-size: 16px; font-weight: 900; color: #ff9c9c; margin-top: 5px; }
 
@@ -241,7 +282,7 @@ html, body {
 .btn-group { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
 .btn {
   text-decoration: none; background: var(--btn-bg); color: white;
-  padding: 8px 13px; border-radius: 12px; font-size: 12px; font-weight: 700;
+  padding: 8px 13px; border-radius: 12px; font-size: 12.5px; font-weight: 700;
   display: inline-flex; align-items: center; gap: 5px;
   border: 1px solid rgba(255,255,255,0.08); cursor: pointer;
   box-shadow: 0 6px 16px rgba(47,109,246,0.35);
@@ -250,14 +291,14 @@ html, body {
 
 /* ── Airport Timeline ── */
 .airport-tl  { margin-top: 8px; }
-.airport-row { display: flex; align-items: baseline; gap: 10px; font-size: 13px; padding: 3px 0; }
+.airport-row { display: flex; align-items: baseline; gap: 10px; font-size: 13.5px; padding: 3px 0; }
 .airport-time{ font-weight: 900; color: var(--accent); min-width: 50px; }
 
 /* ── Today Banner ── */
 .today-banner {
   background: linear-gradient(135deg,#23405f,#2f6df6);
   color: white; border-radius: 12px; padding: 8px 14px;
-  margin-bottom: 12px; font-size: 12px; display: flex; align-items: center; gap: 8px;
+  margin-bottom: 12px; font-size: 13px; display: flex; align-items: center; gap: 8px;
 }
 .today-banner b { font-size: 14px; }
 
@@ -271,7 +312,7 @@ html, body {
   border: 1px solid var(--border); cursor: pointer;
   backdrop-filter: blur(20px); box-shadow: 0 8px 20px rgba(0,0,0,0.40);
   transition: transform .15s; white-space: nowrap;
-  font-size: 13px; font-weight: 700;
+  font-size: 13.5px; font-weight: 700;
 }
 .float-btn .float-icon { font-size: 18px; }
 .float-btn:active { transform: scale(.95); }
@@ -288,25 +329,25 @@ html, body {
 
 /* ── Ticket / Modal Sections ── */
 .ticket-section { margin-bottom: 18px; }
-.ticket-section h3 { margin: 0 0 9px; font-size: 14px; color: var(--text); display: flex; align-items: center; gap: 6px; }
-.ticket-row { display: flex; align-items: flex-start; gap: 9px; padding: 9px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+.ticket-section h3 { margin: 0 0 9px; font-size: 14.5px; color: var(--text); display: flex; align-items: center; gap: 6px; }
+.ticket-row { display: flex; align-items: flex-start; gap: 9px; padding: 9px 0; border-bottom: 1px solid var(--border); font-size: 13.5px; }
 .ticket-row:last-child { border-bottom: none; }
 .ticket-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
 .dot-red { background: #ef4444; } .dot-yellow { background: var(--amber); } .dot-green { background: var(--green); }
 .ticket-name { font-weight: 700; margin-bottom: 2px; }
-.ticket-note { color: var(--text-sub); font-size: 12px; line-height: 1.5; }
+.ticket-note { color: var(--text-sub); font-size: 12.5px; line-height: 1.5; }
 
 /* ── Checkpoint Table ── */
-.checkpoint-table { width: 100%; border-collapse: collapse; font-size: 12.5px; margin-top: 4px; }
-.checkpoint-table th { background: rgba(255,255,255,0.07); color: var(--text-sub); padding: 8px 9px; text-align: left; font-weight: 700; font-size: 11px; letter-spacing: .5px; border-bottom: 1px solid var(--border); }
+.checkpoint-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 4px; }
+.checkpoint-table th { background: rgba(255,255,255,0.07); color: var(--text-sub); padding: 8px 9px; text-align: left; font-weight: 700; font-size: 12px; letter-spacing: .5px; border-bottom: 1px solid var(--border); }
 .checkpoint-table td { padding: 9px 9px; vertical-align: top; border-bottom: 1px solid rgba(255,255,255,0.05); color: var(--text); line-height: 1.6; }
 .checkpoint-table tr:last-child td { border-bottom: none; }
-.checkpoint-table .ck-date { white-space: nowrap; font-weight: 800; color: var(--accent); font-size: 12px; }
+.checkpoint-table .ck-date { white-space: nowrap; font-weight: 800; color: var(--accent); font-size: 13px; }
 .checkpoint-table .ck-time { white-space: nowrap; font-weight: 800; color: var(--food-l); }
-.checkpoint-table .ck-note { color: var(--text-sub); font-size: 12px; }
+.checkpoint-table .ck-note { color: var(--text-sub); font-size: 12.5px; }
 
 /* ── Fare Table ── */
-.fare-table { width: 100%; border-collapse: collapse; font-size: 12.5px; margin: 8px 0; }
+.fare-table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 8px 0; }
 .fare-table td { padding: 6px 4px; border-bottom: 1px solid rgba(255,255,255,0.05); }
 .fare-table tr:last-child td { border-bottom: none; }
 .fare-day   { font-weight: 800; color: var(--accent); white-space: nowrap; }
@@ -316,9 +357,7 @@ html, body {
 /* ── Divider ── */
 .dashed-divider { border: none; border-top: 1px dashed rgba(255,255,255,0.15); margin: 10px 0; }
 
-
-
-/* ── Weather Panel ── */
+/* ── 主頁大天氣預報卡片 (放大優化) ── */
 .weather-panel {
   background: var(--surface); border-radius: 18px;
   padding: 14px 16px; margin-bottom: 14px;
@@ -326,36 +365,23 @@ html, body {
   box-shadow: 0 8px 24px rgba(0,0,0,0.28);
   backdrop-filter: blur(18px);
 }
-.weather-panel h2 { margin: 0 0 10px; font-size: 15px; color: var(--text); }
+.weather-panel h2 { margin: 0 0 12px; font-size: 16px; color: var(--text); }
 .weather-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
 .weather-card {
   background: var(--surface-alt); border-radius: 12px;
-  padding: 10px 6px; text-align: center;
+  padding: 12px 6px; text-align: center;
   border: 1px solid var(--border);
 }
-.wc-date { font-size: 10px; color: var(--text-sub); margin-bottom: 2px; }
-.wc-day  { font-size: 11px; font-weight: 800; color: var(--accent); margin-bottom: 4px; }
-.wc-icon { font-size: 22px; line-height: 1; margin-bottom: 4px; }
-.wc-temp { font-size: 11px; font-weight: 700; color: var(--text); line-height: 1.6; }
-.wc-rain { font-size: 10px; color: var(--text-sub); margin-top: 2px; }
+.wc-date { font-size: 11px; color: var(--text-sub); margin-bottom: 2px; }
+.wc-day  { font-size: 12px; font-weight: 800; color: var(--accent); margin-bottom: 5px; }
+.wc-icon { font-size: 26px; line-height: 1; margin-bottom: 6px; }
+.wc-temp { font-size: 13px; font-weight: 700; color: var(--text); line-height: 1.6; }
+.wc-rain { font-size: 11px; color: var(--text-sub); margin-top: 3px; }
 .wc-rain.wet { color: #60a5fa; font-weight: 700; }
 .wc-rain.heavy { color: var(--warn-l); font-weight: 700; }
-.weather-loading { text-align:center; color: var(--text-sub); font-size: 13px; padding: 12px 0; }
-.weather-err { font-size:12px; color:var(--text-sub); }
+.weather-loading { text-align:center; color: var(--text-sub); font-size: 14px; padding: 12px 0; }
+.weather-err { font-size:13px; color:var(--text-sub); }
 .weather-err a { color:var(--accent); }
-
-/* ── Day Weather Strip (in day-stats) ── */
-.day-weather {
-  display: flex; align-items: center; gap: 6px;
-  font-size: 12px; font-weight: 700;
-}
-.day-weather .dw-icon { font-size: 16px; line-height: 1; }
-.day-weather .dw-temp { color: var(--text); }
-.day-weather .dw-rain { color: #60a5fa; }
-.day-weather .dw-rain.heavy { color: var(--warn-l); }
-
-/* ── Tab weather mini ── */
-.tab-weather { font-size: 10px; display: block; margin-top: 1px; color: var(--text-sub); line-height: 1; }
 
 /* ── Breakfast Nav Button ── */
 .breakfast-nav {
@@ -365,48 +391,35 @@ html, body {
   background: rgba(95,168,255,0.12);
   border: 1px solid rgba(95,168,255,0.3);
   color: var(--accent);
-  font-size: 11px; font-weight: 700;
+  font-size: 12px; font-weight: 700;
   padding: 4px 9px; border-radius: 8px;
   transition: background .15s;
 }
 .breakfast-nav:active { background: rgba(95,168,255,0.25); }
 .breakfast-nav svg { flex-shrink: 0; }
 @media (max-width: 380px) {
-  .header h1   { font-size: 17px; }
+  .header h1   { font-size: 18px; }
   .tab .tab-date { font-size: 13px; }
   .title       { font-size: 15px; }
+  .tab-weather { font-size: 11px; }
 }
 
-/* ── SVG Route Map ── */
-.svg-map-wrap {
-  background: rgba(10,14,22,0.92);
-  border: 1px solid var(--border);
-  border-radius: 18px;
-  padding: 14px 10px 14px;
+/* ── 新增：圖片地圖容器 ── */
+.image-map-container {
   margin-top: 18px;
-  margin-bottom: 140px; /* clear floating menu */
-  overflow: hidden;
+  margin-bottom: 140px; /* 留出底部浮動按鈕空間 */
 }
-.svg-map-title {
-  font-size: 12px; font-weight: 900;
+.image-map-title {
+  font-size: 13px; font-weight: 900;
   color: var(--text-sub); letter-spacing: 1px;
-  text-transform: uppercase; margin-bottom: 10px;
-  padding-left: 4px;
+  margin-bottom: 10px; padding-left: 4px;
 }
-.svg-map-wrap svg { width: 100%; height: auto; display: block; }
-.map-legend {
-  display: flex; flex-wrap: wrap; gap: 8px 14px;
-  margin-top: 10px; padding-left: 4px;
-}
-.map-legend-item {
-  display: flex; align-items: center; gap: 5px;
-  font-size: 11px; color: var(--text-sub);
-}
-.map-legend-dot {
-  width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
-}
-.map-legend-line {
-  width: 18px; height: 3px; border-radius: 2px; flex-shrink: 0;
+.image-map {
+  width: 100%; height: auto;
+  border-radius: 14px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  border: 1px solid var(--border);
+  display: block;
 }
 </style>
 </head>
@@ -479,7 +492,7 @@ html, body {
     <ul style="margin:0;padding-left:18px;font-size:13.5px;line-height:1.9;">
       <li><b>交通：</b>Suica 刷到底，Google Maps 聽指揮。</li>
       <li><b>雨天：</b>便利商店買透明傘，10 分鐘解決。</li>
-      <li><b>晚間：</b>21:30 後開始往飯店(榮站)方向移動。</li>
+      <li><b>晚間：</b>21:30 前回榮站最穩定。</li>
     </ul>
     <div style="margin-top:10px;font-size:13px;font-weight:700;color:#ff9c9c;">📱 聯絡原則</div>
     <ul style="margin:5px 0 0;padding-left:18px;font-size:13px;">
@@ -493,7 +506,7 @@ html, body {
   <div class="info-panel">
     <h2 style="font-size:15px;">📦 出門確認</h2>
     <div class="focus-box" style="font-size:15px;font-weight:900;line-height:2.4;">
-      ✔ 護照&emsp;✔ 手機&emsp;✔ 行動電源<br>
+      ✔ 護照 ✔ 手機 ✔ 行動電源<br>
       <span class="sub-text" style="font-weight:400;font-size:13px;">其他忘了，現場都能買。</span>
     </div>
   </div>
@@ -506,22 +519,23 @@ html, body {
         🍲 <b>JPG-X100 內鍋</b>（優先，Day 2 晚已預訂）<br>
         💊 親友托買的<b>藥妝</b>（事前確認好清單）
       </div>
-      <details class="custom-details" style="margin-top:10px;">
-        <summary>💊 藥妝參考清單</summary>
-        <div class="details-content">
-          <div class="focus-box" style="line-height:2.2;">
-            蒸氣眼罩（Megurhythm）<br>
-            痠痛貼布（サロンパス / ロイヒつぼ膏）<br>
-            腸胃藥（太田胃散）<br>
-            感冒藥（パブロン）<br>
-            維他命飲料（Alinamin、Regain）<br>
-            防曬乳（アネッサ / ビオレ）<br>
-            面膜、美白精華（隨喜好）<br>
-            🧳 旅行收納小物（順手看）<br>
-            <span class="sub-text">有興趣再看，不強求。</span>
-          </div>
+      
+      <!-- 修正三：免點擊直接展開的藥妝清單 -->
+      <div class="no-fold-box">
+        <div class="no-fold-title">💊 藥妝參考清單</div>
+        <div style="line-height:2.2; color:var(--text);">
+          蒸氣眼罩（Megurhythm）<br>
+          痠痛貼布（サロンパス / ロイヒつぼ膏）<br>
+          腸胃藥（太田胃散）<br>
+          感冒藥（パブロン）<br>
+          維他命飲料（Alinamin、Regain）<br>
+          防曬乳（アネッサ / ビオレ）<br>
+          面膜、美白精華（隨喜好）<br>
+          🧳 旅行收納小物（順手看）<br>
+          <span class="sub-text">有興趣再看，不強求。</span>
         </div>
-      </details>
+      </div>
+
     </div>
   </details>
 
@@ -529,122 +543,10 @@ html, body {
     💡 詳細攻略、交通預估、購票與美食，請點右下角按鈕。
   </div>
 
-  <!-- 🗺 五天總覽路線圖 -->
-  <div class="svg-map-wrap">
-    <div class="svg-map-title">🗺 五天路線總覽</div>
-    <svg viewBox="0 0 340 360" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans TC','PingFang TC',sans-serif">
-      <defs>
-        <!-- glow filters per day -->
-        <filter id="gd1"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-        <filter id="gd2"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-        <filter id="gd3"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-        <filter id="gd4"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-        <filter id="gd5"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-        <filter id="shadowNode"><feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="rgba(0,0,0,0.6)"/></filter>
-      </defs>
-      <!-- BG grid subtle -->
-      <rect width="340" height="360" fill="none"/>
-      <line x1="170" y1="0" x2="170" y2="360" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
-      <line x1="0" y1="180" x2="340" y2="180" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
-
-      <!-- KEY LOCATIONS (approx relative positions in Nagoya):
-           榮站 (hotel) = center: 170, 190
-           機場 Centrair = bottom-right: 295, 315
-           金山站 = bottom of center: 170, 255
-           名古屋城 = top-center: 155, 70
-           豐田館 = top-left: 60, 90
-           科學館 = left: 68, 175
-           大須 = bottom-left: 100, 255
-           樂高/磁浮館 = left-bottom: 48, 310
-           名古屋駅 = left-center: 85, 210
-      -->
-
-      <!-- ─── Day 1 路線 (藍): 機場→金山→榮站 ─── -->
-      <polyline points="295,315 170,255 170,190" fill="none" stroke="#4e9eff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#gd1)" opacity="0.85"/>
-
-      <!-- ─── Day 2 路線 (紅): 榮→名古屋駅→樂高→大須→榮 ─── -->
-      <polyline points="170,190 85,210 48,310 100,255 170,190" fill="none" stroke="#f87171" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6,3" filter="url(#gd2)" opacity="0.85"/>
-
-      <!-- ─── Day 3 路線 (綠): 榮→名古屋城→豐田館→榮 ─── -->
-      <polyline points="170,190 155,70 60,90 170,190" fill="none" stroke="#34d399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8,3" filter="url(#gd3)" opacity="0.85"/>
-
-      <!-- ─── Day 4 路線 (紫): 榮→科學館→磁浮館→榮 ─── -->
-      <polyline points="170,190 68,175 48,310 170,190" fill="none" stroke="#a78bfa" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="4,4" filter="url(#gd4)" opacity="0.85"/>
-
-      <!-- ─── Day 5 路線 (橘): 榮→金山→機場 ─── -->
-      <polyline points="170,190 170,255 295,315" fill="none" stroke="#fb923c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#gd5)" opacity="0.85"/>
-
-      <!-- ═══ LOCATION NODES ═══ -->
-
-      <!-- 機場 Centrair (295,315) -->
-      <circle cx="295" cy="315" r="8" fill="#1a2035" stroke="#4e9eff" stroke-width="2" filter="url(#shadowNode)"/>
-      <text x="295" y="319" text-anchor="middle" font-size="8" fill="#fff">✈</text>
-      <text x="295" y="332" text-anchor="middle" font-size="8" fill="#aab6c5">機場</text>
-
-      <!-- 金山站 (170,255) -->
-      <circle cx="170" cy="255" r="6" fill="#1a2035" stroke="#8b9cc8" stroke-width="1.5" filter="url(#shadowNode)"/>
-      <text x="186" y="259" text-anchor="start" font-size="9" fill="#aab6c5">金山站</text>
-
-      <!-- 榮站 HOTEL (170,190) ← CENTER STAR -->
-      <circle cx="170" cy="190" r="11" fill="#0f1115" stroke="#5fa8ff" stroke-width="2.5" filter="url(#shadowNode)"/>
-      <circle cx="170" cy="190" r="7" fill="#5fa8ff" opacity="0.25"/>
-      <text x="170" y="194" text-anchor="middle" font-size="9" fill="#fff" font-weight="900">🏨</text>
-      <text x="185" y="187" text-anchor="start" font-size="9.5" fill="#fff" font-weight="900">榮站</text>
-      <text x="185" y="198" text-anchor="start" font-size="8" fill="#aab6c5">(飯店)</text>
-
-      <!-- 名古屋城 (155,70) -->
-      <circle cx="155" cy="70" r="8" fill="#1a2035" stroke="#34d399" stroke-width="2" filter="url(#shadowNode)"/>
-      <text x="155" y="74" text-anchor="middle" font-size="9" fill="#fff">🏯</text>
-      <text x="166" y="68" text-anchor="start" font-size="8.5" fill="#34d399">名古屋城</text>
-
-      <!-- 豐田館 (60,90) -->
-      <circle cx="60" cy="90" r="8" fill="#1a2035" stroke="#34d399" stroke-width="2" filter="url(#shadowNode)"/>
-      <text x="60" y="94" text-anchor="middle" font-size="8" fill="#fff">🏭</text>
-      <text x="71" y="88" text-anchor="start" font-size="8.5" fill="#34d399">豐田館</text>
-
-      <!-- 科學館 (68,175) -->
-      <circle cx="68" cy="175" r="8" fill="#1a2035" stroke="#a78bfa" stroke-width="2" filter="url(#shadowNode)"/>
-      <text x="68" y="179" text-anchor="middle" font-size="9" fill="#fff">🔭</text>
-      <text x="79" y="179" text-anchor="start" font-size="8.5" fill="#a78bfa">科學館</text>
-
-      <!-- 大須 (100,255) -->
-      <circle cx="100" cy="255" r="7" fill="#1a2035" stroke="#f87171" stroke-width="1.8" filter="url(#shadowNode)"/>
-      <text x="100" y="259" text-anchor="middle" font-size="8" fill="#fff">🛍</text>
-      <text x="100" y="271" text-anchor="middle" font-size="8.5" fill="#f87171">大須</text>
-
-      <!-- 名古屋駅 (85,210) -->
-      <circle cx="85" cy="210" r="5" fill="#1a2035" stroke="#8b9cc8" stroke-width="1.3"/>
-      <text x="85" y="225" text-anchor="middle" font-size="8" fill="#8b9cc8">名古屋駅</text>
-
-      <!-- 樂高/磁浮 金城埠頭 (48,310) -->
-      <circle cx="48" cy="310" r="8" fill="#1a2035" stroke="#f87171" stroke-width="2" filter="url(#shadowNode)"/>
-      <text x="48" y="314" text-anchor="middle" font-size="9" fill="#fff">🧱</text>
-      <text x="58" y="307" text-anchor="start" font-size="8" fill="#f87171">樂高</text>
-      <text x="58" y="318" text-anchor="start" font-size="8" fill="#a78bfa">磁浮館</text>
-
-      <!-- Day labels floating -->
-      <rect x="8" y="8" width="32" height="14" rx="4" fill="#4e9eff" opacity="0.9"/>
-      <text x="24" y="19" text-anchor="middle" font-size="9" fill="#fff" font-weight="900">Day1</text>
-
-      <rect x="44" y="8" width="32" height="14" rx="4" fill="#f87171" opacity="0.9"/>
-      <text x="60" y="19" text-anchor="middle" font-size="9" fill="#fff" font-weight="900">Day2</text>
-
-      <rect x="80" y="8" width="32" height="14" rx="4" fill="#34d399" opacity="0.9"/>
-      <text x="96" y="19" text-anchor="middle" font-size="9" fill="#fff" font-weight="900">Day3</text>
-
-      <rect x="116" y="8" width="32" height="14" rx="4" fill="#a78bfa" opacity="0.9"/>
-      <text x="132" y="19" text-anchor="middle" font-size="9" fill="#fff" font-weight="900">Day4</text>
-
-      <rect x="152" y="8" width="32" height="14" rx="4" fill="#fb923c" opacity="0.9"/>
-      <text x="168" y="19" text-anchor="middle" font-size="9" fill="#fff" font-weight="900">Day5</text>
-    </svg>
-    <div class="map-legend">
-      <div class="map-legend-item"><div class="map-legend-line" style="background:#4e9eff;"></div>Day 1 到達</div>
-      <div class="map-legend-item"><div class="map-legend-line" style="background:#f87171;"></div>Day 2 樂高・大須</div>
-      <div class="map-legend-item"><div class="map-legend-line" style="background:#34d399;"></div>Day 3 城・豐田</div>
-      <div class="map-legend-item"><div class="map-legend-line" style="background:#a78bfa;"></div>Day 4 科學・磁浮</div>
-      <div class="map-legend-item"><div class="map-legend-line" style="background:#fb923c;"></div>Day 5 返程</div>
-    </div>
+  <!-- 🗺 替換為你的精美圖片地圖總覽 -->
+  <div class="image-map-container">
+    <div class="image-map-title">🗺 五天路線總覽</div>
+    <img src="名古屋之旅 20260611-15.png" alt="名古屋之旅地圖總覽" class="image-map">
   </div>
 
 </div>
@@ -1009,7 +911,7 @@ html, body {
 <div class="page" id="p4">
   <div id="banner4"></div>
   <div class="day-stats" id="stats4">
-    <span>🚶 步數：中</span><span class="sep">|</span>
+    <span>🚶 步数：中</span><span class="sep">|</span>
     <span>🧠 腦力：超高</span><span class="sep">|</span>
     <span>🍜 喫茶店回血</span><span class="sep">|</span>
     <span id="dw4"></span>
@@ -1325,7 +1227,7 @@ html, body {
 
     <div class="ticket-section">
       <h3><span style="background:#8b5cf6;color:white;border-radius:6px;padding:2px 8px;font-size:11px;">交通策略</span></h3>
-      <div class="focus-box" style="font-size:13px;line-height:1.9;">
+      <div class="focus-box" style="font-size:14px;line-height:1.9;">
         <b>iPhone Wallet 加入 Suica / ICOCA</b>，全程直接刷卡。<br>
         本次行程包含：✔ 名鐵 ✔ 地下鐵 ✔ 青波線 ✔ 計程車<br>
         <hr class="dashed-divider">
@@ -1343,10 +1245,10 @@ html, body {
         <hr class="dashed-divider">
         💳 <b>Suica 建議儲值：10,000 円</b><br>
         實際車資約 6,000 円。剩餘可用於超商、自販機、餐廳，Day 5 機場保證花完。
-        <div style="background:var(--red-soft);border:1px solid var(--warn-l);border-radius:8px;padding:10px;margin-top:12px;font-size:12.5px;">
+        <div style="background:var(--red-soft);border:1px solid var(--warn-l);border-radius:8px;padding:10px;margin-top:12px;font-size:13.5px;">
           <b style="color:#ff9c9c;">⚠️ 本次行程不適合研究票券</b><br>
           地下鐵券不划算 / Me~guru 不適用 / JR Pass 不需要。<br>
-          <b style="font-size:13.5px;">Suica + Google Maps 就是唯一正解。</b>
+          <b style="font-size:14.5px;">Suica + Google Maps 就是唯一正解。</b>
         </div>
       </div>
     </div>
@@ -1587,7 +1489,7 @@ loadWeather();
 // ── Service Worker ──
 if('serviceWorker' in navigator){
   const swCode=`
-const CACHE='nagoya-2026-v27';
+const CACHE='nagoya-2026-v32';
 self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.add(self.location.href||'/')).then(()=>self.skipWaiting()));});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>clients.claim()));});
 self.addEventListener('fetch',e=>{e.respondWith(caches.match(e.request).then(cached=>{if(cached)return cached;return fetch(e.request).then(resp=>{const clone=resp.clone();caches.open(CACHE).then(c=>c.put(e.request,clone));return resp;}).catch(()=>cached);}));});
@@ -1597,12 +1499,12 @@ self.addEventListener('fetch',e=>{e.respondWith(caches.match(e.request).then(cac
     if(reg.active)return;
     reg.addEventListener('updatefound',()=>{
       reg.installing.addEventListener('statechange',function(){
-        if(this.state==='activated') caches.open('nagoya-2026-v27').then(c=>c.add(location.href));
+        if(this.state==='activated') caches.open('nagoya-2026-v32').then(c=>c.add(location.href));
       });
     });
   }).catch(()=>{});
   window.addEventListener('load',()=>{
-    navigator.serviceWorker.ready.then(()=>caches.open('nagoya-2026-v27').then(c=>c.add(location.href)));
+    navigator.serviceWorker.ready.then(()=>caches.open('nagoya-2026-v32').then(c=>c.add(location.href)));
   });
 }
 </script>
