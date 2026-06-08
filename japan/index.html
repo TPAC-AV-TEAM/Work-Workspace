@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>V40 | 2026 名古屋之旅</title>
+<title>V41 | 2026 名古屋之旅</title>
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -643,49 +643,50 @@ html, body {
       <line x1="0" y1="180" x2="340" y2="180" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
 
       <!-- KEY LOCATIONS (approx relative positions in Nagoya):
-           榮站 (hotel) = center: 170, 190
-           機場 Centrair = bottom-right: 295, 315
-           金山站 = bottom of center: 170, 255
+           榮站 (hotel) = center-right: 205, 165
+           機場 Centrair = bottom-LEFT (西南): 52, 325
+           金山站 = center (榮南偏右): 205, 240
            名古屋城 = top-center: 155, 70
            豐田館 = top-left: 60, 90
            科學館 = left: 68, 175
-           大須 = bottom-left: 100, 255
-           樂高/磁浮館 = left-bottom: 48, 310
-           名古屋駅 = left-center: 85, 210
+           大須 = bottom-left-of-center: 130, 268
+           樂高/磁浮館 = left-bottom: 60, 300
+           名古屋駅 = left-center: 100, 195
       -->
 
       <!-- ─── Day 5 路線 (橘): 榮→金山→機場 ─── DRAW FIRST so Day1 overlays it -->
-      <polyline points="170,190 170,255 295,315" fill="none" stroke="#fb923c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#gd)" opacity="0.85"/>
+      <polyline points="205,165 205,240 52,325" fill="none" stroke="#fb923c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#gd)" opacity="0.85"/>
 
-      <!-- ─── Day 1 路線 (藍): 機場→金山→榮 ─── offset right +6px so it's visible beside Day5 -->
-      <polyline points="301,315 176,255 176,190" fill="none" stroke="#4e9eff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="7,4" filter="url(#gd)" opacity="0.92"/>
+      <!-- ─── Day 1 路線 (藍): 機場→金山→榮 ─── offset +5px so it's visible beside Day5 -->
+      <polyline points="57,328 210,244 210,168" fill="none" stroke="#4e9eff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="7,4" filter="url(#gd)" opacity="0.92"/>
 
       <!-- ─── Day 2 路線 (紅): 榮→名古屋駅→樂高→大須→榮 ─── -->
-      <polyline points="170,190 85,192 48,310 100,255 170,190" fill="none" stroke="#f87171" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6,3" filter="url(#gd)" opacity="0.85"/>
+      <polyline points="205,165 100,195 60,300 130,268 205,165" fill="none" stroke="#f87171" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6,3" filter="url(#gd)" opacity="0.85"/>
 
       <!-- ─── Day 3 路線 (綠): 榮→名古屋城→豐田館→榮 ─── -->
-      <polyline points="170,190 155,70 60,90 170,190" fill="none" stroke="#34d399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8,3" filter="url(#gd)" opacity="0.85"/>
+      <polyline points="205,165 155,70 60,90 205,165" fill="none" stroke="#34d399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8,3" filter="url(#gd)" opacity="0.85"/>
 
       <!-- ─── Day 4 路線 (紫): 榮→科學館→名古屋駅→磁浮館→榮 ─── -->
-      <polyline points="170,190 68,175 85,192 48,310 170,190" fill="none" stroke="#a78bfa" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="4,4" filter="url(#gd)" opacity="0.85"/>
+      <polyline points="205,165 68,175 100,195 60,300 205,165" fill="none" stroke="#a78bfa" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="4,4" filter="url(#gd)" opacity="0.85"/>
 
       <!-- ═══ LOCATION NODES ═══ -->
 
-      <!-- 機場 Centrair (295,315) -->
-      <circle cx="295" cy="315" r="8" fill="#1a2035" stroke="#4e9eff" stroke-width="2" filter="url(#shadowNode)"/>
-      <text x="295" y="319" text-anchor="middle" font-size="8" fill="#fff">✈</text>
-      <text class="ov-lbl" x="295" y="332" text-anchor="middle" font-size="8" fill="#aab6c5">機場</text>
+      <!-- 機場 Centrair (52,325) ← 西南（左下） -->
+      <circle cx="52" cy="325" r="8" fill="#1a2035" stroke="#4e9eff" stroke-width="2" filter="url(#shadowNode)"/>
+      <text x="52" y="329" text-anchor="middle" font-size="8" fill="#fff">✈</text>
+      <text class="ov-lbl" x="63" y="323" text-anchor="start" font-size="8" fill="#aab6c5">機場</text>
+      <text class="ov-lbl" x="63" y="333" text-anchor="start" font-size="7.5" fill="#aab6c5">Centrair</text>
 
-      <!-- 金山站 (170,255) -->
-      <circle cx="170" cy="255" r="6" fill="#1a2035" stroke="#8b9cc8" stroke-width="1.5" filter="url(#shadowNode)"/>
-      <text class="ov-lbl" x="186" y="259" text-anchor="start" font-size="9" fill="#aab6c5">金山站</text>
+      <!-- 金山站 (205,240) ← 榮正南偏右 -->
+      <circle cx="205" cy="240" r="6" fill="#1a2035" stroke="#8b9cc8" stroke-width="1.5" filter="url(#shadowNode)"/>
+      <text class="ov-lbl" x="214" y="244" text-anchor="start" font-size="9" fill="#aab6c5">金山站</text>
 
-      <!-- 榮站 HOTEL (170,190) ← CENTER STAR -->
-      <circle cx="170" cy="190" r="11" fill="#0f1115" stroke="#5fa8ff" stroke-width="2.5" filter="url(#shadowNode)"/>
-      <circle cx="170" cy="190" r="7" fill="#5fa8ff" opacity="0.25"/>
-      <text x="170" y="194" text-anchor="middle" font-size="9" fill="#fff" font-weight="900">🏨</text>
-      <text class="ov-lbl" x="185" y="187" text-anchor="start" font-size="9.5" fill="#fff" font-weight="900">榮站</text>
-      <text class="ov-lbl" x="185" y="198" text-anchor="start" font-size="8" fill="#aab6c5">(飯店)</text>
+      <!-- 榮站 HOTEL (205,165) ← CENTER-RIGHT STAR -->
+      <circle cx="205" cy="165" r="11" fill="#0f1115" stroke="#5fa8ff" stroke-width="2.5" filter="url(#shadowNode)"/>
+      <circle cx="205" cy="165" r="7" fill="#5fa8ff" opacity="0.25"/>
+      <text x="205" y="169" text-anchor="middle" font-size="9" fill="#fff" font-weight="900">🏨</text>
+      <text class="ov-lbl" x="220" y="162" text-anchor="start" font-size="9.5" fill="#fff" font-weight="900">榮站</text>
+      <text class="ov-lbl" x="220" y="173" text-anchor="start" font-size="8" fill="#aab6c5">(飯店)</text>
 
       <!-- 名古屋城 (155,70) -->
       <circle cx="155" cy="70" r="8" fill="#1a2035" stroke="#34d399" stroke-width="2" filter="url(#shadowNode)"/>
@@ -702,20 +703,20 @@ html, body {
       <text x="68" y="179" text-anchor="middle" font-size="9" fill="#fff">🔭</text>
       <text class="ov-lbl" x="79" y="179" text-anchor="start" font-size="8.5" fill="#a78bfa">科學館</text>
 
-      <!-- 大須 (100,255) -->
-      <circle cx="100" cy="255" r="7" fill="#1a2035" stroke="#f87171" stroke-width="1.8" filter="url(#shadowNode)"/>
-      <text x="100" y="259" text-anchor="middle" font-size="8" fill="#fff">🛍</text>
-      <text class="ov-lbl" x="100" y="271" text-anchor="middle" font-size="8.5" fill="#f87171">大須</text>
+      <!-- 大須 (130,268) -->
+      <circle cx="130" cy="268" r="7" fill="#1a2035" stroke="#f87171" stroke-width="1.8" filter="url(#shadowNode)"/>
+      <text x="130" y="272" text-anchor="middle" font-size="8" fill="#fff">🛍</text>
+      <text class="ov-lbl" x="130" y="284" text-anchor="middle" font-size="8.5" fill="#f87171">大須</text>
 
-      <!-- 名古屋駅 (85,192) -->
-      <circle cx="85" cy="192" r="5" fill="#1a2035" stroke="#8b9cc8" stroke-width="1.3"/>
-      <text class="ov-lbl" x="85" y="207" text-anchor="middle" font-size="8" fill="#8b9cc8">名古屋駅</text>
+      <!-- 名古屋駅 (100,195) -->
+      <circle cx="100" cy="195" r="5" fill="#1a2035" stroke="#8b9cc8" stroke-width="1.3"/>
+      <text class="ov-lbl" x="100" y="210" text-anchor="middle" font-size="8" fill="#8b9cc8">名古屋駅</text>
 
-      <!-- 樂高/磁浮 金城埠頭 (48,310) -->
-      <circle cx="48" cy="310" r="8" fill="#1a2035" stroke="#f87171" stroke-width="2" filter="url(#shadowNode)"/>
-      <text x="48" y="314" text-anchor="middle" font-size="9" fill="#fff">🧱</text>
-      <text class="ov-lbl" x="58" y="307" text-anchor="start" font-size="8" fill="#f87171">樂高</text>
-      <text class="ov-lbl" x="58" y="318" text-anchor="start" font-size="8" fill="#a78bfa">磁浮館</text>
+      <!-- 樂高/磁浮 金城埠頭 (60,300) -->
+      <circle cx="60" cy="300" r="8" fill="#1a2035" stroke="#f87171" stroke-width="2" filter="url(#shadowNode)"/>
+      <text x="60" y="304" text-anchor="middle" font-size="9" fill="#fff">🧱</text>
+      <text class="ov-lbl" x="70" y="296" text-anchor="start" font-size="8" fill="#f87171">樂高</text>
+      <text class="ov-lbl" x="70" y="307" text-anchor="start" font-size="8" fill="#a78bfa">磁浮館</text>
 
       <!-- Day labels floating -->
       <rect x="8" y="8" width="32" height="14" rx="4" fill="#4e9eff" opacity="0.9"/>
@@ -817,26 +818,26 @@ html, body {
             <filter id="g1a"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
             <style>.lbl1{paint-order:stroke fill;stroke:#0a0e16;stroke-width:3px;stroke-linejoin:round;}</style>
           </defs>
-          <!-- 地理方位（北上）：機場在南偏東(右下)，金山在中，榮在北偏西(上方略左)
-               Airport (205,158)  Kanayama (160,105)  Sakae (118,45) -->
-          <polyline points="205,158 160,105 118,45" fill="none" stroke="#4e9eff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" filter="url(#g1a)"/>
-          <text x="278" y="22" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.25)">N↑</text>
-          <text class="lbl1" x="192" y="135" text-anchor="start" font-size="9" fill="#4e9eff" transform="rotate(-68,192,135)">名鐵 ~25分</text>
-          <text class="lbl1" x="122" y="80" text-anchor="start" font-size="9" fill="#a78bfa" transform="rotate(-68,122,80)">名城線 ~8分</text>
-          <!-- Kanayama -->
-          <circle cx="160" cy="105" r="8" fill="#1a2035" stroke="#8b9cc8" stroke-width="1.8"/>
-          <text class="lbl1" x="172" y="102" text-anchor="start" font-size="9" fill="#aab6c5">金山站</text>
-          <text class="lbl1" x="172" y="113" text-anchor="start" font-size="8" fill="#ff9c9c">⚠ 站內轉乘</text>
-          <!-- Airport (south / bottom-right) -->
-          <circle cx="205" cy="158" r="10" fill="#1a2035" stroke="#4e9eff" stroke-width="2"/>
-          <text x="205" y="162" text-anchor="middle" font-size="10" fill="#fff">✈</text>
-          <text class="lbl1" x="205" y="177" text-anchor="middle" font-size="8.5" fill="#aab6c5">中部機場 T2</text>
-          <!-- Sakae Hotel (north / top) -->
-          <circle cx="118" cy="45" r="11" fill="#0f1115" stroke="#5fa8ff" stroke-width="2.5"/>
-          <circle cx="118" cy="45" r="7" fill="#5fa8ff" opacity="0.2"/>
-          <text x="118" y="49" text-anchor="middle" font-size="10" fill="#fff">🏨</text>
-          <text class="lbl1" x="118" y="65" text-anchor="middle" font-size="9" fill="#fff" font-weight="900">榮站・飯店</text>
-          <text class="lbl1" x="118" y="76" text-anchor="middle" font-size="8" fill="#5fa8ff">4號出口</text>
+        <!-- 地理方位（北上）：機場在西南(左下)，金山在中，榮在北偏東(右上)
+             Airport (75,155)  Kanayama (148,100)  Sakae (218,38) -->
+        <polyline points="75,155 148,100 218,38" fill="none" stroke="#4e9eff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" filter="url(#g1a)"/>
+        <text x="278" y="22" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.25)">N↑</text>
+        <text class="lbl1" x="96" y="130" text-anchor="start" font-size="9" fill="#4e9eff" transform="rotate(-40,96,130)">名鐵 ~25分</text>
+        <text class="lbl1" x="164" y="76" text-anchor="start" font-size="9" fill="#a78bfa" transform="rotate(-40,164,76)">名城線 ~8分</text>
+        <!-- Kanayama -->
+        <circle cx="148" cy="100" r="8" fill="#1a2035" stroke="#8b9cc8" stroke-width="1.8"/>
+        <text class="lbl1" x="160" y="97" text-anchor="start" font-size="9" fill="#aab6c5">金山站</text>
+        <text class="lbl1" x="160" y="108" text-anchor="start" font-size="8" fill="#ff9c9c">⚠ 站內轉乘</text>
+        <!-- Airport (south-west / bottom-left) -->
+        <circle cx="75" cy="155" r="10" fill="#1a2035" stroke="#4e9eff" stroke-width="2"/>
+        <text x="75" y="159" text-anchor="middle" font-size="10" fill="#fff">✈</text>
+        <text class="lbl1" x="75" y="175" text-anchor="middle" font-size="8.5" fill="#aab6c5">中部機場 T2</text>
+        <!-- Sakae Hotel (north-east / top-right) -->
+        <circle cx="218" cy="38" r="11" fill="#0f1115" stroke="#5fa8ff" stroke-width="2.5"/>
+        <circle cx="218" cy="38" r="7" fill="#5fa8ff" opacity="0.2"/>
+        <text x="218" y="42" text-anchor="middle" font-size="10" fill="#fff">🏨</text>
+        <text class="lbl1" x="218" y="58" text-anchor="middle" font-size="9" fill="#fff" font-weight="900">榮站・飯店</text>
+        <text class="lbl1" x="218" y="69" text-anchor="middle" font-size="8" fill="#5fa8ff">4號出口</text>
           <!-- Day badge -->
           <rect x="10" y="10" width="68" height="16" rx="4" fill="rgba(78,158,255,0.2)" stroke="rgba(78,158,255,0.5)" stroke-width="1"/>
           <text x="44" y="22" text-anchor="middle" font-size="9" fill="#4e9eff">6/11 四 抵達</text>
@@ -936,44 +937,47 @@ html, body {
     <!-- Day 2 Route Map -->
     <div class="svg-map-wrap" style="margin-top:20px;">
       <div class="svg-map-title">📍 Day 2 路線圖 — 樂高・大須</div>
-      <svg viewBox="0 0 300 210" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans TC','PingFang TC',sans-serif">
+      <svg viewBox="0 0 300 225" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans TC','PingFang TC',sans-serif">
         <defs>
           <filter id="g2a"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
           <style>.lbl2{paint-order:stroke fill;stroke:#0a0e16;stroke-width:3px;stroke-linejoin:round;}</style>
         </defs>
         <!-- 地理方位（北上）：
-             榮站    右上  (220,60)
-             名古屋駅  左中  (115,92)  → 榮站正西略偏北
-             樂高    左下  (45,162)  → 名古屋駅西南（金城埠頭）
-             大須    中下  (175,150) → 榮站西南（比名古屋駅偏右）
+             榮站    右上  (235,55)   → 中區，地圖右側
+             名古屋駅  左中  (88,65)   → 榮正西 ~2.6km（同緯度）
+             金城埠頭  左下  (65,185)  → 名古屋駅正南 ~10km（人工島）
+             大須     中下  (185,130) → 榮西南（比名古屋駅偏右，比榮偏南）
         -->
         <!-- North indicator -->
         <text x="280" y="22" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.25)">N↑</text>
-        <!-- Sakae → Nagoya Sta → Legoland -->
-        <polyline points="220,60 115,92 45,162" fill="none" stroke="#f87171" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#g2a)"/>
-        <!-- Legoland → Osu -->
-        <polyline points="45,162 175,150" fill="none" stroke="#f87171" stroke-width="2.5" stroke-dasharray="5,3" stroke-linecap="round" stroke-linejoin="round" filter="url(#g2a)"/>
-        <!-- Osu → Sakae -->
-        <polyline points="175,150 220,60" fill="none" stroke="#f87171" stroke-width="2" stroke-dasharray="3,4" stroke-linecap="round" stroke-linejoin="round" opacity="0.65"/>
+        <!-- Sakae → Nagoya Sta (東山線/地鐵，向西，同緯度) -->
+        <polyline points="235,55 88,65" fill="none" stroke="#f87171" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#g2a)"/>
+        <!-- Nagoya Sta → Legoland (青波線，向正南) -->
+        <polyline points="88,65 65,185" fill="none" stroke="#f87171" stroke-width="2.5" stroke-dasharray="5,3" stroke-linecap="round" stroke-linejoin="round" filter="url(#g2a)"/>
+        <!-- Legoland → Osu (回程，斜向右上) -->
+        <polyline points="65,185 185,130" fill="none" stroke="#f87171" stroke-width="2.5" stroke-dasharray="5,3" stroke-linecap="round" stroke-linejoin="round" filter="url(#g2a)"/>
+        <!-- Osu → Sakae (回榮，向右上) -->
+        <polyline points="185,130 235,55" fill="none" stroke="#f87171" stroke-width="2" stroke-dasharray="3,4" stroke-linecap="round" stroke-linejoin="round" opacity="0.65"/>
         <!-- Line labels -->
-        <text class="lbl2" x="72" y="116" text-anchor="middle" font-size="8.5" fill="#f87171" transform="rotate(18,72,116)">青波線 ~24分</text>
-        <text class="lbl2" x="208" y="112" text-anchor="middle" font-size="8" fill="#f87171" transform="rotate(-72,208,112)">← 回榮站</text>
-        <!-- Sakae Hotel -->
-        <circle cx="220" cy="60" r="11" fill="#0f1115" stroke="#5fa8ff" stroke-width="2.5"/>
-        <text x="220" y="64" text-anchor="middle" font-size="10" fill="#fff">🏨</text>
-        <text class="lbl2" x="220" y="80" text-anchor="middle" font-size="9" fill="#fff" font-weight="900">榮站・飯店</text>
-        <!-- Nagoya Sta -->
-        <circle cx="115" cy="92" r="6" fill="#1a2035" stroke="#8b9cc8" stroke-width="1.5"/>
-        <text class="lbl2" x="115" y="108" text-anchor="middle" font-size="8.5" fill="#aab6c5">名古屋駅</text>
-        <!-- Legoland -->
-        <circle cx="45" cy="162" r="10" fill="#1a2035" stroke="#f87171" stroke-width="2"/>
-        <text x="45" y="166" text-anchor="middle" font-size="10" fill="#fff">🧱</text>
-        <text class="lbl2" x="45" y="181" text-anchor="middle" font-size="8.5" fill="#f87171">樂高樂園</text>
-        <text class="lbl2" x="45" y="192" text-anchor="middle" font-size="8" fill="#aab6c5">金城埠頭</text>
-        <!-- Osu (southwest of Sakae, right of Nagoya Sta) -->
-        <circle cx="175" cy="150" r="8" fill="#1a2035" stroke="#f87171" stroke-width="1.8"/>
-        <text x="175" y="154" text-anchor="middle" font-size="9" fill="#fff">🛍</text>
-        <text class="lbl2" x="175" y="169" text-anchor="middle" font-size="8.5" fill="#f87171">大須商店街</text>
+        <text class="lbl2" x="162" y="50" text-anchor="middle" font-size="8.5" fill="#f87171">東山線~15分</text>
+        <text class="lbl2" x="62" y="130" text-anchor="end" font-size="8.5" fill="#f87171" transform="rotate(-85,62,130)">青波線~24分</text>
+        <text class="lbl2" x="218" y="108" text-anchor="middle" font-size="8" fill="#f87171" transform="rotate(-35,218,108)">← 回榮站</text>
+        <!-- Sakae Hotel (top-right) -->
+        <circle cx="235" cy="55" r="11" fill="#0f1115" stroke="#5fa8ff" stroke-width="2.5"/>
+        <text x="235" y="59" text-anchor="middle" font-size="10" fill="#fff">🏨</text>
+        <text class="lbl2" x="235" y="75" text-anchor="middle" font-size="9" fill="#fff" font-weight="900">榮站・飯店</text>
+        <!-- Nagoya Sta (left, same latitude as Sakae) -->
+        <circle cx="88" cy="65" r="6" fill="#1a2035" stroke="#8b9cc8" stroke-width="1.5"/>
+        <text class="lbl2" x="88" y="80" text-anchor="middle" font-size="8.5" fill="#aab6c5">名古屋駅</text>
+        <!-- Legoland / 金城埠頭 (bottom-left, south of Nagoya Sta) -->
+        <circle cx="65" cy="185" r="10" fill="#1a2035" stroke="#f87171" stroke-width="2"/>
+        <text x="65" y="189" text-anchor="middle" font-size="10" fill="#fff">🧱</text>
+        <text class="lbl2" x="65" y="202" text-anchor="middle" font-size="8.5" fill="#f87171">樂高樂園</text>
+        <text class="lbl2" x="65" y="212" text-anchor="middle" font-size="8" fill="#aab6c5">金城埠頭</text>
+        <!-- Osu (southwest of Sakae, right of Nagoya Sta, north of Legoland) -->
+        <circle cx="185" cy="130" r="8" fill="#1a2035" stroke="#f87171" stroke-width="1.8"/>
+        <text x="185" y="134" text-anchor="middle" font-size="9" fill="#fff">🛍</text>
+        <text class="lbl2" x="185" y="148" text-anchor="middle" font-size="8.5" fill="#f87171">大須商店街</text>
         <!-- Day badge -->
         <rect x="10" y="10" width="76" height="16" rx="4" fill="rgba(248,113,113,0.2)" stroke="rgba(248,113,113,0.5)" stroke-width="1"/>
         <text x="48" y="22" text-anchor="middle" font-size="9" fill="#f87171">6/12 五 樂高大須</text>
@@ -1079,36 +1083,37 @@ html, body {
           <style>.lbl3{paint-order:stroke fill;stroke:#0a0e16;stroke-width:3px;stroke-linejoin:round;}</style>
         </defs>
         <!-- 地理方位（北上）：
-             榮站   右下  (235,175)
-             名古屋城  中上偏左  (145,55)  → 榮站正北偏西
-             豐田館   左上  (48,78)   → 城的西北方
+             榮站   右下  (240,180)  → 中區右側
+             名古屋城  中上偏左  (150,60)  → 榮站西北（城比榮偏北 ~1.5km，偏西 ~1km）
+             豐田館   左中  (52,105)  → 名古屋駅北側，城的西南方
+                     （豐田館 35.178N/136.880E，城 35.185N/136.899E → 豐田館在城西偏南）
         -->
         <!-- North indicator -->
         <text x="280" y="22" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.25)">N↑</text>
         <!-- Sakae → Nagoya Castle (名城線) -->
-        <polyline points="235,175 145,55" fill="none" stroke="#34d399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#g3a)"/>
-        <!-- Castle → Toyota Museum (taxi dashed) -->
-        <polyline points="145,55 48,78" fill="none" stroke="#34d399" stroke-width="2.5" stroke-dasharray="6,3" stroke-linecap="round" stroke-linejoin="round" filter="url(#g3a)"/>
+        <polyline points="240,180 150,60" fill="none" stroke="#34d399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#g3a)"/>
+        <!-- Castle → Toyota Museum (taxi, 城往西南到豐田館) -->
+        <polyline points="150,60 52,105" fill="none" stroke="#34d399" stroke-width="2.5" stroke-dasharray="6,3" stroke-linecap="round" stroke-linejoin="round" filter="url(#g3a)"/>
         <!-- Toyota → Sakae (return) -->
-        <polyline points="48,78 235,175" fill="none" stroke="#34d399" stroke-width="2" stroke-dasharray="3,4" stroke-linecap="round" stroke-linejoin="round" opacity="0.5"/>
+        <polyline points="52,105 240,180" fill="none" stroke="#34d399" stroke-width="2" stroke-dasharray="3,4" stroke-linecap="round" stroke-linejoin="round" opacity="0.5"/>
         <!-- Labels -->
-        <text class="lbl3" x="213" y="100" text-anchor="end" font-size="8.5" fill="#34d399" transform="rotate(-55,213,100)">名城線~12分</text>
-        <text class="lbl3" x="98" y="58" text-anchor="middle" font-size="8.5" fill="#34d399">計程車~1,500円</text>
-        <text class="lbl3" x="168" y="147" text-anchor="middle" font-size="8" fill="#34d399" transform="rotate(-40,168,147)">名城線~17分</text>
+        <text class="lbl3" x="218" y="105" text-anchor="end" font-size="8.5" fill="#34d399" transform="rotate(-55,218,105)">名城線~12分</text>
+        <text class="lbl3" x="98" y="72" text-anchor="middle" font-size="8.5" fill="#34d399">計程車~1,500円</text>
+        <text class="lbl3" x="178" y="155" text-anchor="middle" font-size="8" fill="#34d399" transform="rotate(-30,178,155)">名城線~17分</text>
         <!-- Sakae Hotel (bottom-right) -->
-        <circle cx="235" cy="175" r="11" fill="#0f1115" stroke="#5fa8ff" stroke-width="2.5"/>
-        <text x="235" y="179" text-anchor="middle" font-size="10" fill="#fff">🏨</text>
-        <text class="lbl3" x="235" y="196" text-anchor="middle" font-size="9" fill="#fff" font-weight="900">榮站・飯店</text>
-        <!-- Nagoya Castle (north, slightly left of Sakae) -->
-        <circle cx="145" cy="55" r="10" fill="#1a2035" stroke="#34d399" stroke-width="2"/>
-        <text x="145" y="59" text-anchor="middle" font-size="10" fill="#fff">🏯</text>
-        <text class="lbl3" x="158" y="52" text-anchor="start" font-size="8.5" fill="#34d399">名古屋城</text>
-        <text class="lbl3" x="158" y="63" text-anchor="start" font-size="7.5" fill="#aab6c5">名古屋城站</text>
-        <!-- Toyota Museum (northwest of Castle) -->
-        <circle cx="48" cy="78" r="10" fill="#1a2035" stroke="#34d399" stroke-width="2"/>
-        <text x="48" y="82" text-anchor="middle" font-size="9" fill="#fff">🏭</text>
-        <text class="lbl3" x="48" y="98" text-anchor="middle" font-size="8.5" fill="#34d399">豐田產業</text>
-        <text class="lbl3" x="48" y="109" text-anchor="middle" font-size="8" fill="#34d399">技術紀念館</text>
+        <circle cx="240" cy="180" r="11" fill="#0f1115" stroke="#5fa8ff" stroke-width="2.5"/>
+        <text x="240" y="184" text-anchor="middle" font-size="10" fill="#fff">🏨</text>
+        <text class="lbl3" x="240" y="200" text-anchor="middle" font-size="9" fill="#fff" font-weight="900">榮站・飯店</text>
+        <!-- Nagoya Castle (top-center, northwest of Sakae) -->
+        <circle cx="150" cy="60" r="10" fill="#1a2035" stroke="#34d399" stroke-width="2"/>
+        <text x="150" y="64" text-anchor="middle" font-size="10" fill="#fff">🏯</text>
+        <text class="lbl3" x="163" y="57" text-anchor="start" font-size="8.5" fill="#34d399">名古屋城</text>
+        <text class="lbl3" x="163" y="68" text-anchor="start" font-size="7.5" fill="#aab6c5">名古屋城站</text>
+        <!-- Toyota Museum (left-center, southwest of Castle, north of Nagoya Sta) -->
+        <circle cx="52" cy="105" r="10" fill="#1a2035" stroke="#34d399" stroke-width="2"/>
+        <text x="52" y="109" text-anchor="middle" font-size="9" fill="#fff">🏭</text>
+        <text class="lbl3" x="52" y="123" text-anchor="middle" font-size="8.5" fill="#34d399">豐田產業</text>
+        <text class="lbl3" x="52" y="134" text-anchor="middle" font-size="8" fill="#34d399">技術紀念館</text>
         <!-- Day badge -->
         <rect x="10" y="10" width="78" height="16" rx="4" fill="rgba(52,211,153,0.2)" stroke="rgba(52,211,153,0.5)" stroke-width="1"/>
         <text x="49" y="22" text-anchor="middle" font-size="9" fill="#34d399">6/13 六 城・豐田</text>
@@ -1210,50 +1215,50 @@ html, body {
     <!-- Day 4 Route Map -->
     <div class="svg-map-wrap" style="margin-top:20px;">
       <div class="svg-map-title">📍 Day 4 路線圖 — 科學館・磁浮館</div>
-      <svg viewBox="0 0 300 220" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans TC','PingFang TC',sans-serif">
+      <svg viewBox="0 0 300 235" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans TC','PingFang TC',sans-serif">
         <defs>
           <filter id="g4a"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
           <style>.lbl4{paint-order:stroke fill;stroke:#0a0e16;stroke-width:3px;stroke-linejoin:round;}</style>
         </defs>
         <!-- 地理方位（北上）：
-             榮站    右中  (245,105)
-             科學館  左中  (130,90)  → 榮站正西偏北（伏見站）
-             名古屋駅  更左  (58,108)  → 科學館再往西
-             磁浮館   左下  (42,178)  → 名古屋駅西南（金城埠頭）
+             榮站    右中  (240,100)  → 中區右側
+             科學館  中    (145,110) → 榮正西偏南（伏見站，比榮略南）
+             名古屋駅  左中  (55,100)  → 科學館再往西（與榮同緯）
+             磁浮館   左下  (45,195)  → 名古屋駅正南（金城埠頭人工島）
         -->
         <!-- North indicator -->
         <text x="280" y="22" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.25)">N↑</text>
-        <!-- Sakae → Science Museum (東山線，向西) -->
-        <polyline points="245,105 130,90" fill="none" stroke="#a78bfa" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#g4a)"/>
+        <!-- Sakae → Science Museum (東山線，向西偏南) -->
+        <polyline points="240,100 145,110" fill="none" stroke="#a78bfa" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#g4a)"/>
         <!-- Science Museum → Nagoya Sta (繼續向西) -->
-        <polyline points="130,90 58,108" fill="none" stroke="#a78bfa" stroke-width="2.5" stroke-dasharray="6,3" stroke-linecap="round" stroke-linejoin="round" filter="url(#g4a)"/>
-        <!-- Nagoya Sta → Scmaglev (青波線，向西南) -->
-        <polyline points="58,108 42,178" fill="none" stroke="#a78bfa" stroke-width="2.5" stroke-dasharray="6,3" stroke-linecap="round" stroke-linejoin="round" filter="url(#g4a)"/>
-        <!-- Scmaglev → Sakae (return, dashed faded) -->
-        <polyline points="42,178 245,105" fill="none" stroke="#a78bfa" stroke-width="2" stroke-dasharray="3,4" stroke-linecap="round" stroke-linejoin="round" opacity="0.45"/>
+        <polyline points="145,110 55,100" fill="none" stroke="#a78bfa" stroke-width="2.5" stroke-dasharray="6,3" stroke-linecap="round" stroke-linejoin="round" filter="url(#g4a)"/>
+        <!-- Nagoya Sta → Maglev (青波線，向正南) -->
+        <polyline points="55,100 45,195" fill="none" stroke="#a78bfa" stroke-width="2.5" stroke-dasharray="6,3" stroke-linecap="round" stroke-linejoin="round" filter="url(#g4a)"/>
+        <!-- Maglev → Sakae (return, dashed faded) -->
+        <polyline points="45,195 240,100" fill="none" stroke="#a78bfa" stroke-width="2" stroke-dasharray="3,4" stroke-linecap="round" stroke-linejoin="round" opacity="0.45"/>
         <!-- Labels -->
-        <text class="lbl4" x="190" y="86" text-anchor="middle" font-size="8.5" fill="#a78bfa">東山線~13分</text>
-        <text class="lbl4" x="92" y="89" text-anchor="middle" font-size="8.5" fill="#a78bfa">← 地鐵換乘</text>
-        <text class="lbl4" x="36" y="145" text-anchor="end" font-size="8.5" fill="#a78bfa" transform="rotate(-80,36,145)">青波線~24分</text>
-        <text class="lbl4" x="175" y="168" text-anchor="middle" font-size="8" fill="#a78bfa" transform="rotate(-22,175,168)">← 返回榮站</text>
-        <!-- Sakae Hotel (right) -->
-        <circle cx="245" cy="105" r="11" fill="#0f1115" stroke="#5fa8ff" stroke-width="2.5"/>
-        <text x="245" y="109" text-anchor="middle" font-size="10" fill="#fff">🏨</text>
-        <text class="lbl4" x="245" y="125" text-anchor="middle" font-size="9" fill="#fff" font-weight="900">榮站・飯店</text>
-        <!-- Science Museum (left of Sakae,伏見站) -->
-        <circle cx="130" cy="90" r="10" fill="#1a2035" stroke="#a78bfa" stroke-width="2"/>
-        <text x="130" y="94" text-anchor="middle" font-size="10" fill="#fff">🔭</text>
-        <text class="lbl4" x="130" y="109" text-anchor="middle" font-size="8.5" fill="#a78bfa">科學館</text>
-        <text class="lbl4" x="130" y="119" text-anchor="middle" font-size="8" fill="#aab6c5">伏見站</text>
-        <!-- Nagoya Sta (further west, transit node) -->
-        <circle cx="58" cy="108" r="7" fill="#1a2035" stroke="#8b9cc8" stroke-width="1.5"/>
-        <text class="lbl4" x="58" y="123" text-anchor="middle" font-size="8" fill="#aab6c5">名古屋駅</text>
-        <text class="lbl4" x="58" y="133" text-anchor="middle" font-size="7.5" fill="#aab6c5">換青波線</text>
-        <!-- Scmaglev Railway (bottom-left, 金城埠頭) -->
-        <circle cx="42" cy="178" r="10" fill="#1a2035" stroke="#a78bfa" stroke-width="2"/>
-        <text x="42" y="182" text-anchor="middle" font-size="10" fill="#fff">🚄</text>
-        <text class="lbl4" x="42" y="198" text-anchor="middle" font-size="8.5" fill="#a78bfa">磁浮鐵道館</text>
-        <text class="lbl4" x="42" y="209" text-anchor="middle" font-size="8" fill="#aab6c5">金城埠頭</text>
+        <text class="lbl4" x="193" y="96" text-anchor="middle" font-size="8.5" fill="#a78bfa">東山線~13分</text>
+        <text class="lbl4" x="98" y="97" text-anchor="middle" font-size="8.5" fill="#a78bfa">← 換乘</text>
+        <text class="lbl4" x="34" y="152" text-anchor="end" font-size="8.5" fill="#a78bfa" transform="rotate(-85,34,152)">青波線~24分</text>
+        <text class="lbl4" x="170" y="172" text-anchor="middle" font-size="8" fill="#a78bfa" transform="rotate(-22,170,172)">← 返回榮站</text>
+        <!-- Sakae Hotel (right-center) -->
+        <circle cx="240" cy="100" r="11" fill="#0f1115" stroke="#5fa8ff" stroke-width="2.5"/>
+        <text x="240" y="104" text-anchor="middle" font-size="10" fill="#fff">🏨</text>
+        <text class="lbl4" x="240" y="120" text-anchor="middle" font-size="9" fill="#fff" font-weight="900">榮站・飯店</text>
+        <!-- Science Museum (center, slightly south of Sakae, 伏見站) -->
+        <circle cx="145" cy="110" r="10" fill="#1a2035" stroke="#a78bfa" stroke-width="2"/>
+        <text x="145" y="114" text-anchor="middle" font-size="10" fill="#fff">🔭</text>
+        <text class="lbl4" x="145" y="129" text-anchor="middle" font-size="8.5" fill="#a78bfa">科學館</text>
+        <text class="lbl4" x="145" y="139" text-anchor="middle" font-size="8" fill="#aab6c5">伏見站</text>
+        <!-- Nagoya Sta (further west, same latitude as Sakae) -->
+        <circle cx="55" cy="100" r="7" fill="#1a2035" stroke="#8b9cc8" stroke-width="1.5"/>
+        <text class="lbl4" x="55" y="115" text-anchor="middle" font-size="8" fill="#aab6c5">名古屋駅</text>
+        <text class="lbl4" x="55" y="125" text-anchor="middle" font-size="7.5" fill="#aab6c5">換青波線</text>
+        <!-- Maglev Railway (bottom-left, 金城埠頭, far south of Nagoya Sta) -->
+        <circle cx="45" cy="195" r="10" fill="#1a2035" stroke="#a78bfa" stroke-width="2"/>
+        <text x="45" y="199" text-anchor="middle" font-size="10" fill="#fff">🚄</text>
+        <text class="lbl4" x="45" y="213" text-anchor="middle" font-size="8.5" fill="#a78bfa">磁浮鐵道館</text>
+        <text class="lbl4" x="45" y="222" text-anchor="middle" font-size="8" fill="#aab6c5">金城埠頭</text>
         <!-- Day badge -->
         <rect x="10" y="10" width="84" height="16" rx="4" fill="rgba(167,139,250,0.2)" stroke="rgba(167,139,250,0.5)" stroke-width="1"/>
         <text x="52" y="22" text-anchor="middle" font-size="9" fill="#a78bfa">6/14 日 科學・磁浮</text>
@@ -1362,29 +1367,29 @@ html, body {
           <filter id="g5a"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
           <style>.lbl5{paint-order:stroke fill;stroke:#0a0e16;stroke-width:3px;stroke-linejoin:round;}</style>
         </defs>
-        <!-- 地理方位（北上）：榮在北偏西(左上)，金山在中，機場在南偏東(右下)
-             Sakae (95,38)  Kanayama (140,93)  Airport (185,150) -->
-        <polyline points="95,38 140,93 185,150" fill="none" stroke="#fb923c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" filter="url(#g5a)"/>
+        <!-- 地理方位（北上）：榮在北偏東(右上)，金山在中，機場在西南(左下)
+             Sakae (220,32)  Kanayama (148,90)  Airport (65,155) -->
+        <polyline points="220,32 148,90 65,155" fill="none" stroke="#fb923c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" filter="url(#g5a)"/>
         <text x="278" y="22" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.25)">N↑</text>
-        <text class="lbl5" x="108" y="62" text-anchor="start" font-size="8.5" fill="#a78bfa" transform="rotate(48,108,62)">名城線~8分</text>
-        <text class="lbl5" x="155" y="118" text-anchor="start" font-size="8.5" fill="#fb923c" transform="rotate(48,155,118)">名鐵特急~35分</text>
-        <!-- Sakae Hotel (north / top-left) -->
-        <circle cx="95" cy="38" r="11" fill="#0f1115" stroke="#5fa8ff" stroke-width="2.5"/>
-        <text x="95" y="42" text-anchor="middle" font-size="10" fill="#fff">🏨</text>
-        <text class="lbl5" x="95" y="58" text-anchor="middle" font-size="9" fill="#fff" font-weight="900">榮站・飯店</text>
-        <text class="lbl5" x="95" y="69" text-anchor="middle" font-size="8" fill="#ff9c9c">⚠ 17:30出發</text>
+        <text class="lbl5" x="165" y="57" text-anchor="start" font-size="8.5" fill="#a78bfa" transform="rotate(40,165,57)">名城線~8分</text>
+        <text class="lbl5" x="92" y="122" text-anchor="start" font-size="8.5" fill="#fb923c" transform="rotate(40,92,122)">名鐵特急~35分</text>
+        <!-- Sakae Hotel (north-east / top-right) -->
+        <circle cx="220" cy="32" r="11" fill="#0f1115" stroke="#5fa8ff" stroke-width="2.5"/>
+        <text x="220" y="36" text-anchor="middle" font-size="10" fill="#fff">🏨</text>
+        <text class="lbl5" x="220" y="52" text-anchor="middle" font-size="9" fill="#fff" font-weight="900">榮站・飯店</text>
+        <text class="lbl5" x="220" y="63" text-anchor="middle" font-size="8" fill="#ff9c9c">⚠ 17:30出發</text>
         <!-- Kanayama -->
-        <circle cx="140" cy="93" r="7" fill="#1a2035" stroke="#8b9cc8" stroke-width="1.5"/>
-        <text class="lbl5" x="152" y="90" text-anchor="start" font-size="8.5" fill="#aab6c5">金山站</text>
-        <!-- Airport (south / bottom-right) -->
-        <circle cx="185" cy="150" r="10" fill="#1a2035" stroke="#fb923c" stroke-width="2"/>
-        <text x="185" y="154" text-anchor="middle" font-size="10" fill="#fff">✈</text>
-        <text class="lbl5" x="185" y="168" text-anchor="middle" font-size="8.5" fill="#fb923c">中部機場</text>
+        <circle cx="148" cy="90" r="7" fill="#1a2035" stroke="#8b9cc8" stroke-width="1.5"/>
+        <text class="lbl5" x="160" y="87" text-anchor="start" font-size="8.5" fill="#aab6c5">金山站</text>
+        <!-- Airport (south-west / bottom-left) -->
+        <circle cx="65" cy="155" r="10" fill="#1a2035" stroke="#fb923c" stroke-width="2"/>
+        <text x="65" y="159" text-anchor="middle" font-size="10" fill="#fff">✈</text>
+        <text class="lbl5" x="65" y="172" text-anchor="middle" font-size="8.5" fill="#fb923c">中部機場</text>
         <!-- Day badge -->
         <rect x="10" y="10" width="72" height="16" rx="4" fill="rgba(251,146,60,0.2)" stroke="rgba(251,146,60,0.5)" stroke-width="1"/>
         <text x="46" y="22" text-anchor="middle" font-size="9" fill="#fb923c">6/15 一 返程</text>
         <!-- Farewell -->
-        <text class="lbl5" x="258" y="38" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.35)">旅程圓滿 ✨</text>
+        <text class="lbl5" x="148" y="175" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.35)">旅程圓滿 ✨</text>
       </svg>
     </div>
 
