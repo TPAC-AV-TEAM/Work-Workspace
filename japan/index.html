@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>V41 | 2026 名古屋之旅</title>
+<title>V42 | 2026 名古屋之旅</title>
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -56,8 +56,6 @@ html, body {
 ::-webkit-scrollbar-track { background: var(--scrollbar-track); }
 ::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 8px; }
 ::-webkit-scrollbar-thumb:hover { background: #3b4656; }
-
-
 
 /* ── Header ── */
 .header {
@@ -114,31 +112,18 @@ html, body {
 .info-item { background: var(--surface-alt); border-radius: 14px; padding: 12px; }
 .info-label { font-size: 10px; color: var(--text-sub); margin-bottom: 3px; }
 .info-value { font-size: 13px; font-weight: 700; color: var(--text); }
-.flight-value {
-  display: flex; align-items: center; justify-content: space-between;
-  flex-wrap: wrap; gap: 7px;
-}
+.flight-value { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 7px; }
 .flight-live-link {
   display: inline-flex; align-items: center; justify-content: center;
   min-height: 30px; padding: 4px 9px;
   border: 1px solid rgba(95,168,255,0.45);
-  border-radius: 9px;
-  background: rgba(95,168,255,0.1);
-  color: #91c5ff;
-  text-decoration: none;
-  font-size: 11px; font-weight: 800; line-height: 1;
-  white-space: nowrap;
+  border-radius: 9px; background: rgba(95,168,255,0.1);
+  color: #91c5ff; text-decoration: none;
+  font-size: 11px; font-weight: 800; line-height: 1; white-space: nowrap;
   transition: background .15s, border-color .15s, color .15s;
 }
-.flight-live-link:hover,
-.flight-live-link:focus-visible {
-  background: rgba(95,168,255,0.22);
-  border-color: rgba(145,197,255,0.85);
-  color: #fff;
-}
-.flight-live-link:focus-visible {
-  outline: 3px solid var(--focus-l); outline-offset: 2px;
-}
+.flight-live-link:hover, .flight-live-link:focus-visible { background: rgba(95,168,255,0.22); border-color: rgba(145,197,255,0.85); color: #fff; }
+.flight-live-link:focus-visible { outline: 3px solid var(--focus-l); outline-offset: 2px; }
 
 /* ── Day Stats ── */
 .day-stats {
@@ -163,52 +148,35 @@ html, body {
 .badge { display: inline-block; background: #d9485f; color: white; border-radius: 7px; padding: 1px 7px; font-size: 10px; margin-left: 5px; }
 .fee   { background: rgba(255,255,255,0.08); color: var(--text-sub); padding: 1px 7px; border-radius: 7px; font-size: 10px; margin-left: 5px; }
 
-/* ── Info Boxes (3-type system) ── */
-/* hint-box: 提示、導航、戰術（藍） */
-/* food-box: 飲食資訊（橘）         */
-/* warning-box: 警告、注意（紅）    */
+/* ── Info Boxes ── */
 .hint-box, .food-box, .warning-box, .success-box {
   background: var(--surface); border: 1px solid var(--border);
-  border-radius: 12px; padding: 10px 13px; margin-top: 9px; font-size: 13px;
-  color: var(--text);
+  border-radius: 12px; padding: 10px 13px; margin-top: 9px; font-size: 13px; color: var(--text);
 }
 .hint-box    { border-left: 4px solid var(--accent); }
 .food-box    { border-left: 4px solid var(--food-l); }
 .warning-box { border-left: 4px solid var(--warn-l); }
 .success-box { border-left: 4px solid var(--success-l); }
-/* Legacy aliases – keep old class names working */
 .focus-box { background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: 12px; padding: 10px 13px; margin-top: 9px; font-size: 13px; color: var(--text); }
 .nav-box   { background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: 12px; padding: 10px 13px; margin-top: 9px; font-size: 13px; color: var(--text); }
 .tactic-box { background: rgba(95,168,255,0.08); border: 1px solid rgba(95,168,255,0.3); border-left: 4px solid var(--accent); border-radius: 12px; padding: 10px 13px; margin-top: 9px; font-size: 13px; }
 .sub-text    { font-size: 12px; color: var(--text-sub); }
 
-/* ── Event Hint (one-liner always visible) ── */
-.event-hint {
-  font-size: 12.5px; color: var(--text-sub);
-  margin: 4px 0 8px; line-height: 1.5;
-}
+.event-hint { font-size: 12.5px; color: var(--text-sub); margin: 4px 0 8px; line-height: 1.5; }
 .event-hint b { color: var(--text); }
 .event-hint .warn { color: var(--warn-l); font-weight: 700; }
 .event-hint .go   { color: var(--accent); font-weight: 700; }
-
-/* ── Success Section (always visible) ── */
 .success-section { margin-top: 20px; margin-bottom: 4px; }
-.success-label {
-  font-size: 13px; font-weight: 800; color: var(--success-l);
-  margin-bottom: 6px; letter-spacing: 0.3px;
-}
+.success-label { font-size: 13px; font-weight: 800; color: var(--success-l); margin-bottom: 6px; letter-spacing: 0.3px; }
 
 /* ── Collapsible ── */
 .custom-details {
   background: rgba(28,32,42,0.6); border-radius: 12px;
-  border: 1px solid rgba(95,168,255,0.42); margin-bottom: 12px; overflow: hidden;
-  animation: details-frame-pulse 2s ease-in-out infinite;
+  border: 1px solid rgba(95,168,255,0.34); margin-bottom: 12px; overflow: hidden;
+  box-shadow: 0 0 5px rgba(95,168,255,0.08);
   transition: border-color .25s, background .25s, box-shadow .25s;
 }
-.custom-details[open] {
-  background: rgba(28,32,42,0.78);
-  animation-name: details-frame-pulse-open;
-}
+.custom-details[open] { background: rgba(28,32,42,0.78); border-color: rgba(95,168,255,0.5); }
 .custom-details summary {
   padding: 14px 14px; font-size: 13.5px; font-weight: 800;
   color: var(--accent); cursor: pointer; list-style: none;
@@ -217,89 +185,12 @@ html, body {
 }
 .custom-details summary::-webkit-details-marker { display: none; }
 .custom-details summary::after {
-  content: '展開細節 ▼';
-  margin-left: 12px;
-  flex-shrink: 0;
-  padding: 6px 11px;
-  border-radius: 999px;
-  border: 1px solid rgba(95,168,255,0.65);
-  background: rgba(95,168,255,0.14);
-  color: #91c5ff;
-  font-size: 13px;
-  font-weight: 900;
-  line-height: 1.2;
-  letter-spacing: 0.3px;
-  white-space: nowrap;
-  box-shadow: 0 0 0 rgba(95,168,255,0);
-  animation: details-cta-pulse 1.8s ease-in-out infinite;
-  transition: color .2s, background .2s, border-color .2s, box-shadow .2s;
+  content: '展開細節 ▼'; margin-left: 12px; flex-shrink: 0; padding: 6px 11px;
+  border-radius: 999px; border: 1px solid rgba(95,168,255,0.5);
+  background: rgba(95,168,255,0.11); color: #91c5ff; font-size: 13px; font-weight: 900; line-height: 1.2;
 }
-.custom-details[open] summary::after {
-  content: '收合細節 ▲';
-  color: var(--accent);
-  background: rgba(95,168,255,0.08);
-  border-color: rgba(95,168,255,0.32);
-  box-shadow: none;
-  animation: none;
-}
-@keyframes details-cta-pulse {
-  0%, 100% {
-    color: #91c5ff;
-    border-color: rgba(95,168,255,0.5);
-    background: rgba(95,168,255,0.11);
-    box-shadow: 0 0 0 0 rgba(95,168,255,0);
-    transform: translateY(0);
-  }
-  50% {
-    color: #fff;
-    border-color: rgba(145,197,255,0.95);
-    background: rgba(95,168,255,0.28);
-    box-shadow: 0 0 14px rgba(95,168,255,0.42);
-    transform: translateY(1px);
-  }
-}
-@keyframes details-frame-pulse {
-  0%, 100% {
-    border-color: rgba(95,168,255,0.34);
-    box-shadow:
-      0 0 0 1px rgba(95,168,255,0.04),
-      0 0 5px rgba(95,168,255,0.08);
-  }
-  50% {
-    border-color: rgba(145,197,255,0.95);
-    box-shadow:
-      0 0 0 2px rgba(95,168,255,0.2),
-      0 0 18px rgba(95,168,255,0.48);
-  }
-}
-@keyframes details-frame-pulse-open {
-  0%, 100% {
-    border-color: rgba(95,168,255,0.5);
-    box-shadow:
-      0 0 0 1px rgba(95,168,255,0.08),
-      0 0 8px rgba(95,168,255,0.16);
-  }
-  50% {
-    border-color: #91c5ff;
-    box-shadow:
-      0 0 0 2px rgba(95,168,255,0.28),
-      0 0 22px rgba(95,168,255,0.58);
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .custom-details,
-  .custom-details summary::after { animation: none; }
-  .custom-details { border-color: rgba(145,197,255,0.72); }
-  .custom-details[open] {
-    border-color: #91c5ff;
-    box-shadow: 0 0 0 2px rgba(95,168,255,0.18);
-  }
-}
-.custom-details .details-content {
-  padding: 0 14px 14px; font-size: 13px;
-  background: rgba(0,0,0,0.22);
-  border-top: 1px solid var(--border);
-}
+.custom-details[open] summary::after { content: '收合細節 ▲'; color: var(--accent); background: rgba(95,168,255,0.08); border-color: rgba(95,168,255,0.32); }
+.custom-details .details-content { padding: 0 14px 14px; font-size: 13px; background: rgba(0,0,0,0.22); border-top: 1px solid var(--border); }
 
 /* ── Route Map ── */
 .route-map { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 12px 14px; margin-top: 10px; }
@@ -316,77 +207,35 @@ html, body {
 /* ── Nav Steps ── */
 .nav-steps { display: flex; flex-direction: column; gap: 7px; margin-top: 9px; }
 .nav-step  { display: flex; align-items: center; gap: 9px; font-size: 13px; }
-.step-num  {
-  background: var(--btn-bg); color: white;
-  width: 22px; height: 22px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 11px; font-weight: 900; flex-shrink: 0;
-}
+.step-num  { background: var(--btn-bg); color: white; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 900; flex-shrink: 0; }
 
-/* ── Exit Box ── */
 .exit-box { background: var(--accent); color: #081018; display: inline-block; padding: 5px 11px; border-radius: 10px; font-weight: 900; margin-top: 9px; font-size: 12px; }
-
-/* ── Taxi Card ── */
-.taxi-card {
-  background: var(--surface); border-radius: 12px; padding: 11px; margin-top: 9px;
-  border: 1px solid rgba(255,159,64,0.3); text-align: center; font-size: 13px;
-}
+.taxi-card { background: var(--surface); border-radius: 12px; padding: 11px; margin-top: 9px; border: 1px solid rgba(255,159,64,0.3); text-align: center; font-size: 13px; }
 .taxi-jp { font-size: 16px; font-weight: 900; color: #ff9c9c; margin-top: 5px; }
 
 /* ── Buttons ── */
 .btn-group { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
-.btn {
-  text-decoration: none; background: var(--btn-bg); color: white;
-  padding: 8px 13px; border-radius: 12px; font-size: 12px; font-weight: 700;
-  display: inline-flex; align-items: center; gap: 5px;
-  border: 1px solid rgba(255,255,255,0.08); cursor: pointer;
-  box-shadow: 0 6px 16px rgba(47,109,246,0.35);
-}
+.btn { text-decoration: none; background: var(--btn-bg); color: white; padding: 8px 13px; border-radius: 12px; font-size: 12px; font-weight: 700; display: inline-flex; align-items: center; gap: 5px; border: 1px solid rgba(255,255,255,0.08); cursor: pointer; box-shadow: 0 6px 16px rgba(47,109,246,0.35); }
 .btn.secondary { background: var(--btn-sec); color: var(--text); box-shadow: none; }
 
-/* ── Airport Timeline ── */
 .airport-tl  { margin-top: 8px; }
 .airport-row { display: flex; align-items: baseline; gap: 10px; font-size: 13px; padding: 3px 0; }
 .airport-time{ font-weight: 900; color: var(--accent); min-width: 50px; }
-
-/* ── Today Banner ── */
-.today-banner {
-  background: linear-gradient(135deg,#23405f,#2f6df6);
-  color: white; border-radius: 12px; padding: 8px 14px;
-  margin-bottom: 12px; font-size: 12px; display: flex; align-items: center; gap: 8px;
-}
+.today-banner { background: linear-gradient(135deg,#23405f,#2f6df6); color: white; border-radius: 12px; padding: 8px 14px; margin-bottom: 12px; font-size: 12px; display: flex; align-items: center; gap: 8px; }
 .today-banner b { font-size: 14px; }
 
 /* ── Floating Menu ── */
 .floating-menu { position: fixed; right: 12px; bottom: 16px; display: flex; flex-direction: column; gap: 8px; z-index: 50; }
 .float-btn-wrap { display: flex; align-items: center; justify-content: flex-end; }
-.float-btn {
-  display: flex; align-items: center; gap: 7px;
-  background: rgba(22,27,38,0.95); color: white;
-  padding: 0 14px 0 10px; height: 44px; border-radius: 22px;
-  border: 1px solid var(--border); cursor: pointer;
-  backdrop-filter: blur(20px); box-shadow: 0 8px 20px rgba(0,0,0,0.40);
-  transition: transform .15s; white-space: nowrap;
-  font-size: 13px; font-weight: 700;
-}
+.float-btn { display: flex; align-items: center; gap: 7px; background: rgba(22,27,38,0.95); color: white; padding: 0 14px 0 10px; height: 44px; border-radius: 22px; border: 1px solid var(--border); cursor: pointer; backdrop-filter: blur(20px); box-shadow: 0 8px 20px rgba(0,0,0,0.40); transition: transform .15s; white-space: nowrap; font-size: 13px; font-weight: 700; }
 .float-btn .float-icon { font-size: 18px; }
 .float-btn:active { transform: scale(.95); }
 
 /* ── Modal ── */
 .modal { display: none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.72); }
-.modal-content {
-  background: var(--surface); backdrop-filter: blur(18px);
-  border: 1px solid var(--border); color: var(--text);
-  width: 92%; max-width: 640px; margin: 6vh auto;
-  border-radius: 22px; padding: 22px; max-height: 84vh; overflow: auto;
-}
-.close {
-  float: right; font-size: 28px; cursor: pointer; font-weight: 900;
-  line-height: 1; color: var(--text-sub); background: transparent;
-  border: 0; padding: 4px 8px; font-family: inherit;
-}
+.modal-content { background: var(--surface); backdrop-filter: blur(18px); border: 1px solid var(--border); color: var(--text); width: 92%; max-width: 640px; margin: 6vh auto; border-radius: 22px; padding: 22px; max-height: 84vh; overflow: auto; }
+.close { float: right; font-size: 28px; cursor: pointer; font-weight: 900; line-height: 1; color: var(--text-sub); background: transparent; border: 0; padding: 4px 8px; font-family: inherit; }
 
-/* ── Ticket / Modal Sections ── */
 .ticket-section { margin-bottom: 18px; }
 .ticket-section h3 { margin: 0 0 9px; font-size: 14px; color: var(--text); display: flex; align-items: center; gap: 6px; }
 .ticket-row { display: flex; align-items: flex-start; gap: 9px; padding: 9px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
@@ -396,43 +245,19 @@ html, body {
 .ticket-name { font-weight: 700; margin-bottom: 2px; }
 .ticket-note { color: var(--text-sub); font-size: 12px; line-height: 1.5; }
 
-/* ── Checkpoint Table ── */
-.checkpoint-table { width: 100%; border-collapse: collapse; font-size: 12.5px; margin-top: 4px; }
-.checkpoint-table th { background: rgba(255,255,255,0.07); color: var(--text-sub); padding: 8px 9px; text-align: left; font-weight: 700; font-size: 11px; letter-spacing: .5px; border-bottom: 1px solid var(--border); }
-.checkpoint-table td { padding: 9px 9px; vertical-align: top; border-bottom: 1px solid rgba(255,255,255,0.05); color: var(--text); line-height: 1.6; }
-.checkpoint-table tr:last-child td { border-bottom: none; }
-.checkpoint-table .ck-date { white-space: nowrap; font-weight: 800; color: var(--accent); font-size: 12px; }
-.checkpoint-table .ck-time { white-space: nowrap; font-weight: 800; color: var(--food-l); }
-.checkpoint-table .ck-note { color: var(--text-sub); font-size: 12px; }
-
-/* ── Fare Table ── */
 .fare-table { width: 100%; border-collapse: collapse; font-size: 12.5px; margin: 8px 0; }
 .fare-table td { padding: 6px 4px; border-bottom: 1px solid rgba(255,255,255,0.05); }
 .fare-table tr:last-child td { border-bottom: none; }
 .fare-day   { font-weight: 800; color: var(--accent); white-space: nowrap; }
 .fare-route { color: var(--text-sub); }
 .fare-price { text-align: right; font-weight: 700; white-space: nowrap; color: var(--text); }
-
-/* ── Divider ── */
 .dashed-divider { border: none; border-top: 1px dashed rgba(255,255,255,0.15); margin: 10px 0; }
 
-
-
 /* ── Weather Panel ── */
-.weather-panel {
-  background: var(--surface); border-radius: 18px;
-  padding: 14px 16px; margin-bottom: 14px;
-  border: 1px solid var(--border);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.28);
-  backdrop-filter: blur(18px);
-}
+.weather-panel { background: var(--surface); border-radius: 18px; padding: 14px 16px; margin-bottom: 14px; border: 1px solid var(--border); box-shadow: 0 8px 24px rgba(0,0,0,0.28); backdrop-filter: blur(18px); }
 .weather-panel h2 { margin: 0 0 10px; font-size: 15px; color: var(--text); }
 .weather-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
-.weather-card {
-  background: var(--surface-alt); border-radius: 12px;
-  padding: 10px 6px; text-align: center;
-  border: 1px solid var(--border);
-}
+.weather-card { background: var(--surface-alt); border-radius: 12px; padding: 10px 6px; text-align: center; border: 1px solid var(--border); }
 .wc-date { font-size: 10px; color: var(--text-sub); margin-bottom: 2px; }
 .wc-day  { font-size: 11px; font-weight: 800; color: var(--accent); margin-bottom: 4px; }
 .wc-icon { font-size: 22px; line-height: 1; margin-bottom: 4px; }
@@ -444,33 +269,17 @@ html, body {
 .weather-err { font-size:12px; color:var(--text-sub); }
 .weather-err a { color:var(--accent); }
 
-/* ── Day Weather Strip (in day-stats) ── */
-.day-weather {
-  display: flex; align-items: center; gap: 6px;
-  font-size: 12px; font-weight: 700;
-}
+.day-weather { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 700; }
 .day-weather .dw-icon { font-size: 16px; line-height: 1; }
 .day-weather .dw-temp { color: var(--text); }
 .day-weather .dw-rain { color: #60a5fa; }
 .day-weather .dw-rain.heavy { color: var(--warn-l); }
-
-/* ── Tab weather mini ── */
 .tab-weather { font-size: 10px; display: block; margin-top: 1px; color: var(--text-sub); line-height: 1; }
 
-/* ── Breakfast Nav Button ── */
-.breakfast-nav {
-  display: inline-flex; align-items: center; gap: 4px;
-  margin-top: 6px;
-  text-decoration: none;
-  background: rgba(95,168,255,0.12);
-  border: 1px solid rgba(95,168,255,0.3);
-  color: var(--accent);
-  font-size: 11px; font-weight: 700;
-  padding: 4px 9px; border-radius: 8px;
-  transition: background .15s;
-}
+.breakfast-nav { display: inline-flex; align-items: center; gap: 4px; margin-top: 6px; text-decoration: none; background: rgba(95,168,255,0.12); border: 1px solid rgba(95,168,255,0.3); color: var(--accent); font-size: 11px; font-weight: 700; padding: 4px 9px; border-radius: 8px; transition: background .15s; }
 .breakfast-nav:active { background: rgba(95,168,255,0.25); }
 .breakfast-nav svg { flex-shrink: 0; }
+
 @media (max-width: 380px) {
   .header h1   { font-size: 17px; }
   .tab .tab-date { font-size: 13px; }
@@ -478,36 +287,12 @@ html, body {
 }
 
 /* ── SVG Route Map ── */
-.svg-map-wrap {
-  background: rgba(10,14,22,0.92);
-  border: 1px solid var(--border);
-  border-radius: 18px;
-  padding: 14px 10px 14px;
-  margin-top: 18px;
-  margin-bottom: 140px; /* clear floating menu */
-  overflow: hidden;
-}
-.svg-map-title {
-  font-size: 12px; font-weight: 900;
-  color: var(--text-sub); letter-spacing: 1px;
-  text-transform: uppercase; margin-bottom: 10px;
-  padding-left: 4px;
-}
+.svg-map-wrap { background: rgba(10,14,22,0.92); border: 1px solid var(--border); border-radius: 18px; padding: 14px 10px 14px; margin-top: 18px; margin-bottom: 140px; overflow: hidden; }
+.svg-map-title { font-size: 12px; font-weight: 900; color: var(--text-sub); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; padding-left: 4px; }
 .svg-map-wrap svg { width: 100%; height: auto; display: block; }
-.map-legend {
-  display: flex; flex-wrap: wrap; gap: 8px 14px;
-  margin-top: 10px; padding-left: 4px;
-}
-.map-legend-item {
-  display: flex; align-items: center; gap: 5px;
-  font-size: 11px; color: var(--text-sub);
-}
-.map-legend-dot {
-  width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
-}
-.map-legend-line {
-  width: 18px; height: 3px; border-radius: 2px; flex-shrink: 0;
-}
+.map-legend { display: flex; flex-wrap: wrap; gap: 8px 14px; margin-top: 10px; padding-left: 4px; }
+.map-legend-item { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--text-sub); }
+.map-legend-line { width: 18px; height: 3px; border-radius: 2px; flex-shrink: 0; }
 </style>
 </head>
 <body>
@@ -529,8 +314,6 @@ html, body {
 <div class="pages">
 
 <div class="page" id="p0">
-
-  <!-- 1. 基本資料 -->
   <div class="info-panel">
     <h2 style="font-size:15px;">✈️ 基本資料</h2>
     <div class="info-grid">
@@ -553,13 +336,11 @@ html, body {
     </div>
   </div>
 
-  <!-- 1.5. 天氣預報 -->
   <div class="weather-panel" id="weatherPanel">
     <h2 style="font-size:15px;">🌤 旅程天氣預報（名古屋）</h2>
     <div id="weatherContent" aria-live="polite"><div class="weather-loading">載入中…</div></div>
   </div>
 
-  <!-- 2. 飯店資訊（計程車備用） -->
   <div class="info-panel">
     <h2 style="font-size:15px;">🏨 飯店資訊（計程車備用）</h2>
     <div class="focus-box" style="line-height:2.0;">
@@ -570,7 +351,6 @@ html, body {
     </div>
   </div>
 
-  <!-- 3. 核心目標 -->
   <div class="info-panel">
     <h2 style="font-size:15px;">🎯 核心目標</h2>
     <div class="success-box" style="font-size:13.5px;line-height:2.1;">
@@ -585,18 +365,14 @@ html, body {
     </div>
   </div>
 
-  
-
-  <!-- 5. 出門確認 -->
   <div class="info-panel">
     <h2 style="font-size:15px;">📦 出門確認</h2>
     <div class="focus-box" style="font-size:15px;font-weight:900;line-height:2.4;">
-      ✔ 護照&emsp;✔ 手機&emsp;✔ 行動電源<br>
+      ✔ 護照 ✔ 手機 ✔ 行動電源<br>
       <span class="sub-text" style="font-weight:400;font-size:13px;">其他忘了，現場都能買。</span>
     </div>
   </div>
 
-  <!-- 6. 採買清單 -->
   <details class="custom-details">
     <summary>🛍 可留意採買項目</summary>
     <div class="details-content">
@@ -625,112 +401,70 @@ html, body {
     💡 詳細攻略、交通預估、購票與美食，請點右下角按鈕。
   </div>
 
-  <!-- 🗺 五天總覽路線圖 -->
   <div class="svg-map-wrap">
     <div class="svg-map-title">🗺 五天路線總覽</div>
     <svg viewBox="0 0 340 360" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans TC','PingFang TC',sans-serif">
       <defs>
         <filter id="gd"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
         <filter id="shadowNode"><feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="rgba(0,0,0,0.6)"/></filter>
-        <style>
-          .ov-lbl { paint-order: stroke fill; stroke: #060a12; stroke-width: 3.5px; stroke-linejoin: round; }
-        </style>
+        <style>.ov-lbl { paint-order: stroke fill; stroke: #060a12; stroke-width: 3.5px; stroke-linejoin: round; }</style>
       </defs>
-      <!-- BG grid subtle -->
       <rect width="340" height="360" fill="none"/>
       <line x1="170" y1="0" x2="170" y2="360" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
       <line x1="0" y1="180" x2="340" y2="180" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
 
-      <!-- KEY LOCATIONS — Google Maps verified (Places API):
-           榮站    35.1700N 136.9085E → anchor (205,165)
-           金山站  35.1429N 136.9012E → (178,194)  [南3km，略偏西]
-           名古屋駅 35.1709N 136.8815E → (113,164)  [同緯，西2.9km]
-           名古屋城 35.1848N 136.8997E → (174,149)  [北1.5km，略偏西]
-           豐田館  35.1826N 136.8760E → (93,151)   [北1.4km，西1.1km，駅更西]
-           科學館  35.1651N 136.8997E → (174,170)  [略南，與城同經度]
-           大須    35.1591N 136.9026E → (185,177)  [南1.2km，近榮，比科學館略東]
-           金城埠頭 35.0491N 136.8509E → (45,297)   [南13km，很遠西南]
-           機場    34.8574N 136.8108E → (40,330)   [遠西南]
-           換算基準：每0.01°lon=34px(→E增), 每0.01°lat=10.9px(↓S增)
-      -->
-
-      <!-- ─── Day 5 路線 (橘): 榮→金山→機場 ─── DRAW FIRST -->
       <polyline points="205,165 178,194 40,330" fill="none" stroke="#fb923c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#gd)" opacity="0.85"/>
-
-      <!-- ─── Day 1 路線 (藍): 機場→金山→榮 ─── offset +4px visible beside Day5 -->
       <polyline points="44,334 182,198 209,169" fill="none" stroke="#4e9eff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="7,4" filter="url(#gd)" opacity="0.92"/>
-
-      <!-- ─── Day 2 路線 (紅): 榮→名古屋駅→金城埠頭→大須→榮 ─── -->
       <polyline points="205,165 113,164 45,297 185,177 205,165" fill="none" stroke="#f87171" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6,3" filter="url(#gd)" opacity="0.85"/>
-
-      <!-- ─── Day 3 路線 (綠): 榮→名古屋城→豐田館→榮 ─── -->
       <polyline points="205,165 174,149 93,151 205,165" fill="none" stroke="#34d399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8,3" filter="url(#gd)" opacity="0.85"/>
-
-      <!-- ─── Day 4 路線 (紫): 榮→科學館→名古屋駅→金城埠頭→榮 ─── -->
       <polyline points="205,165 174,170 113,164 45,297 205,165" fill="none" stroke="#a78bfa" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="4,4" filter="url(#gd)" opacity="0.85"/>
 
-      <!-- ═══ LOCATION NODES ═══ -->
-
-      <!-- 機場 Centrair (40,330) ← 遠西南 -->
       <circle cx="40" cy="330" r="8" fill="#1a2035" stroke="#4e9eff" stroke-width="2" filter="url(#shadowNode)"/>
       <text x="40" y="334" text-anchor="middle" font-size="8" fill="#fff">✈</text>
       <text class="ov-lbl" x="51" y="328" text-anchor="start" font-size="8" fill="#aab6c5">機場</text>
       <text class="ov-lbl" x="51" y="338" text-anchor="start" font-size="7.5" fill="#aab6c5">Centrair</text>
 
-      <!-- 金山站 (178,194) ← 榮南偏西 -->
       <circle cx="178" cy="194" r="6" fill="#1a2035" stroke="#8b9cc8" stroke-width="1.5" filter="url(#shadowNode)"/>
       <text class="ov-lbl" x="187" y="198" text-anchor="start" font-size="9" fill="#aab6c5">金山站</text>
 
-      <!-- 榮站 HOTEL (205,165) ← anchor -->
       <circle cx="205" cy="165" r="11" fill="#0f1115" stroke="#5fa8ff" stroke-width="2.5" filter="url(#shadowNode)"/>
       <circle cx="205" cy="165" r="7" fill="#5fa8ff" opacity="0.25"/>
-      <text x="205" y="169" text-anchor="middle" font-size="9" fill="#fff" font-weight="900">🏨</text>
+      <text x="205" y="169" text-anchor="middle" font-size="9" fill="#fff">🏨</text>
       <text class="ov-lbl" x="220" y="162" text-anchor="start" font-size="9.5" fill="#fff" font-weight="900">榮站</text>
       <text class="ov-lbl" x="220" y="173" text-anchor="start" font-size="8" fill="#aab6c5">(飯店)</text>
 
-      <!-- 名古屋城 (174,149) ← 榮西北 -->
       <circle cx="174" cy="149" r="8" fill="#1a2035" stroke="#34d399" stroke-width="2" filter="url(#shadowNode)"/>
       <text x="174" y="153" text-anchor="middle" font-size="9" fill="#fff">🏯</text>
       <text class="ov-lbl" x="155" y="143" text-anchor="end" font-size="8.5" fill="#34d399">名古屋城</text>
 
-      <!-- 豐田館 (93,151) ← 城西，與城幾乎同緯 -->
       <circle cx="93" cy="151" r="8" fill="#1a2035" stroke="#34d399" stroke-width="2" filter="url(#shadowNode)"/>
       <text x="93" y="155" text-anchor="middle" font-size="8" fill="#fff">🏭</text>
       <text class="ov-lbl" x="83" y="145" text-anchor="end" font-size="8.5" fill="#34d399">豐田館</text>
 
-      <!-- 科學館 (174,170) ← 榮略西略南，城正南 -->
       <circle cx="174" cy="170" r="8" fill="#1a2035" stroke="#a78bfa" stroke-width="2" filter="url(#shadowNode)"/>
       <text x="174" y="174" text-anchor="middle" font-size="9" fill="#fff">🔭</text>
       <text class="ov-lbl" x="155" y="185" text-anchor="end" font-size="8.5" fill="#a78bfa">科學館</text>
 
-      <!-- 大須 (185,177) ← 榮南，略偏西，和科學館很近 -->
       <circle cx="185" cy="183" r="7" fill="#1a2035" stroke="#f87171" stroke-width="1.8" filter="url(#shadowNode)"/>
       <text x="185" y="187" text-anchor="middle" font-size="8" fill="#fff">🛍</text>
       <text class="ov-lbl" x="196" y="187" text-anchor="start" font-size="8.5" fill="#f87171">大須</text>
 
-      <!-- 名古屋駅 (113,164) ← 榮正西 -->
       <circle cx="113" cy="164" r="5" fill="#1a2035" stroke="#8b9cc8" stroke-width="1.3"/>
       <text class="ov-lbl" x="113" y="179" text-anchor="middle" font-size="8" fill="#8b9cc8">名古屋駅</text>
 
-      <!-- 樂高/磁浮 金城埠頭 (45,297) ← 名古屋駅正南遠 -->
       <circle cx="45" cy="297" r="8" fill="#1a2035" stroke="#f87171" stroke-width="2" filter="url(#shadowNode)"/>
       <text x="45" y="301" text-anchor="middle" font-size="9" fill="#fff">🧱</text>
       <text class="ov-lbl" x="56" y="293" text-anchor="start" font-size="8" fill="#f87171">樂高</text>
       <text class="ov-lbl" x="56" y="304" text-anchor="start" font-size="8" fill="#a78bfa">磁浮館</text>
 
-      <!-- Day labels floating -->
       <rect x="8" y="8" width="32" height="14" rx="4" fill="#4e9eff" opacity="0.9"/>
       <text x="24" y="19" text-anchor="middle" font-size="9" fill="#fff" font-weight="900">Day1</text>
-
       <rect x="44" y="8" width="32" height="14" rx="4" fill="#f87171" opacity="0.9"/>
       <text x="60" y="19" text-anchor="middle" font-size="9" fill="#fff" font-weight="900">Day2</text>
-
       <rect x="80" y="8" width="32" height="14" rx="4" fill="#34d399" opacity="0.9"/>
       <text x="96" y="19" text-anchor="middle" font-size="9" fill="#fff" font-weight="900">Day3</text>
-
       <rect x="116" y="8" width="32" height="14" rx="4" fill="#a78bfa" opacity="0.9"/>
       <text x="132" y="19" text-anchor="middle" font-size="9" fill="#fff" font-weight="900">Day4</text>
-
       <rect x="152" y="8" width="32" height="14" rx="4" fill="#fb923c" opacity="0.9"/>
       <text x="168" y="19" text-anchor="middle" font-size="9" fill="#fff" font-weight="900">Day5</text>
     </svg>
@@ -742,7 +476,6 @@ html, body {
       <div class="map-legend-item"><div class="map-legend-line" style="background:#fb923c;"></div>Day 5 返程</div>
     </div>
   </div>
-
 </div>
 
 <div class="page" id="p1">
@@ -754,13 +487,11 @@ html, body {
     <span id="dw1"></span>
   </div>
   <div class="timeline">
-
     <div class="event">
       <div class="time">17:20 → 21:15</div>
       <div class="title">桃園 (T1) → 中部國際 (T2)</div>
       <div class="event-hint">虎航 IT706 ・飛行約 3h 50m</div>
     </div>
-
     <div class="event">
       <div class="time">22:00</div>
       <div class="title">前往飯店</div>
@@ -810,7 +541,6 @@ html, body {
         </div>
       </div>
 
-      <!-- Day 1 Route Map -->
       <div class="svg-map-wrap" style="margin-top:20px;">
         <div class="svg-map-title">📍 Day 1 路線圖 — 到達名古屋</div>
         <svg viewBox="0 0 300 190" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans TC','PingFang TC',sans-serif">
@@ -818,33 +548,26 @@ html, body {
             <filter id="g1a"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
             <style>.lbl1{paint-order:stroke fill;stroke:#0a0e16;stroke-width:3px;stroke-linejoin:round;}</style>
           </defs>
-        <!-- 地理方位（北上）：機場在西南(左下)，金山在中，榮在北偏東(右上)
-             Airport (75,155)  Kanayama (148,100)  Sakae (218,38) -->
-        <polyline points="75,155 148,100 218,38" fill="none" stroke="#4e9eff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" filter="url(#g1a)"/>
-        <text x="278" y="22" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.25)">N↑</text>
-        <text class="lbl1" x="96" y="130" text-anchor="start" font-size="9" fill="#4e9eff" transform="rotate(-40,96,130)">名鐵 ~25分</text>
-        <text class="lbl1" x="164" y="76" text-anchor="start" font-size="9" fill="#a78bfa" transform="rotate(-40,164,76)">名城線 ~8分</text>
-        <!-- Kanayama -->
-        <circle cx="148" cy="100" r="8" fill="#1a2035" stroke="#8b9cc8" stroke-width="1.8"/>
-        <text class="lbl1" x="160" y="97" text-anchor="start" font-size="9" fill="#aab6c5">金山站</text>
-        <text class="lbl1" x="160" y="108" text-anchor="start" font-size="8" fill="#ff9c9c">⚠ 站內轉乘</text>
-        <!-- Airport (south-west / bottom-left) -->
-        <circle cx="75" cy="155" r="10" fill="#1a2035" stroke="#4e9eff" stroke-width="2"/>
-        <text x="75" y="159" text-anchor="middle" font-size="10" fill="#fff">✈</text>
-        <text class="lbl1" x="75" y="175" text-anchor="middle" font-size="8.5" fill="#aab6c5">中部機場 T2</text>
-        <!-- Sakae Hotel (north-east / top-right) -->
-        <circle cx="218" cy="38" r="11" fill="#0f1115" stroke="#5fa8ff" stroke-width="2.5"/>
-        <circle cx="218" cy="38" r="7" fill="#5fa8ff" opacity="0.2"/>
-        <text x="218" y="42" text-anchor="middle" font-size="10" fill="#fff">🏨</text>
-        <text class="lbl1" x="218" y="58" text-anchor="middle" font-size="9" fill="#fff" font-weight="900">榮站・飯店</text>
-        <text class="lbl1" x="218" y="69" text-anchor="middle" font-size="8" fill="#5fa8ff">4號出口</text>
-          <!-- Day badge -->
+          <polyline points="75,155 148,100 218,38" fill="none" stroke="#4e9eff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" filter="url(#g1a)"/>
+          <text x="278" y="22" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.25)">N↑</text>
+          <text class="lbl1" x="96" y="130" text-anchor="start" font-size="9" fill="#4e9eff" transform="rotate(-40,96,130)">名鐵 ~25分</text>
+          <text class="lbl1" x="164" y="76" text-anchor="start" font-size="9" fill="#a78bfa" transform="rotate(-40,164,76)">名城線 ~8分</text>
+          <circle cx="148" cy="100" r="8" fill="#1a2035" stroke="#8b9cc8" stroke-width="1.8"/>
+          <text class="lbl1" x="160" y="97" text-anchor="start" font-size="9" fill="#aab6c5">金山站</text>
+          <text class="lbl1" x="160" y="108" text-anchor="start" font-size="8" fill="#ff9c9c">⚠ 站內轉乘</text>
+          <circle cx="75" cy="155" r="10" fill="#1a2035" stroke="#4e9eff" stroke-width="2"/>
+          <text x="75" y="159" text-anchor="middle" font-size="10" fill="#fff">✈</text>
+          <text class="lbl1" x="75" y="175" text-anchor="middle" font-size="8.5" fill="#aab6c5">中部機場 T2</text>
+          <circle cx="218" cy="38" r="11" fill="#0f1115" stroke="#5fa8ff" stroke-width="2.5"/>
+          <circle cx="218" cy="38" r="7" fill="#5fa8ff" opacity="0.2"/>
+          <text x="218" y="42" text-anchor="middle" font-size="10" fill="#fff">🏨</text>
+          <text class="lbl1" x="218" y="58" text-anchor="middle" font-size="9" fill="#fff" font-weight="900">榮站・飯店</text>
+          <text class="lbl1" x="218" y="69" text-anchor="middle" font-size="8" fill="#5fa8ff">4號出口</text>
           <rect x="10" y="10" width="68" height="16" rx="4" fill="rgba(78,158,255,0.2)" stroke="rgba(78,158,255,0.5)" stroke-width="1"/>
           <text x="44" y="22" text-anchor="middle" font-size="9" fill="#4e9eff">6/11 四 抵達</text>
         </svg>
       </div>
     </div>
-
   </div>
 </div>
 
@@ -857,7 +580,6 @@ html, body {
     <span id="dw2"></span>
   </div>
   <div class="timeline">
-
     <div class="event">
       <div class="time">08:30</div>
       <div class="title">☕ 早餐：Conpal（コンパル）</div>
@@ -934,58 +656,47 @@ html, body {
       </div>
     </div>
 
-    <!-- Day 2 Route Map -->
     <div class="svg-map-wrap" style="margin-top:20px;">
-      <div class="svg-map-title">📍 Day 2 路線圖 — 樂高・大須</div>
+      <div class="svg-map-title">📍 Day 2 路線圖 — 樂高・大須（真實軌跡平移版）</div>
       <svg viewBox="0 0 300 225" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans TC','PingFang TC',sans-serif">
         <defs>
           <filter id="g2a"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
           <style>.lbl2{paint-order:stroke fill;stroke:#0a0e16;stroke-width:3px;stroke-linejoin:round;}</style>
         </defs>
-        <!-- 地理方位（北上）— Google Maps 實測：
-             榮站    35.1700N 136.9085E → (235,55) anchor
-             名古屋駅 35.1709N 136.8815E → (88,65)  [同緯，西0.027°]
-             金城埠頭 35.0491N 136.8509E → (65,185) [名古屋駅正南遠]
-             大須    35.1591N 136.9026E → (210,88)  [榮正南偏微西，非常近！]
-             換算：每0.01°lon=54px，每0.01°lat=10px
-             → 大須在榮南0.011°(11px)，偏西0.006°(3px)，幾乎正南
-        -->
-        <!-- North indicator -->
         <text x="280" y="22" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.25)">N↑</text>
-        <!-- Sakae → Nagoya Sta (東山線/地鐵，向西，同緯度) -->
+        
         <polyline points="235,55 88,65" fill="none" stroke="#f87171" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#g2a)"/>
-        <!-- Nagoya Sta → Legoland (青波線，向西南) -->
-        <polyline points="88,65 65,185" fill="none" stroke="#f87171" stroke-width="2.5" stroke-dasharray="5,3" stroke-linecap="round" stroke-linejoin="round" filter="url(#g2a)"/>
-        <!-- Legoland → Osu (回程，斜向右上至榮南) -->
-        <polyline points="65,185 210,88" fill="none" stroke="#f87171" stroke-width="2.5" stroke-dasharray="5,3" stroke-linecap="round" stroke-linejoin="round" filter="url(#g2a)"/>
-        <!-- Osu → Sakae (回榮，大須幾乎在榮正南，向上) -->
+        <polyline points="88,65 65,185" fill="none" stroke="#f87171" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#g2a)"/>
+        
+        <polyline points="73,185 96,70" fill="none" stroke="#f87171" stroke-width="2.5" stroke-dasharray="5,3" stroke-linecap="round" stroke-linejoin="round" filter="url(#g2a)"/>
+        <polyline points="96,70 210,88" fill="none" stroke="#f87171" stroke-width="2.5" stroke-dasharray="5,3" stroke-linecap="round" stroke-linejoin="round" filter="url(#g2a)"/>
         <polyline points="210,88 235,55" fill="none" stroke="#f87171" stroke-width="2" stroke-dasharray="3,4" stroke-linecap="round" stroke-linejoin="round" opacity="0.65"/>
-        <!-- Line labels -->
-        <text class="lbl2" x="162" y="50" text-anchor="middle" font-size="8.5" fill="#f87171">東山線~15分</text>
-        <text class="lbl2" x="62" y="130" text-anchor="end" font-size="8.5" fill="#f87171" transform="rotate(-85,62,130)">青波線~24分</text>
-        <text class="lbl2" x="155" y="152" text-anchor="middle" font-size="8" fill="#f87171" transform="rotate(-55,155,152)">地鐵~25分</text>
-        <!-- Sakae Hotel (top-right) -->
+        
+        <text class="lbl2" x="162" y="50" text-anchor="middle" font-size="8.5" fill="#f87171">東山線 (去程) ➔</text>
+        <text class="lbl2" x="56" y="125" text-anchor="end" font-size="8.5" fill="#f87171" transform="rotate(-85,56,125)">青波線 (去程) ➔</text>
+        <text class="lbl2" x="100" y="135" text-anchor="start" font-size="8.5" fill="#f87171" transform="rotate(-85,100,135)">⬅ 青波線 (回程平移)</text>
+        <text class="lbl2" x="150" y="86" text-anchor="middle" font-size="8.5" fill="#f87171" transform="rotate(8,150,86)">地鐵 (至大須) ➔</text>
+        <text class="lbl2" x="232" y="106" text-anchor="middle" font-size="8" fill="#f87171">名城線 ➔</text>
+        
         <circle cx="235" cy="55" r="11" fill="#0f1115" stroke="#5fa8ff" stroke-width="2.5"/>
         <text x="235" y="59" text-anchor="middle" font-size="10" fill="#fff">🏨</text>
         <text class="lbl2" x="235" y="75" text-anchor="middle" font-size="9" fill="#fff" font-weight="900">榮站・飯店</text>
-        <!-- Nagoya Sta (left, same latitude as Sakae) -->
+        
         <circle cx="88" cy="65" r="6" fill="#1a2035" stroke="#8b9cc8" stroke-width="1.5"/>
         <text class="lbl2" x="88" y="80" text-anchor="middle" font-size="8.5" fill="#aab6c5">名古屋駅</text>
-        <!-- Legoland / 金城埠頭 (bottom-left, south of Nagoya Sta) -->
+        
         <circle cx="65" cy="185" r="10" fill="#1a2035" stroke="#f87171" stroke-width="2"/>
         <text x="65" y="189" text-anchor="middle" font-size="10" fill="#fff">🧱</text>
         <text class="lbl2" x="65" y="202" text-anchor="middle" font-size="8.5" fill="#f87171">樂高樂園</text>
-        <text class="lbl2" x="65" y="212" text-anchor="middle" font-size="8" fill="#aab6c5">金城埠頭</text>
-        <!-- Osu (almost directly south of Sakae — 136.903E vs 136.909E, very close) -->
+        
         <circle cx="210" cy="88" r="8" fill="#1a2035" stroke="#f87171" stroke-width="1.8"/>
         <text x="210" y="92" text-anchor="middle" font-size="9" fill="#fff">🛍</text>
-        <text class="lbl2" x="194" y="104" text-anchor="middle" font-size="8.5" fill="#f87171">大須商店街</text>
-        <!-- Day badge -->
+        <text class="lbl2" x="210" y="104" text-anchor="middle" font-size="8.5" fill="#f87171">大須商店街</text>
+        
         <rect x="10" y="10" width="76" height="16" rx="4" fill="rgba(248,113,113,0.2)" stroke="rgba(248,113,113,0.5)" stroke-width="1"/>
         <text x="48" y="22" text-anchor="middle" font-size="9" fill="#f87171">6/12 五 樂高大須</text>
       </svg>
     </div>
-
   </div>
 </div>
 
@@ -999,7 +710,6 @@ html, body {
   </div>
   
   <div class="timeline">
-
     <div class="event">
       <div class="time">08:00</div>
       <div class="title">☕ 早餐：Komeda Morning</div>
@@ -1076,53 +786,45 @@ html, body {
       </div>
     </div>
 
-    <!-- Day 3 Route Map -->
     <div class="svg-map-wrap" style="margin-top:20px;">
-      <div class="svg-map-title">📍 Day 3 路線圖 — 名古屋城・豐田館</div>
+      <div class="svg-map-title">📍 Day 3 路線圖 — 名古屋城・豐田館（真實軌跡平移版）</div>
       <svg viewBox="0 0 300 220" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans TC','PingFang TC',sans-serif">
         <defs>
           <filter id="g3a"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
           <style>.lbl3{paint-order:stroke fill;stroke:#0a0e16;stroke-width:3px;stroke-linejoin:round;}</style>
         </defs>
-        <!-- 地理方位（北上）— Google Maps 實測：
-             榮站    35.1700N 136.9085E → (240,180) anchor
-             名古屋城 35.1848N 136.8997E → (194,105) [北7.5km，西4.6km]
-             豐田館  35.1826N 136.8760E → (72,115)  [城幾乎同緯，城西12km]
-             換算：每0.01°lon=51px，每0.01°lat=50px
-             → 城與豐田館y差10px(實際2km緯差)，水平差122px(實際2.4km經差)✓
-        -->
-        <!-- North indicator -->
         <text x="280" y="22" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.25)">N↑</text>
-        <!-- Sakae → Nagoya Castle (名城線) -->
+        
         <polyline points="240,180 194,105" fill="none" stroke="#34d399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#g3a)"/>
-        <!-- Castle → Toyota Museum (taxi, 城往正西到豐田館) -->
         <polyline points="194,105 72,115" fill="none" stroke="#34d399" stroke-width="2.5" stroke-dasharray="6,3" stroke-linecap="round" stroke-linejoin="round" filter="url(#g3a)"/>
-        <!-- Toyota → Sakae (return) -->
-        <polyline points="72,115 240,180" fill="none" stroke="#34d399" stroke-width="2" stroke-dasharray="3,4" stroke-linecap="round" stroke-linejoin="round" opacity="0.5"/>
-        <!-- Labels -->
-        <text class="lbl3" x="232" y="133" text-anchor="end" font-size="8.5" fill="#34d399" transform="rotate(-60,232,133)">名城線~12分</text>
-        <text class="lbl3" x="133" y="100" text-anchor="middle" font-size="8.5" fill="#34d399">計程車~1,500円</text>
-        <text class="lbl3" x="185" y="160" text-anchor="middle" font-size="8" fill="#34d399" transform="rotate(-22,185,160)">名城線~17分</text>
-        <!-- Sakae Hotel (bottom-right) -->
+        
+        <polyline points="72,123 102,183" fill="none" stroke="#34d399" stroke-width="2" stroke-dasharray="4,4" stroke-linecap="round" stroke-linejoin="round" opacity="0.75" filter="url(#g3a)"/>
+        <polyline points="102,183 240,186" fill="none" stroke="#34d399" stroke-width="2" stroke-dasharray="4,4" stroke-linecap="round" stroke-linejoin="round" opacity="0.75" filter="url(#g3a)"/>
+        
+        <text class="lbl3" x="228" y="135" text-anchor="end" font-size="8.5" fill="#34d399" transform="rotate(-60,228,135)">名城線 (去程) ➔</text>
+        <text class="lbl3" x="133" y="100" text-anchor="middle" font-size="8.5" fill="#34d399">計程車 🚕 ~1,500円</text>
+        <text class="lbl3" x="78" y="156" text-anchor="middle" font-size="8" fill="#34d399" transform="rotate(63,78,156)">⬅ 東山線/名鐵 (回程)</text>
+        <text class="lbl3" x="171" y="196" text-anchor="middle" font-size="8.5" fill="#34d399">東山線 (回程平移) ➔</text>
+        
         <circle cx="240" cy="180" r="11" fill="#0f1115" stroke="#5fa8ff" stroke-width="2.5"/>
         <text x="240" y="184" text-anchor="middle" font-size="10" fill="#fff">🏨</text>
         <text class="lbl3" x="240" y="200" text-anchor="middle" font-size="9" fill="#fff" font-weight="900">榮站・飯店</text>
-        <!-- Nagoya Castle (upper center-right) -->
+        
         <circle cx="194" cy="105" r="10" fill="#1a2035" stroke="#34d399" stroke-width="2"/>
         <text x="194" y="109" text-anchor="middle" font-size="10" fill="#fff">🏯</text>
         <text class="lbl3" x="207" y="102" text-anchor="start" font-size="8.5" fill="#34d399">名古屋城</text>
-        <text class="lbl3" x="207" y="113" text-anchor="start" font-size="7.5" fill="#aab6c5">名古屋城站</text>
-        <!-- Toyota Museum (left, almost same latitude as Castle) -->
+        
         <circle cx="72" cy="115" r="10" fill="#1a2035" stroke="#34d399" stroke-width="2"/>
         <text x="72" y="119" text-anchor="middle" font-size="9" fill="#fff">🏭</text>
-        <text class="lbl3" x="72" y="133" text-anchor="middle" font-size="8.5" fill="#34d399">豐田產業</text>
-        <text class="lbl3" x="72" y="144" text-anchor="middle" font-size="8" fill="#34d399">技術紀念館</text>
-        <!-- Day badge -->
+        <text class="lbl3" x="72" y="133" text-anchor="middle" font-size="8.5" fill="#34d399">豐田產業技術紀念館</text>
+        
+        <circle cx="102" cy="175" r="4" fill="#1a2035" stroke="#8b9cc8" stroke-width="1"/>
+        <text class="lbl3" x="102" y="170" text-anchor="middle" font-size="7.5" fill="#aab6c5">名古屋駅</text>
+        
         <rect x="10" y="10" width="78" height="16" rx="4" fill="rgba(52,211,153,0.2)" stroke="rgba(52,211,153,0.5)" stroke-width="1"/>
-        <text x="49" y="22" text-anchor="middle" font-size="9" fill="#34d399">6/13 六 城・豐田</text>
+        <text x="49" y="22" text-anchor="middle" font-size="9" fill="#34d399">6/13 六 城·豐田</text>
       </svg>
     </div>
-
   </div>
 </div>
 
@@ -1138,7 +840,6 @@ html, body {
     🧠 <b>今天是最燒腦行程</b>，科學館＋磁浮館資訊量都很大。務必安排休息補水，不要硬撐。
   </div>
   <div class="timeline">
-
     <div class="event">
       <div class="time">08:30</div>
       <div class="title">☕ 早餐：Kato Coffee（加藤珈琲店）</div>
@@ -1215,60 +916,46 @@ html, body {
       </div>
     </div>
 
-    <!-- Day 4 Route Map -->
     <div class="svg-map-wrap" style="margin-top:20px;">
-      <div class="svg-map-title">📍 Day 4 路線圖 — 科學館・磁浮館</div>
+      <div class="svg-map-title">📍 Day 4 路線圖 — 科學館・磁浮館（真實軌跡平移版）</div>
       <svg viewBox="0 0 300 235" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans TC','PingFang TC',sans-serif">
         <defs>
           <filter id="g4a"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
           <style>.lbl4{paint-order:stroke fill;stroke:#0a0e16;stroke-width:3px;stroke-linejoin:round;}</style>
         </defs>
-        <!-- 地理方位（北上）— Google Maps 實測：
-             榮站    35.1700N 136.9085E → (240,100) anchor
-             科學館  35.1651N 136.8997E → (178,103) [比榮偏西0.009°(62px)，略南]
-             名古屋駅 35.1709N 136.8815E → (55,100)  [比榮偏西0.027°(185px)，同緯]
-             磁浮館  35.0491N 136.8509E → (45,195)  [名古屋駅正南遠]
-             換算：東西以名古屋駅=55為錨，科學館在0.009/0.027=1/3處 → x=178 ✓
-        -->
-        <!-- North indicator -->
         <text x="280" y="22" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.25)">N↑</text>
-        <!-- Sakae → Science Museum (東山線，向西偏南) -->
+        
         <polyline points="240,100 178,103" fill="none" stroke="#a78bfa" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#g4a)"/>
-        <!-- Science Museum → Nagoya Sta (繼續向西) -->
-        <polyline points="178,103 55,100" fill="none" stroke="#a78bfa" stroke-width="2.5" stroke-dasharray="6,3" stroke-linecap="round" stroke-linejoin="round" filter="url(#g4a)"/>
-        <!-- Nagoya Sta → Maglev (青波線，向正南) -->
-        <polyline points="55,100 45,195" fill="none" stroke="#a78bfa" stroke-width="2.5" stroke-dasharray="6,3" stroke-linecap="round" stroke-linejoin="round" filter="url(#g4a)"/>
-        <!-- Maglev → Sakae (return, dashed faded) -->
-        <polyline points="45,195 240,100" fill="none" stroke="#a78bfa" stroke-width="2" stroke-dasharray="3,4" stroke-linecap="round" stroke-linejoin="round" opacity="0.45"/>
-        <!-- Labels -->
-        <text class="lbl4" x="210" y="93" text-anchor="middle" font-size="8.5" fill="#a78bfa">東山線~13分</text>
-        <text class="lbl4" x="115" y="94" text-anchor="middle" font-size="8.5" fill="#a78bfa">← 換乘</text>
-        <text class="lbl4" x="34" y="152" text-anchor="end" font-size="8.5" fill="#a78bfa" transform="rotate(-85,34,152)">青波線~24分</text>
-        <text class="lbl4" x="170" y="172" text-anchor="middle" font-size="8" fill="#a78bfa" transform="rotate(-22,170,172)">← 返回榮站</text>
-        <!-- Sakae Hotel (right-center) -->
+        <polyline points="178,103 55,100" fill="none" stroke="#a78bfa" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#g4a)"/>
+        <polyline points="55,100 45,195" fill="none" stroke="#a78bfa" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#g4a)"/>
+        
+        <polyline points="53,195 63,105" fill="none" stroke="#a78bfa" stroke-width="2" stroke-dasharray="5,3" stroke-linecap="round" stroke-linejoin="round" opacity="0.8" filter="url(#g4a)"/>
+        <polyline points="63,105 240,105" fill="none" stroke="#a78bfa" stroke-width="2" stroke-dasharray="5,3" stroke-linecap="round" stroke-linejoin="round" opacity="0.8" filter="url(#g4a)"/>
+        
+        <text class="lbl4" x="210" y="93" text-anchor="middle" font-size="8.5" fill="#a78bfa">東山線 (去程) ➔</text>
+        <text class="lbl4" x="32" y="152" text-anchor="end" font-size="8.5" fill="#a78bfa" transform="rotate(-85,32,152)">青波線 (去程) ➔</text>
+        <text class="lbl4" x="72" y="152" text-anchor="start" font-size="8.5" fill="#a78bfa" transform="rotate(-85,72,152)">⬅ 青波線 (回程平移)</text>
+        <text class="lbl4" x="150" y="117" text-anchor="middle" font-size="8.5" fill="#a78bfa">東山線 (回程平移) ➔</text>
+        
         <circle cx="240" cy="100" r="11" fill="#0f1115" stroke="#5fa8ff" stroke-width="2.5"/>
         <text x="240" y="104" text-anchor="middle" font-size="10" fill="#fff">🏨</text>
         <text class="lbl4" x="240" y="120" text-anchor="middle" font-size="9" fill="#fff" font-weight="900">榮站・飯店</text>
-        <!-- Science Museum (right-of-center, 科學館≈名古屋城同經度，比名古屋駅近榮) -->
+        
         <circle cx="178" cy="103" r="10" fill="#1a2035" stroke="#a78bfa" stroke-width="2"/>
         <text x="178" y="107" text-anchor="middle" font-size="10" fill="#fff">🔭</text>
         <text class="lbl4" x="178" y="122" text-anchor="middle" font-size="8.5" fill="#a78bfa">科學館</text>
-        <text class="lbl4" x="178" y="132" text-anchor="middle" font-size="8" fill="#aab6c5">伏見站</text>
-        <!-- Nagoya Sta (further west, same latitude as Sakae) -->
+        
         <circle cx="55" cy="100" r="7" fill="#1a2035" stroke="#8b9cc8" stroke-width="1.5"/>
         <text class="lbl4" x="55" y="115" text-anchor="middle" font-size="8" fill="#aab6c5">名古屋駅</text>
-        <text class="lbl4" x="55" y="125" text-anchor="middle" font-size="7.5" fill="#aab6c5">換青波線</text>
-        <!-- Maglev Railway (bottom-left, 金城埠頭, far south of Nagoya Sta) -->
+        
         <circle cx="45" cy="195" r="10" fill="#1a2035" stroke="#a78bfa" stroke-width="2"/>
         <text x="45" y="199" text-anchor="middle" font-size="10" fill="#fff">🚄</text>
         <text class="lbl4" x="45" y="213" text-anchor="middle" font-size="8.5" fill="#a78bfa">磁浮鐵道館</text>
-        <text class="lbl4" x="45" y="222" text-anchor="middle" font-size="8" fill="#aab6c5">金城埠頭</text>
-        <!-- Day badge -->
+        
         <rect x="10" y="10" width="84" height="16" rx="4" fill="rgba(167,139,250,0.2)" stroke="rgba(167,139,250,0.5)" stroke-width="1"/>
-        <text x="52" y="22" text-anchor="middle" font-size="9" fill="#a78bfa">6/14 日 科學・磁浮</text>
+        <text x="52" y="22" text-anchor="middle" font-size="9" fill="#a78bfa">6/14 日 科學·磁浮</text>
       </svg>
     </div>
-
   </div>
 </div>
 
@@ -1281,16 +968,14 @@ html, body {
     <span id="dw5"></span>
   </div>
   <div class="timeline">
-
     <div class="event">
       <div class="time">09:00</div>
       <div class="title">☕ 早餐：Komeda Morning 再訪</div>
       <div class="event-hint">退房前後就近安排。最後一次名古屋早餐，用熟悉的味道收尾。</div>
     </div>
-
     <div class="event">
       <div class="time">退房前</div>
-      <div class="title">📦 行李最終確認</div>
+      <div class="title">📦 行計最終確認</div>
       <div class="event-hint"><span class="warn">行動電源＆土鍋隨身，絕對不托運。</span>東西忘在飯店才是 Day 5 最大危機。</div>
       <details class="custom-details" style="margin-top:10px;">
         <summary>📋 出發確認清單</summary>
@@ -1304,13 +989,11 @@ html, body {
         </div>
       </details>
     </div>
-
     <div class="event">
       <div class="time">11:00 ～ 16:30</div>
       <div class="title">最後採買 × 土鍋提貨</div>
       <div class="event-hint">前往 Day 2 結帳的店家取貨。<span class="warn">當場檢查裂痕，保留原包裝。</span>榮地下街可順手採買。</div>
     </div>
-
     <div class="event">
       <div class="time">17:30</div>
       <div class="title">前往中部國際機場</div>
@@ -1346,7 +1029,6 @@ html, body {
         </div>
       </details>
     </div>
-
     <div class="event">
       <div class="time">21:50</div>
       <div class="title">虎航 IT206 NGO → TPE 🛫</div>
@@ -1363,53 +1045,40 @@ html, body {
       </div>
     </div>
 
-    <!-- Day 5 Route Map -->
     <div class="svg-map-wrap" style="margin-top:20px;">
       <div class="svg-map-title">📍 Day 5 路線圖 — 返程回台</div>
-        <svg viewBox="0 0 300 180" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans TC','PingFang TC',sans-serif">
+      <svg viewBox="0 0 300 180" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans TC','PingFang TC',sans-serif">
         <defs>
           <filter id="g5a"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
           <style>.lbl5{paint-order:stroke fill;stroke:#0a0e16;stroke-width:3px;stroke-linejoin:round;}</style>
         </defs>
-        <!-- 地理方位（北上）：榮在北偏東(右上)，金山在中，機場在西南(左下)
-             Sakae (220,32)  Kanayama (148,90)  Airport (65,155) -->
         <polyline points="220,32 148,90 65,155" fill="none" stroke="#fb923c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" filter="url(#g5a)"/>
         <text x="278" y="22" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.25)">N↑</text>
         <text class="lbl5" x="165" y="57" text-anchor="start" font-size="8.5" fill="#a78bfa" transform="rotate(40,165,57)">名城線~8分</text>
         <text class="lbl5" x="92" y="122" text-anchor="start" font-size="8.5" fill="#fb923c" transform="rotate(40,92,122)">名鐵特急~35分</text>
-        <!-- Sakae Hotel (north-east / top-right) -->
         <circle cx="220" cy="32" r="11" fill="#0f1115" stroke="#5fa8ff" stroke-width="2.5"/>
         <text x="220" y="36" text-anchor="middle" font-size="10" fill="#fff">🏨</text>
         <text class="lbl5" x="220" y="52" text-anchor="middle" font-size="9" fill="#fff" font-weight="900">榮站・飯店</text>
         <text class="lbl5" x="220" y="63" text-anchor="middle" font-size="8" fill="#ff9c9c">⚠ 17:30出發</text>
-        <!-- Kanayama -->
         <circle cx="148" cy="90" r="7" fill="#1a2035" stroke="#8b9cc8" stroke-width="1.5"/>
         <text class="lbl5" x="160" y="87" text-anchor="start" font-size="8.5" fill="#aab6c5">金山站</text>
-        <!-- Airport (south-west / bottom-left) -->
         <circle cx="65" cy="155" r="10" fill="#1a2035" stroke="#fb923c" stroke-width="2"/>
         <text x="65" y="159" text-anchor="middle" font-size="10" fill="#fff">✈</text>
         <text class="lbl5" x="65" y="172" text-anchor="middle" font-size="8.5" fill="#fb923c">中部機場</text>
-        <!-- Day badge -->
         <rect x="10" y="10" width="72" height="16" rx="4" fill="rgba(251,146,60,0.2)" stroke="rgba(251,146,60,0.5)" stroke-width="1"/>
         <text x="46" y="22" text-anchor="middle" font-size="9" fill="#fb923c">6/15 一 返程</text>
-        <!-- Farewell -->
         <text class="lbl5" x="148" y="175" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.35)">旅程圓滿 ✨</text>
       </svg>
     </div>
-
   </div>
 </div>
 
-</div><div class="floating-menu">
-  <div class="float-btn-wrap">
-    <button class="float-btn" onclick="openModal('foodModal')"><span class="float-icon">🍜</span>早晚餐</button>
-  </div>
-  <div class="float-btn-wrap">
-    <button class="float-btn" onclick="openModal('trafficModal')"><span class="float-icon">🚇</span>交通時程</button>
-  </div>
-  <div class="float-btn-wrap">
-    <button class="float-btn" onclick="openModal('ticketModal')"><span class="float-icon">🎟</span>購票攻略</button>
-  </div>
+</div>
+
+<div class="floating-menu">
+  <div class="float-btn-wrap"><button class="float-btn" onclick="openModal('foodModal')"><span class="float-icon">🍜</span>早晚餐</button></div>
+  <div class="float-btn-wrap"><button class="float-btn" onclick="openModal('trafficModal')"><span class="float-icon">🚇</span>交通時程</button></div>
+  <div class="float-btn-wrap"><button class="float-btn" onclick="openModal('ticketModal')"><span class="float-icon">🎟</span>購票攻略</button></div>
 </div>
 
 <div id="ticketModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="ticketModalTitle" aria-hidden="true">
@@ -1417,22 +1086,16 @@ html, body {
     <button type="button" class="close" aria-label="關閉購票攻略" onclick="closeModal('ticketModal')">×</button>
     <h2 id="ticketModalTitle">🎟 購票攻略</h2>
     <p style="font-size:12.5px;color:var(--text-sub);margin-top:-6px;margin-bottom:16px;">出發前搞定，行程中不用再看。</p>
-
     <div class="ticket-section">
       <h3><span style="background:#ef4444;color:white;border-radius:6px;padding:2px 8px;font-size:11px;">唯一預購項目</span></h3>
       <div class="ticket-row">
         <div class="ticket-dot dot-red"></div>
         <div>
           <div class="ticket-name">🧱 樂高樂園 + SEA LIFE</div>
-          <div class="ticket-note">
-            建議於 KKday / Klook 預購。<br>
-            ✔ 票價較便宜 ✔ QR Code 直接入園 ✔ 不用排隊<br><br>
-        
-          </div>
+          <div class="ticket-note">建議於 KKday / Klook 預購。<br>✔ 票價較便宜 ✔ QR Code 直接入園 ✔ 不用排隊</div>
         </div>
       </div>
     </div>
-
     <div class="ticket-section">
       <h3><span style="background:var(--green);color:white;border-radius:6px;padding:2px 8px;font-size:11px;">現場購買即可</span></h3>
       <div class="ticket-row">
@@ -1455,7 +1118,6 @@ html, body {
   <div class="modal-content" tabindex="-1">
     <button type="button" class="close" aria-label="關閉交通與時程" onclick="closeModal('trafficModal')">×</button>
     <h2 id="trafficModalTitle">🚇 交通與時程</h2>
-
     <div class="ticket-section">
       <h3><span style="background:#8b5cf6;color:white;border-radius:6px;padding:2px 8px;font-size:11px;">交通策略</span></h3>
       <div class="focus-box" style="font-size:13px;line-height:1.9;">
@@ -1478,12 +1140,11 @@ html, body {
         實際車資約 6,000 円。剩餘可用於超商、自販機、餐廳，Day 5 機場保證花完。
         <div style="background:var(--red-soft);border:1px solid var(--warn-l);border-radius:8px;padding:10px;margin-top:12px;font-size:12.5px;">
           <b style="color:#ff9c9c;">⚠️ 本次行程不用購買「一日票」</b><br>
-          地下鐵券不划算 / Me~guru 不適用 / JR Pass 不需要。<br>
+          地下鐵券不慢 / Me~guru 不適用 / JR Pass 不需要。<br>
           <b style="font-size:13.5px;">Suica + Google Maps 就是唯一正解。</b>
         </div>
       </div>
     </div>
-
   </div>
 </div>
 
@@ -1491,7 +1152,6 @@ html, body {
   <div class="modal-content" tabindex="-1">
     <button type="button" class="close" aria-label="關閉早晚餐總表" onclick="closeModal('foodModal')">×</button>
     <h2 id="foodModalTitle">🍜 早晚餐總表</h2>
-
     <div class="ticket-section">
       <h3><span style="background:var(--amber);color:white;border-radius:6px;padding:2px 8px;font-size:11px;">☕ 早餐小旅程</span></h3>
       <div class="ticket-row"><div class="ticket-dot dot-yellow"></div><div><div class="ticket-name">Day 2 ｜ Conpal（コンパル）</div><div class="ticket-note">榮地下街。炸蝦三明治，名古屋老派喫茶店文化。飯店下樓直達。</div><a class="breakfast-nav" href="https://maps.google.com/?q=コンパル+栄+名古屋" target="_blank" rel="noopener noreferrer"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>導航前往</a></div></div>
@@ -1499,7 +1159,6 @@ html, body {
       <div class="ticket-row"><div class="ticket-dot dot-yellow"></div><div><div class="ticket-name">Day 4 ｜ Kato Coffee（加藤珈琲店）</div><div class="ticket-note">久屋大通站附近。職人自家烘焙咖啡，科技日腦力補給。</div><a class="breakfast-nav" href="https://maps.google.com/?q=加藤珈琲店+名古屋+久屋大通" target="_blank" rel="noopener noreferrer"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>導航前往</a></div></div>
       <div class="ticket-row"><div class="ticket-dot dot-yellow"></div><div><div class="ticket-name">Day 5 ｜ Komeda Morning 再訪</div><div class="ticket-note">退房前後就近安排，為旅程畫下句點。</div><a class="breakfast-nav" href="https://maps.google.com/?q=コメダ珈琲店+栄+名古屋" target="_blank" rel="noopener noreferrer"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>導航前往</a></div></div>
     </div>
-
     <div class="ticket-section">
       <h3><span style="background:#ef4444;color:white;border-radius:6px;padding:2px 8px;font-size:11px;">🍽 晚餐地圖</span></h3>
       <div class="ticket-row"><div class="ticket-dot dot-red"></div><div><div class="ticket-name">Day 1 ｜ 超商宵夜</div><div class="ticket-note">Lawson 炸雞、7-11 飯糰或布丁。先 Check-in 為主。</div></div></div>
@@ -1508,25 +1167,17 @@ html, body {
       <div class="ticket-row"><div class="ticket-dot dot-red"></div><div><div class="ticket-name">Day 4 ｜ 榮商圈回血</div><div class="ticket-note">自由選擇。今天重點是腦力消耗後的吃飽與休息。</div></div></div>
       <div class="ticket-row"><div class="ticket-dot dot-red"></div><div><div class="ticket-name">Day 5 ｜ 機場晚餐</div><div class="ticket-note">抵達中部國際機場後用餐，避免在市區趕時間。</div></div></div>
     </div>
-
   </div>
 </div>
 
 <script>
 const DAY_DATES = {1:'2026-06-11',2:'2026-06-12',3:'2026-06-13',4:'2026-06-14',5:'2026-06-15'};
-
-// ── Fix: 快取 DateTimeFormat 物件，避免重複建立 ──
-const _tokyoFmt = new Intl.DateTimeFormat('en-CA', {
-  timeZone: 'Asia/Tokyo',
-  year: 'numeric', month: '2-digit', day: '2-digit'
-});
+const _tokyoFmt = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Tokyo', year: 'numeric', month: '2-digit', day: '2-digit' });
 function getToday(){ return _tokyoFmt.format(new Date()); }
 
 function getTodayPageIndex(){
   const today = getToday();
-  for(let [day,date] of Object.entries(DAY_DATES)){
-    if(date===today) return parseInt(day);
-  }
+  for(let [day,date] of Object.entries(DAY_DATES)){ if(date===today) return parseInt(day); }
   return null;
 }
 
@@ -1548,9 +1199,7 @@ function switchTab(idx){
 function injectBanner(dayNum){
   const el=document.getElementById('banner'+dayNum);
   if(!el) return;
-  if(DAY_DATES[dayNum]===getToday()){
-    el.innerHTML='<div class="today-banner">📍 <span><b>今天就是這天！</b> 加油，旅途愉快 🎌</span></div>';
-  }
+  if(DAY_DATES[dayNum]===getToday()){ el.innerHTML='<div class="today-banner">📍 <span><b>今天就是這天！</b> 加油，旅途愉快 🎌</span></div>'; }
 }
 
 function init(){
@@ -1565,7 +1214,6 @@ function init(){
   }
 }
 
-// ── Fix: 用 Map 取代全域單一 modalOpener，支援多 modal 並存時的正確焦點還原 ──
 const _modalOpeners = new Map();
 function openModal(id){
   const modal = document.getElementById(id);
@@ -1583,9 +1231,7 @@ function closeModal(id){
   const opener = _modalOpeners.get(id);
   if(opener) { opener.focus(); _modalOpeners.delete(id); }
 }
-window.addEventListener('click', (e) => {
-  if(e.target.classList.contains('modal')) closeModal(e.target.id);
-});
+window.addEventListener('click', (e) => { if(e.target.classList.contains('modal')) closeModal(e.target.id); });
 
 document.getElementById('tabBar').addEventListener('keydown', (e) => {
   if(!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(e.key)) return;
@@ -1602,15 +1248,12 @@ document.getElementById('tabBar').addEventListener('keydown', (e) => {
   tabs[next].focus();
 });
 
-// ── Fix: ESC 只關閉最後開啟的 modal，焦點還原正確 ──
 document.addEventListener('keydown', (e) => {
   if(e.key !== 'Escape') return;
-  const visible = [...document.querySelectorAll('.modal')]
-    .filter(m => m.style.display === 'block');
+  const visible = [...document.querySelectorAll('.modal')].filter(m => m.style.display === 'block');
   if(visible.length > 0) closeModal(visible[visible.length - 1].id);
 });
 
-// ── Weather ──
 const TRIP_DAYS = [
   {day:1, date:'2026-06-11', label:'Day 1', short:'6/11'},
   {day:2, date:'2026-06-12', label:'Day 2', short:'6/12'},
@@ -1619,7 +1262,6 @@ const TRIP_DAYS = [
   {day:5, date:'2026-06-15', label:'Day 5', short:'6/15'},
 ];
 
-// ── Fix: 修正 WMO code 85–94 分類錯誤（大陣雨 / 帶雷陣雨 / 強雷雨） ──
 function wmoIcon(code, rain) {
   if (code === 0) return '☀️';
   if (code <= 2) return '⛅';
@@ -1630,50 +1272,27 @@ function wmoIcon(code, rain) {
   if (code <= 79) return '❄️';
   if (code <= 82) return rain >= 60 ? '🌧️' : '🌦️';
   if (code <= 84) return '🌨️';
-  if (code <= 86) return '🌧️';  // 大陣雨
-  if (code <= 94) return '⛈️';  // 帶雷陣雨
-  return '🌩️';                  // 強雷雨
+  if (code <= 86) return '🌧️';
+  if (code <= 94) return '⛈️';
+  return '🌩️';
 }
 
-function wmoDesc(code) {
-  if (code === 0) return '晴';
-  if (code <= 2) return '晴時多雲';
-  if (code <= 3) return '多雲';
-  if (code <= 49) return '霧';
-  if (code <= 59) return '毛毛雨';
-  if (code <= 69) return '雨';
-  if (code <= 79) return '雪';
-  if (code <= 82) return '陣雨';
-  if (code <= 84) return '雨夾雪';
-  if (code <= 86) return '大陣雨';
-  if (code <= 94) return '雷陣雨';
-  return '強雷雨';
-}
-
-// ── Fix: 天氣 URL 改為動態日期，行程結束後顯示提示而非請求過期 forecast API ──
 async function loadWeather() {
   const TRIP_START = '2026-06-11';
   const TRIP_END   = '2026-06-15';
   const today = getToday();
 
   if (today > TRIP_END) {
-    document.getElementById('weatherContent').innerHTML =
-      `<div class="weather-err">🗓 行程已結束（${TRIP_START} ~ ${TRIP_END}）</div>`;
+    document.getElementById('weatherContent').innerHTML = `<div class="weather-err">🗓 行程已結束（${TRIP_START} ~ ${TRIP_END}）</div>`;
     return;
   }
 
-  // 動態起始日：旅程開始前取全段；旅程中從今天起
-  const startDate = today < TRIP_START ? TRIP_START : today;
-  const url = 'https://api.open-meteo.com/v1/forecast' +
-    '?latitude=35.18&longitude=136.9' +
-    '&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max,weather_code' +
-    `&timezone=Asia%2FTokyo&start_date=${TRIP_START}&end_date=${TRIP_END}`;
+  const url = 'https://api.open-meteo.com/v1/forecast?latitude=35.18&longitude=136.9&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max,weather_code&timezone=Asia%2FTokyo&start_date=' + TRIP_START + '&end_date=' + TRIP_END;
   try {
     const res = await fetch(url);
     if (!res.ok) throw new Error('HTTP ' + res.status);
     const data = await res.json();
     const d = data.daily;
-    // 相容新舊欄位名稱
     const codes = d.weather_code || d.weathercode || [];
 
     let grid = '<div class="weather-grid">';
@@ -1695,36 +1314,25 @@ async function loadWeather() {
         </div>`;
 
       const dwEl = document.getElementById('dw' + td.day);
-      if (dwEl) {
-        dwEl.innerHTML = `<span class="day-weather"><span class="dw-icon">${icon}</span> <span class="dw-temp">${max}°/${min}°</span> <span class="dw-rain ${rainClass}">雨${rain}%</span></span>`;
-      }
+      if (dwEl) { dwEl.innerHTML = `<span class="day-weather"><span class="dw-icon">${icon}</span> <span class="dw-temp">${max}°/${min}°</span> <span class="dw-rain ${rainClass}">雨${rain}%</span></span>`; }
       const twEl = document.getElementById('tw' + td.day);
       if (twEl) { twEl.textContent = `${icon} ${max}°`; }
     });
     grid += '</div>';
     grid += `<div style="font-size:10px;color:var(--text-dim);margin-top:8px;text-align:right;">資料來源：Open-Meteo · 自動更新</div>`;
     document.getElementById('weatherContent').innerHTML = grid;
-
   } catch(e) {
-    document.getElementById('weatherContent').innerHTML =
-      `<div class="weather-err">⚠️ 天氣資料載入失敗（可能需要網路）<br>
-       <a href="https://www.jma.go.jp/bosai/forecast/" target="_blank" rel="noopener noreferrer">📡 點此查閱日本氣象廳預報</a></div>`;
+    document.getElementById('weatherContent').innerHTML = `<div class="weather-err">⚠️ 天氣資料載入失敗（可能需要網路）<br><a href="https://www.jma.go.jp/bosai/forecast/" target="_blank" rel="noopener noreferrer">📡 點此查閱日本氣象廳預報</a></div>`;
   }
 }
 
-// ── Fix: 包進 DOMContentLoaded 確保 DOM 就緒再執行 ──
 document.addEventListener('DOMContentLoaded', () => {
   init();
   loadWeather();
 });
 
-// ── Service Worker ──
 if('serviceWorker' in navigator && location.protocol !== 'file:'){
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./sw.js').catch((error) => {
-      console.warn('Service Worker registration failed:', error);
-    });
-  });
+  window.addEventListener('load', () => { navigator.serviceWorker.register('./sw.js').catch((error) => { console.warn('Service Worker registration failed:', error); }); });
 }
 </script>
 </body>
