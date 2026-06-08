@@ -24,8 +24,19 @@ self.addEventListener('fetch', (event) => {
 
   const url = new URL(event.request.url);
 
+  // Fix: Open-Meteo 改用 stale-while-revalidate
+  // 離線時仍能顯示前次快取的天氣，而非直接失敗
   if (url.hostname === 'api.open-meteo.com') {
-    event.respondWith(fetch(event.request));
+    event.respondWith(
+      caches.open(CACHE_NAME).then((cache) =>
+        fetch(event.request)
+          .then((response) => {
+            cache.put(event.request, response.clone());
+            return response;
+          })
+          .catch(() => cache.match(event.request))
+      )
+    );
     return;
   }
 
@@ -34,7 +45,10 @@ self.addEventListener('fetch', (event) => {
       fetch(event.request)
         .then((response) => {
           const copy = response.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put('./index.html', copy));
+          // Fix: 用 waitUntil 保護 cache.put，避免 SW 被背景終止時寫入靜默失敗
+          event.waitUntil(
+            caches.open(CACHE_NAME).then((cache) => cache.put('./index.html', copy))
+          );
           return response;
         })
         .catch(() => caches.match('./index.html'))

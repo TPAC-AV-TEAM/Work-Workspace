@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>V34 | 2026 名古屋之旅</title>
+<title>V37 | 2026 名古屋之旅</title>
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -556,7 +556,7 @@ html, body {
   <!-- 1.5. 天氣預報 -->
   <div class="weather-panel" id="weatherPanel">
     <h2 style="font-size:15px;">🌤 旅程天氣預報（名古屋）</h2>
-    <div id="weatherContent"><div class="weather-loading">載入中…</div></div>
+    <div id="weatherContent" aria-live="polite"><div class="weather-loading">載入中…</div></div>
   </div>
 
   <!-- 2. 飯店資訊（計程車備用） -->
@@ -630,12 +630,8 @@ html, body {
     <div class="svg-map-title">🗺 五天路線總覽</div>
     <svg viewBox="0 0 340 360" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans TC','PingFang TC',sans-serif">
       <defs>
-        <!-- glow filters per day -->
-        <filter id="gd1"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-        <filter id="gd2"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-        <filter id="gd3"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-        <filter id="gd4"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-        <filter id="gd5"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        <!-- glow filter (shared by all day routes) -->
+        <filter id="gd"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
         <filter id="shadowNode"><feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="rgba(0,0,0,0.6)"/></filter>
         <style>
           .ov-lbl { paint-order: stroke fill; stroke: #060a12; stroke-width: 3.5px; stroke-linejoin: round; }
@@ -659,19 +655,19 @@ html, body {
       -->
 
       <!-- ─── Day 5 路線 (橘): 榮→金山→機場 ─── DRAW FIRST so Day1 overlays it -->
-      <polyline points="170,190 170,255 295,315" fill="none" stroke="#fb923c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#gd5)" opacity="0.85"/>
+      <polyline points="170,190 170,255 295,315" fill="none" stroke="#fb923c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#gd)" opacity="0.85"/>
 
       <!-- ─── Day 1 路線 (藍): 機場→金山→榮 ─── offset right +6px so it's visible beside Day5 -->
-      <polyline points="301,315 176,255 176,190" fill="none" stroke="#4e9eff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="7,4" filter="url(#gd1)" opacity="0.92"/>
+      <polyline points="301,315 176,255 176,190" fill="none" stroke="#4e9eff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="7,4" filter="url(#gd)" opacity="0.92"/>
 
       <!-- ─── Day 2 路線 (紅): 榮→名古屋駅→樂高→大須→榮 ─── -->
-      <polyline points="170,190 85,210 48,310 100,255 170,190" fill="none" stroke="#f87171" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6,3" filter="url(#gd2)" opacity="0.85"/>
+      <polyline points="170,190 85,210 48,310 100,255 170,190" fill="none" stroke="#f87171" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6,3" filter="url(#gd)" opacity="0.85"/>
 
       <!-- ─── Day 3 路線 (綠): 榮→名古屋城→豐田館→榮 ─── -->
-      <polyline points="170,190 155,70 60,90 170,190" fill="none" stroke="#34d399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8,3" filter="url(#gd3)" opacity="0.85"/>
+      <polyline points="170,190 155,70 60,90 170,190" fill="none" stroke="#34d399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8,3" filter="url(#gd)" opacity="0.85"/>
 
       <!-- ─── Day 4 路線 (紫): 榮→科學館→磁浮館→榮 ─── -->
-      <polyline points="170,190 68,175 48,310 170,190" fill="none" stroke="#a78bfa" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="4,4" filter="url(#gd4)" opacity="0.85"/>
+      <polyline points="170,190 68,175 48,310 170,190" fill="none" stroke="#a78bfa" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="4,4" filter="url(#gd)" opacity="0.85"/>
 
       <!-- ═══ LOCATION NODES ═══ -->
 
@@ -1480,14 +1476,12 @@ html, body {
 <script>
 const DAY_DATES = {1:'2026-06-11',2:'2026-06-12',3:'2026-06-13',4:'2026-06-14',5:'2026-06-15'};
 
-function getToday(){
-  return new Intl.DateTimeFormat('en-CA', {
-    timeZone: 'Asia/Tokyo',
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit'
-  }).format(new Date());
-}
+// ── Fix: 快取 DateTimeFormat 物件，避免重複建立 ──
+const _tokyoFmt = new Intl.DateTimeFormat('en-CA', {
+  timeZone: 'Asia/Tokyo',
+  year: 'numeric', month: '2-digit', day: '2-digit'
+});
+function getToday(){ return _tokyoFmt.format(new Date()); }
 
 function getTodayPageIndex(){
   const today = getToday();
@@ -1532,11 +1526,12 @@ function init(){
   }
 }
 
-let modalOpener = null;
+// ── Fix: 用 Map 取代全域單一 modalOpener，支援多 modal 並存時的正確焦點還原 ──
+const _modalOpeners = new Map();
 function openModal(id){
   const modal = document.getElementById(id);
   if(!modal) return;
-  modalOpener = document.activeElement;
+  _modalOpeners.set(id, document.activeElement);
   modal.style.display = 'block';
   modal.setAttribute('aria-hidden', 'false');
   modal.querySelector('.modal-content').focus();
@@ -1546,7 +1541,8 @@ function closeModal(id){
   if(!modal) return;
   modal.style.display = 'none';
   modal.setAttribute('aria-hidden', 'true');
-  if(modalOpener) modalOpener.focus();
+  const opener = _modalOpeners.get(id);
+  if(opener) { opener.focus(); _modalOpeners.delete(id); }
 }
 window.addEventListener('click', (e) => {
   if(e.target.classList.contains('modal')) closeModal(e.target.id);
@@ -1567,13 +1563,12 @@ document.getElementById('tabBar').addEventListener('keydown', (e) => {
   tabs[next].focus();
 });
 
-// ── ESC 鍵關閉 Modal 支持（無障礙性改進） ──
+// ── Fix: ESC 只關閉最後開啟的 modal，焦點還原正確 ──
 document.addEventListener('keydown', (e) => {
-  if(e.key === 'Escape') {
-    document.querySelectorAll('.modal').forEach(modal => {
-      if(modal.style.display === 'block') closeModal(modal.id);
-    });
-  }
+  if(e.key !== 'Escape') return;
+  const visible = [...document.querySelectorAll('.modal')]
+    .filter(m => m.style.display === 'block');
+  if(visible.length > 0) closeModal(visible[visible.length - 1].id);
 });
 
 // ── Weather ──
@@ -1585,6 +1580,7 @@ const TRIP_DAYS = [
   {day:5, date:'2026-06-15', label:'Day 5', short:'6/15'},
 ];
 
+// ── Fix: 修正 WMO code 85–94 分類錯誤（大陣雨 / 帶雷陣雨 / 強雷雨） ──
 function wmoIcon(code, rain) {
   if (code === 0) return '☀️';
   if (code <= 2) return '⛅';
@@ -1595,8 +1591,9 @@ function wmoIcon(code, rain) {
   if (code <= 79) return '❄️';
   if (code <= 82) return rain >= 60 ? '🌧️' : '🌦️';
   if (code <= 84) return '🌨️';
-  if (code <= 94) return '⛈️';
-  return '🌩️';
+  if (code <= 86) return '🌧️';  // 大陣雨
+  if (code <= 94) return '⛈️';  // 帶雷陣雨
+  return '🌩️';                  // 強雷雨
 }
 
 function wmoDesc(code) {
@@ -1609,28 +1606,43 @@ function wmoDesc(code) {
   if (code <= 79) return '雪';
   if (code <= 82) return '陣雨';
   if (code <= 84) return '雨夾雪';
+  if (code <= 86) return '大陣雨';
   if (code <= 94) return '雷陣雨';
   return '強雷雨';
 }
 
+// ── Fix: 天氣 URL 改為動態日期，行程結束後顯示提示而非請求過期 forecast API ──
 async function loadWeather() {
+  const TRIP_START = '2026-06-11';
+  const TRIP_END   = '2026-06-15';
+  const today = getToday();
+
+  if (today > TRIP_END) {
+    document.getElementById('weatherContent').innerHTML =
+      `<div class="weather-err">🗓 行程已結束（${TRIP_START} ~ ${TRIP_END}）</div>`;
+    return;
+  }
+
+  // 動態起始日：旅程開始前取全段；旅程中從今天起
+  const startDate = today < TRIP_START ? TRIP_START : today;
   const url = 'https://api.open-meteo.com/v1/forecast' +
     '?latitude=35.18&longitude=136.9' +
-    '&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max,weathercode' +
-    '&timezone=Asia%2FTokyo&start_date=2026-06-11&end_date=2026-06-15';
+    '&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max,weather_code' +
+    `&timezone=Asia%2FTokyo&start_date=${TRIP_START}&end_date=${TRIP_END}`;
   try {
     const res = await fetch(url);
     if (!res.ok) throw new Error('HTTP ' + res.status);
     const data = await res.json();
     const d = data.daily;
+    // 相容新舊欄位名稱
+    const codes = d.weather_code || d.weathercode || [];
 
-    // Build overview grid
     let grid = '<div class="weather-grid">';
     TRIP_DAYS.forEach((td, i) => {
       const max  = Math.round(d.temperature_2m_max[i]);
       const min  = Math.round(d.temperature_2m_min[i]);
       const rain = d.precipitation_probability_max[i];
-      const code = d.weathercode[i];
+      const code = codes[i];
       const icon = wmoIcon(code, rain);
       const rainClass = rain >= 70 ? 'heavy' : rain >= 40 ? 'wet' : '';
       const rainText  = rain >= 40 ? `💧${rain}%` : `${rain}%`;
@@ -1643,17 +1655,12 @@ async function loadWeather() {
           <div class="wc-rain ${rainClass}">${rainText}</div>
         </div>`;
 
-      // Day stats strip
       const dwEl = document.getElementById('dw' + td.day);
       if (dwEl) {
         dwEl.innerHTML = `<span class="day-weather"><span class="dw-icon">${icon}</span> <span class="dw-temp">${max}°/${min}°</span> <span class="dw-rain ${rainClass}">雨${rain}%</span></span>`;
       }
-
-      // Tab mini
       const twEl = document.getElementById('tw' + td.day);
-      if (twEl) {
-        twEl.textContent = `${icon} ${max}°`;
-      }
+      if (twEl) { twEl.textContent = `${icon} ${max}°`; }
     });
     grid += '</div>';
     grid += `<div style="font-size:10px;color:var(--text-dim);margin-top:8px;text-align:right;">資料來源：Open-Meteo · 自動更新</div>`;
@@ -1666,8 +1673,11 @@ async function loadWeather() {
   }
 }
 
-init();
-loadWeather();
+// ── Fix: 包進 DOMContentLoaded 確保 DOM 就緒再執行 ──
+document.addEventListener('DOMContentLoaded', () => {
+  init();
+  loadWeather();
+});
 
 // ── Service Worker ──
 if('serviceWorker' in navigator && location.protocol !== 'file:'){
