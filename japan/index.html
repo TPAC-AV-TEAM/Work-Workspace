@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>V43 | 2026 名古屋之旅</title>
+<title>V44 | 2026 名古屋之旅</title>
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -175,7 +175,7 @@ html, body {
   border: 1px solid rgba(95,168,255,0.34); margin-bottom: 12px; overflow: hidden;
   box-shadow: 0 0 5px rgba(95,168,255,0.08);
   transition: border-color .25s, background .25s, box-shadow .25s;
-  /* 補回未展開時的閃爍提示動畫 */
+  /* 未展開時的呼吸燈外框動畫 */
   animation: pulseBorder 2.5s infinite;
 }
 /* 展開後停止閃爍，保持穩定微亮狀態 */
@@ -184,7 +184,6 @@ html, body {
   border-color: rgba(95,168,255,0.5);
   animation: none;
 }
-
 /* 呼吸燈外框動畫設定 */
 @keyframes pulseBorder {
   0%   { border-color: rgba(95,168,255,0.34); box-shadow: 0 0 5px rgba(95,168,255,0.08); }
@@ -206,6 +205,7 @@ html, body {
 }
 .custom-details[open] summary::after { content: '收合細節 ▲'; color: var(--accent); background: rgba(95,168,255,0.08); border-color: rgba(95,168,255,0.32); }
 .custom-details .details-content { padding: 0 14px 14px; font-size: 13px; background: rgba(0,0,0,0.22); border-top: 1px solid var(--border); }
+
 /* ── Route Map ── */
 .route-map { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 12px 14px; margin-top: 10px; }
 .route-node { display: flex; align-items: center; margin-bottom: 8px; font-size: 13px; font-weight: 700; }
