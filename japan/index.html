@@ -60,7 +60,8 @@ html, body {
 /* ── Header ── */
 .header {
   background: var(--header-bg); color: var(--text);
-  padding: 20px 20px 16px;
+  /* 修正：上方 padding 加上 safe-area-inset-top，避免 iOS 瀏海遮擋 */
+  padding: calc(env(safe-area-inset-top) + 20px) 20px 16px;
   border-bottom: 1px solid var(--border);
   box-shadow: 0 10px 30px rgba(0,0,0,0.35);
 }
