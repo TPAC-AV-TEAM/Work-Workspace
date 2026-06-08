@@ -1,4 +1,4 @@
-const CACHE_NAME = 'nagoya-2026-v39';
+const CACHE_NAME = 'nagoya-2026-v40';
 const APP_SHELL = ['./', './index.html', './manifest.webmanifest'];
 
 self.addEventListener('install', (event) => {
