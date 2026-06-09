@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>V42 | 2026 名古屋之旅</title>
+<title>V43 | 2026 名古屋之旅</title>
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -159,8 +159,7 @@ html, body {
 .food-box    { border-left: 4px solid var(--food-l); }
 .warning-box { border-left: 4px solid var(--warn-l); }
 .success-box { border-left: 4px solid var(--success-l); }
-.focus-box { background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: 12px; padding: 10px 13px; margin-top: 9px; font-size: 13px; color: var(--text); }
-.nav-box   { background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: 12px; padding: 10px 13px; margin-top: 9px; font-size: 13px; color: var(--text); }
+.focus-box, .nav-box { background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: 12px; padding: 10px 13px; margin-top: 9px; font-size: 13px; color: var(--text); }
 .tactic-box { background: rgba(95,168,255,0.08); border: 1px solid rgba(95,168,255,0.3); border-left: 4px solid var(--accent); border-radius: 12px; padding: 10px 13px; margin-top: 9px; font-size: 13px; }
 .sub-text    { font-size: 12px; color: var(--text-sub); }
 
@@ -192,8 +191,10 @@ html, body {
   100% { border-color: rgba(95,168,255,0.34); box-shadow: 0 0 5px rgba(95,168,255,0.08); }
 }
 
-/* 以下 summary 樣式維持你原本的設定即可 */
-.custom-details summary { ... }
+.custom-details summary {
+  display: flex; align-items: center;
+  padding: 12px 14px; cursor: pointer; list-style: none;
+}
 .custom-details summary::-webkit-details-marker { display: none; }
 .custom-details summary::after {
   content: '展開細節 ▼'; margin-left: 12px; flex-shrink: 0; padding: 6px 11px;
@@ -1189,7 +1190,15 @@ html, body {
 </div>
 
 <script>
-const DAY_DATES = {1:'2026-06-11',2:'2026-06-12',3:'2026-06-13',4:'2026-06-14',5:'2026-06-15'};
+const TRIP_DAYS = [
+  {day:1, date:'2026-06-11', label:'Day 1', short:'6/11'},
+  {day:2, date:'2026-06-12', label:'Day 2', short:'6/12'},
+  {day:3, date:'2026-06-13', label:'Day 3', short:'6/13'},
+  {day:4, date:'2026-06-14', label:'Day 4', short:'6/14'},
+  {day:5, date:'2026-06-15', label:'Day 5', short:'6/15'},
+];
+// 從 TRIP_DAYS 派生，避免重複定義
+const DAY_DATES = Object.fromEntries(TRIP_DAYS.map(t => [t.day, t.date]));
 const _tokyoFmt = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Tokyo', year: 'numeric', month: '2-digit', day: '2-digit' });
 function getToday(){ return _tokyoFmt.format(new Date()); }
 
@@ -1209,7 +1218,6 @@ function switchTab(idx){
   document.querySelectorAll('.page').forEach((p,i)=>{
     const selected = i === idx;
     p.classList.toggle('active', selected);
-    p.hidden = !selected;
   });
   window.scrollTo({top:0,behavior:'smooth'});
 }
@@ -1272,14 +1280,6 @@ document.addEventListener('keydown', (e) => {
   if(visible.length > 0) closeModal(visible[visible.length - 1].id);
 });
 
-const TRIP_DAYS = [
-  {day:1, date:'2026-06-11', label:'Day 1', short:'6/11'},
-  {day:2, date:'2026-06-12', label:'Day 2', short:'6/12'},
-  {day:3, date:'2026-06-13', label:'Day 3', short:'6/13'},
-  {day:4, date:'2026-06-14', label:'Day 4', short:'6/14'},
-  {day:5, date:'2026-06-15', label:'Day 5', short:'6/15'},
-];
-
 function wmoIcon(code, rain) {
   if (code === 0) return '☀️';
   if (code <= 2) return '⛅';
@@ -1306,8 +1306,11 @@ async function loadWeather() {
   }
 
   const url = 'https://api.open-meteo.com/v1/forecast?latitude=35.18&longitude=136.9&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max,weather_code&timezone=Asia%2FTokyo&start_date=' + TRIP_START + '&end_date=' + TRIP_END;
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 8000);
   try {
-    const res = await fetch(url);
+    const res = await fetch(url, { signal: controller.signal });
+    clearTimeout(timer);
     if (!res.ok) throw new Error('HTTP ' + res.status);
     const data = await res.json();
     const d = data.daily;
@@ -1318,7 +1321,7 @@ async function loadWeather() {
       const max  = Math.round(d.temperature_2m_max[i]);
       const min  = Math.round(d.temperature_2m_min[i]);
       const rain = d.precipitation_probability_max[i];
-      const code = codes[i];
+      const code = codes[i] ?? 0;
       const icon = wmoIcon(code, rain);
       const rainClass = rain >= 70 ? 'heavy' : rain >= 40 ? 'wet' : '';
       const rainText  = rain >= 40 ? `💧${rain}%` : `${rain}%`;

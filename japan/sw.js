@@ -1,7 +1,6 @@
-const CACHE_NAME = 'nagoya-2026-v42';
+const CACHE_NAME = 'nagoya-2026-v43';
 const APP_SHELL = [
-  './', 
-  './index.html', 
+  './index.html',
   './manifest.webmanifest',
   './icon-192.svg',
   './icon-512.svg'
@@ -48,16 +47,16 @@ self.addEventListener('fetch', (event) => {
 
   if (event.request.mode === 'navigate') {
     event.respondWith(
-      fetch(event.request)
-        .then((response) => {
-          const copy = response.clone();
-          // Fix: 用 waitUntil 保護 cache.put，避免 SW 被背景終止時寫入靜默失敗
-          event.waitUntil(
-            caches.open(CACHE_NAME).then((cache) => cache.put('./index.html', copy))
-          );
+      caches.open(CACHE_NAME).then(async (cache) => {
+        // Stale-while-revalidate：先回傳快取版本，背景更新
+        // 讓離線或弱網路時開啟速度更快
+        const cached = await cache.match('./index.html');
+        const fetchPromise = fetch(event.request).then((response) => {
+          event.waitUntil(cache.put('./index.html', response.clone()));
           return response;
-        })
-        .catch(() => caches.match('./index.html'))
+        }).catch(() => null);
+        return cached || fetchPromise;
+      })
     );
     return;
   }
