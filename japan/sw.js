@@ -1,4 +1,4 @@
-const CACHE_NAME = 'nagoya-2026-v43';
+const CACHE_NAME = 'nagoya-2026-v44';
 const APP_SHELL = [
   './index.html',
   './manifest.webmanifest',

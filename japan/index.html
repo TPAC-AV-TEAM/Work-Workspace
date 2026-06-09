@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>V43 | 2026 名古屋之旅</title>
+<title>V44 | 2026 名古屋之旅</title>
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -60,8 +60,9 @@ html, body {
 
 /* ── Header ── */
 .header {
+  /* 改為 fixed：確保無論頁面多長，header 永遠釘在頂部 */
+  position: fixed; top: 0; left: 0; right: 0; z-index: 50;
   background: var(--header-bg); color: var(--text);
-  /* 修正：上方 padding 加上 safe-area-inset-top，避免 iOS 瀏海遮擋 */
   padding: calc(env(safe-area-inset-top) + 20px) 20px 16px;
   border-bottom: 1px solid var(--border);
   box-shadow: 0 10px 30px rgba(0,0,0,0.35);
@@ -71,7 +72,9 @@ html, body {
 
 /* ── Tab Bar ── */
 .tab-bar {
-  position: sticky; top: 0; z-index: 40;
+  /* 改為 fixed：徹底脫離文件流，不受頁面長度影響
+     top 由 JS 動態寫入 header 實際高度 */
+  position: fixed; left: 0; right: 0; z-index: 40;
   background: var(--tab-bg); backdrop-filter: blur(22px);
   display: flex; border-bottom: 1px solid var(--border);
   overflow-x: auto; scrollbar-width: none;
@@ -96,7 +99,8 @@ html, body {
 }
 
 /* ── Pages ── */
-.pages { position: relative; }
+/* padding-top 由 JS 寫入 --chrome-h，等於 header + tab-bar 實際高度 */
+.pages { position: relative; padding-top: var(--chrome-h, 120px); }
 .page { display: none; padding: 14px 14px 100px; }
 .page.active { display: block; }
 
@@ -1228,7 +1232,19 @@ function injectBanner(dayNum){
   if(DAY_DATES[dayNum]===getToday()){ el.innerHTML='<div class="today-banner">📍 <span><b>今天就是這天！</b> 加油，旅途愉快 🎌</span></div>'; }
 }
 
+function updateChromeHeight() {
+  const header = document.querySelector('.header');
+  const tabBar = document.getElementById('tabBar');
+  const headerH = header ? header.getBoundingClientRect().height : 0;
+  const tabH    = tabBar  ? tabBar.getBoundingClientRect().height  : 0;
+  // tab-bar 的 top 對齊 header 底部
+  if (tabBar) tabBar.style.top = headerH + 'px';
+  // pages 的 padding-top = header + tab-bar 合計高度
+  document.documentElement.style.setProperty('--chrome-h', (headerH + tabH) + 'px');
+}
+
 function init(){
+  updateChromeHeight();
   const todayIdx=getTodayPageIndex();
   for(let d=1;d<=5;d++) injectBanner(d);
   if(todayIdx!==null){
@@ -1239,6 +1255,9 @@ function init(){
     switchTab(0);
   }
 }
+
+// 裝置旋轉或字型載入後重算高度
+window.addEventListener('resize', updateChromeHeight);
 
 const _modalOpeners = new Map();
 function openModal(id){
