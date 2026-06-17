@@ -1,7 +1,7 @@
 {
-  "name": "PT-RQ35K 選單導覽",
+  "name": "投影機選單導覽",
   "short_name": "投影機",
-  "description": "Panasonic PT-RQ35K 投影機選單導覽手冊",
+  "description": "投影機選單導覽手冊（Panasonic PT-RQ35K · EPSON EV-115）",
   "start_url": "/Work-Workspace/Projector-Manual/index.html",
   "scope": "/Work-Workspace/Projector-Manual/",
   "display": "standalone",

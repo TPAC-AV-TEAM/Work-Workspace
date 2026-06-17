@@ -1,7 +1,7 @@
 // PT-RQ35K 選單導覽 — Service Worker V6
 // GitHub Pages 子路徑 /Work-Workspace/Projector-Manual/
 
-const CACHE_NAME = 'projector-v6';
+const CACHE_NAME = 'projector-v7';
 const BASE = '/Work-Workspace/Projector-Manual/';
 
 self.addEventListener('install', event => {
@@ -10,7 +10,11 @@ self.addEventListener('install', event => {
             return cache.addAll([
                 BASE,
                 BASE + 'index.html',
-                BASE + 'manifest.json'
+                BASE + 'manifest.json',
+                BASE + 'PT-RQ35K.html',
+                BASE + 'EV-115.html',
+                BASE + 'icon-192.png',
+                BASE + 'icon-512.png'
             ]).catch(err => console.warn('[SW] Cache partial fail:', err));
         })
     );
