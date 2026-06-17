@@ -3,10 +3,265 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Epson EV-115 選單導覽 V4</title>
+    <title>Epson 投影機選單導覽 V4</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=Noto+Sans+TC:wght@400;500;700;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/common.css">
+    <style>
+        :root {
+            --bg:       #0e0e0f;
+            --glass:    rgba(28,28,30,0.75);
+            --glass-2:  rgba(38,38,40,0.6);
+            --border:   rgba(255,255,255,0.07);
+            --gold:     #d4af37;
+            --gold-dim: rgba(212,175,55,0.15);
+            --blue:     #0A84FF;
+            --green:    #30D158;
+            --red:      #FF453A;
+            --text:     #ffffff;
+            --text-sub: rgba(255,255,255,0.45);
+            --text-dim: rgba(255,255,255,0.18);
+        }
+        * { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+        html,body {
+            background:var(--bg); margin:0; padding:0;
+            color:var(--text); font-family:'Inter','Noto Sans TC',sans-serif;
+            height:100vh; height:100svh; overflow:hidden;
+            -webkit-font-smoothing:antialiased; letter-spacing:-0.01em;
+        }
+
+        /* ── Aura background ── */
+        .aura {
+            position:fixed; inset:0; pointer-events:none; z-index:0;
+            background:
+                radial-gradient(ellipse at 10% 0%, rgba(212,175,55,0.07) 0%, transparent 45%),
+                radial-gradient(ellipse at 90% 100%, rgba(10,132,255,0.06) 0%, transparent 50%);
+        }
+
+        .shell { position:relative; z-index:1; width:100%; height:100%; display:flex; flex-direction:column; }
+
+        /* ── Header ── */
+        header {
+            background:rgba(18,18,20,0.85); backdrop-filter:blur(40px) saturate(160%);
+            border-bottom:0.5px solid var(--border);
+            padding:48px 18px 14px; flex-shrink:0;
+            display:flex; justify-content:space-between; align-items:flex-end;
+        }
+        .hd-left { display:flex; flex-direction:column; gap:3px; }
+        .hd-model {
+            font-size:20px; font-weight:900; letter-spacing:0.05em;
+            background:linear-gradient(90deg, var(--gold) 0%, #f0d070 60%, var(--gold) 100%);
+            -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+        }
+        .hd-sub { font-size:10px; font-weight:700; letter-spacing:0.2em; color:var(--text-sub); text-transform:uppercase; }
+        .hd-badge {
+            font-size:10px; font-weight:700; letter-spacing:0.1em; color:var(--gold);
+            background:var(--gold-dim); border:1px solid rgba(212,175,55,0.25);
+            padding:3px 8px; border-radius:20px;
+        }
+        .hd-left-group { display:flex; align-items:center; gap:12px; }
+        .back-btn {
+            width:32px; height:32px; border-radius:10px; flex-shrink:0;
+            display:flex; align-items:center; justify-content:center;
+            background:rgba(255,255,255,0.05); border:1px solid var(--border);
+            color:var(--gold); font-size:16px; font-weight:700; text-decoration:none;
+            transition:background 0.15s; margin-bottom:2px;
+        }
+        .back-btn:active { background:rgba(255,255,255,0.12); transform:scale(0.92); }
+
+        /* ── Top fixed ── */
+        .top-fixed {
+            background:rgba(14,14,15,0.8); backdrop-filter:blur(30px);
+            border-bottom:0.5px solid var(--border); flex-shrink:0; z-index:100;
+        }
+        .search-wrap { padding:12px 15px 8px; position:relative; display:flex; align-items:center; }
+        #searchInput {
+            width:100%; padding:13px 44px 13px 14px;
+            border-radius:14px; border:1px solid rgba(255,255,255,0.08);
+            background:rgba(255,255,255,0.05); color:white; font-size:16px;
+            outline:none; font-family:inherit; transition:border 0.2s, background 0.2s;
+        }
+        #searchInput:focus { border-color:rgba(212,175,55,0.4); background:rgba(255,255,255,0.07); }
+        #searchInput::placeholder { color:var(--text-sub); font-size:14px; }
+        .clear-btn {
+            position:absolute; right:24px; width:26px; height:26px;
+            background:rgba(255,255,255,0.1); color:#fff; border-radius:50%;
+            border:none; cursor:pointer; display:none; align-items:center; justify-content:center;
+            font-size:13px; font-weight:bold; transition:background 0.15s;
+        }
+        .clear-btn.active { display:flex; }
+        .clear-btn:active { background:rgba(255,255,255,0.2); }
+
+        /* ── Tabs ── */
+        .tab-row { display:flex; gap:6px; padding:0 15px 13px; }
+        .tab-btn {
+            flex:1; padding:10px 5px; border-radius:12px;
+            border:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.03);
+            color:rgba(255,255,255,0.35); cursor:pointer; font-weight:700; font-size:13px;
+            transition:all 0.2s; font-family:inherit; letter-spacing:0.01em;
+        }
+        .tab-btn:active { transform:scale(0.95); }
+        .tab-btn.active.tree-tab { background:var(--gold-dim); color:var(--gold); border-color:rgba(212,175,55,0.3); }
+        .tab-btn.active.sop-tab  { background:rgba(48,209,88,0.15); color:var(--green); border-color:rgba(48,209,88,0.3); }
+
+        /* ── Count bar ── */
+        .count-bar {
+            padding:5px 15px 8px; font-size:11px; font-weight:700;
+            color:var(--text-sub); letter-spacing:0.05em;
+            display:none; align-items:center; gap:8px;
+        }
+        .count-bar.visible { display:flex; }
+        .count-num { color:var(--gold); font-size:13px; }
+
+        /* ── Scroll area ── */
+        .content { flex:1; overflow-y:auto; padding:12px 12px 90px; scroll-behavior:smooth; }
+        .content::-webkit-scrollbar { display:none; }
+        .view { display:none; }
+        .view.active { display:block; }
+
+        /* ── Tree nodes ── */
+        .node { margin-bottom:7px; }
+        .node.hidden { display:none; }
+
+        .label {
+            cursor:pointer; padding:14px 14px 14px 42px;
+            border-radius:14px; background:var(--glass-2); border:0.5px solid var(--border);
+            display:flex; align-items:center; flex-wrap:wrap; gap:6px; position:relative;
+            transition:background 0.15s, border 0.15s;
+            box-shadow:0 2px 8px rgba(0,0,0,0.15);
+        }
+        .label:active { background:rgba(255,255,255,0.08); }
+        .label::before {
+            content:'▶'; font-size:8px; position:absolute; left:16px;
+            color:var(--gold); opacity:0.7; transition:transform 0.2s ease;
+        }
+        .node.expanded > .label::before { transform:rotate(90deg); opacity:1; }
+        .node.leaf > .label::before { content:'◦'; color:var(--text-dim); font-size:11px; }
+
+        .cn-text { font-weight:700; font-size:15px; color:var(--text); }
+        .en-text { font-size:11px; font-weight:500; color:var(--gold); opacity:0.65; font-family:'JetBrains Mono',monospace; }
+        .badge {
+            font-size:10px; color:var(--gold); background:var(--gold-dim);
+            padding:2px 7px; border-radius:5px; border:1px solid rgba(212,175,55,0.2);
+            font-weight:600; letter-spacing:0.02em; white-space:nowrap;
+        }
+
+        /* expand glow */
+        .node.expanded > .label {
+            background:rgba(212,175,55,0.06);
+            border-color:rgba(212,175,55,0.2);
+        }
+
+        /* highlight (search) */
+        .highlight {
+            background:rgba(212,175,55,0.12) !important;
+            border-color:rgba(212,175,55,0.5) !important;
+            box-shadow:0 0 12px rgba(212,175,55,0.2) !important;
+        }
+
+        /* ── Options box ── */
+        .options-box {
+            margin:6px 0 6px 28px; background:rgba(0,0,0,0.3);
+            border:0.5px dashed rgba(212,175,55,0.2); border-radius:12px;
+            padding:10px 14px; display:none;
+        }
+        .node.expanded > .options-box { display:block; }
+        .option-item {
+            color:rgba(255,255,255,0.55); font-size:13px; margin-bottom:5px;
+            display:flex; align-items:center; gap:8px;
+        }
+        .option-item::before { content:'·'; color:var(--gold); font-size:18px; line-height:1; }
+        .option-item:last-child { margin-bottom:0; }
+
+        /* ── Children ── */
+        .children {
+            margin-left:16px; display:none;
+            border-left:1.5px solid rgba(212,175,55,0.12); padding-left:12px; margin-top:7px;
+        }
+        .node.expanded > .children { display:block; }
+
+        /* ── Action bar ── */
+        .action-bar {
+            display:flex; gap:8px; padding:0 2px 10px; align-items:center;
+        }
+        .action-btn {
+            font-size:11px; font-weight:700; color:var(--text-sub);
+            background:rgba(255,255,255,0.04); border:1px solid var(--border);
+            padding:5px 12px; border-radius:8px; cursor:pointer;
+            transition:all 0.15s; letter-spacing:0.05em;
+        }
+        .action-btn:hover { background:rgba(255,255,255,0.08); color:var(--gold); border-color:rgba(212,175,55,0.3); }
+        .action-btn:active { transform:scale(0.94); }
+
+        /* ── Empty state ── */
+        .empty-state {
+            text-align:center; padding:60px 20px; display:none; flex-direction:column; align-items:center; gap:12px;
+        }
+        .empty-state.visible { display:flex; }
+        .empty-icon { font-size:40px; opacity:0.3; }
+        .empty-msg { font-size:14px; color:var(--text-sub); font-weight:500; }
+
+        /* ── SOP cards ── */
+        .section-title {
+            font-size:16px; font-weight:900; letter-spacing:0.08em;
+            margin:0 0 14px; padding-bottom:12px;
+            border-bottom:0.5px solid var(--border);
+            display:flex; align-items:center; gap:10px;
+        }
+        .section-title .t-icon { font-size:20px; }
+
+        .card {
+            background:var(--glass); border:0.5px solid var(--border);
+            border-radius:18px; padding:16px 18px; margin-bottom:10px;
+            line-height:1.7; font-size:14px;
+            border-left:3px solid var(--green);
+            box-shadow:0 2px 12px rgba(0,0,0,0.2);
+            transition:background 0.15s;
+        }
+        .card:active { background:rgba(40,40,42,0.8); }
+        .card.warn-card { border-left-color:var(--red); }
+        .card.hidden { display:none; }
+
+        .step-tag {
+            display:inline-flex; align-items:center; justify-content:center;
+            width:22px; height:22px; border-radius:7px;
+            background:var(--green); color:#000; font-weight:900; font-size:11px;
+            margin-right:8px; flex-shrink:0; vertical-align:middle;
+        }
+        .step-tag.adv { background:rgba(10,132,255,0.25); color:var(--blue); font-size:10px; }
+        .warn { color:var(--red); font-weight:900; }
+
+        .path-hint {
+            display:block; margin-top:10px; font-size:12px; font-weight:600;
+            color:var(--gold); font-family:'JetBrains Mono',monospace;
+            background:rgba(212,175,55,0.06); border:0.5px solid rgba(212,175,55,0.15);
+            padding:7px 10px; border-radius:9px; letter-spacing:0.02em;
+        }
+
+        /* ── Hot (常用) nodes ── */
+        .node.hot > .label {
+            border-color:rgba(255,69,58,0.35) !important;
+            border-left:3px solid var(--red) !important;
+        }
+        .node.hot > .label .cn-text { color:var(--red); }
+        .node.hot > .label::before { color:var(--red); }
+        .node.expanded.hot > .label {
+            background:rgba(255,69,58,0.06) !important;
+            border-color:rgba(255,69,58,0.4) !important;
+        }
+        .hot-badge {
+            font-size:9px; color:var(--red); background:rgba(255,69,58,0.12);
+            padding:2px 6px; border-radius:5px; border:1px solid rgba(255,69,58,0.25);
+            font-weight:700; letter-spacing:0.05em; white-space:nowrap;
+        }
+
+        /* ── Footer ── */
+        footer {
+            position:fixed; bottom:0; left:0; right:0;
+            text-align:center; padding:8px;
+            font-size:10px; font-weight:700; letter-spacing:0.2em;
+            color:var(--text-dim); pointer-events:none;
+        }
+    </style>
 
     <!-- PWA -->
     <link rel="manifest" href="manifest.json">
@@ -18,11 +273,11 @@
     <link rel="apple-touch-icon" href="icon-192.png">
     <script>
         if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () =>
+            window.addEventListener('load', function () {
                 navigator.serviceWorker.register('sw.js')
-                    .then(r => console.log('[PWA] SW:', r.scope))
-                    .catch(e => console.warn('[PWA] SW fail:', e))
-            );
+                    .then(reg => console.log('[PWA] SW registered:', reg.scope))
+                    .catch(err => console.warn('[PWA] SW failed:', err));
+            });
         }
     </script>
 </head>
@@ -43,10 +298,7 @@
 
     <div class="top-fixed">
         <div class="search-wrap">
-            <input type="text" id="searchInput"
-                placeholder="搜尋：梯形、Quick Corner、燈光、網路…"
-                oninput="onSearch()"
-                onkeydown="if(event.key==='Escape')clearInput()">
+            <input type="text" id="searchInput" placeholder="搜尋：梯形、Quick Corner、燈光、網路…" oninput="onSearch()" onkeydown="if(event.key==='Escape')clearInput()">
             <button id="clearSearch" class="clear-btn" onclick="clearInput()">✕</button>
         </div>
         <div class="tab-row">
@@ -109,30 +361,27 @@
             </div>
         </section>
 
-    </div><!-- .content -->
-</div><!-- .shell -->
+    </div>
+</div>
 
 <footer>TPAC AV TEAM · EPSON EV-115 V4.0</footer>
 
-<script src="assets/app.js"></script>
 <script>
 /* ── Alias map ── */
 const ALIAS = {
-    "梯形修正": ["keystone","梯形","Quick Corner","校正","變形"],
-    "投影方式": ["吊裝","桌面","前","後","天花板","反轉"],
-    "網路":     ["lan","wifi","無線","有線","qr","ip"],
-    "燈光":     ["燈泡","lamp","校正","亮度"],
-    "重設":     ["reset","還原","初始化","全部重設"],
-    "測試圖樣": ["test","pattern","交叉線","方格","灰色列"],
-    "顯示背景": ["背景","黑色","開機畫面"],
-    "Bluetooth":["藍牙","bt","音訊","喇叭"],
-    "影像":     ["亮度","對比度","色調","白平衡","動態","顏色"],
-    "信號":     ["訊號","外置","比例","輸入"]
+    "梯形修正": ["keystone", "梯形", "Quick Corner", "校正", "變形"],
+    "投影方式": ["吊裝", "桌面", "前", "後", "天花板", "反轉"],
+    "網路":     ["lan", "wifi", "無線", "有線", "qr", "ip"],
+    "燈光":     ["燈泡", "lamp", "校正", "亮度"],
+    "重設":     ["reset", "還原", "初始化", "全部重設"],
+    "測試圖樣": ["test", "pattern", "交叉線", "方格", "灰色列"],
+    "顯示背景": ["背景", "黑色", "開機畫面"],
+    "Bluetooth":["藍牙", "bt", "音訊", "喇叭"],
+    "影像":     ["亮度", "對比度", "色調", "白平衡", "動態", "顏色"],
+    "信號":     ["訊號", "外置", "比例", "輸入"],
 };
 
-/* ── Menu data ──
-   hot:true → 顯示「常用」標記
-   ─────────────────────────────────────────────── */
+/* ── Menu data ── */
 const DATA = [
     { cn:"影像", en:"Image", children:[
         { cn:"顏色模式", en:"Color Mode", badge:"動態 / 簡報 / 劇院 / sRGB / 黑板" },
@@ -258,7 +507,135 @@ const DATA = [
     ]}
 ];
 
-initApp(DATA);
+function buildSearchText(item) {
+    return [
+        item.cn, item.en, item.badge,
+        ...(item.aliases || []),
+        ...(item.options || [])
+    ].filter(Boolean).join(' ').toLowerCase();
+}
+
+/* ── Render tree ── */
+function draw(data, parent, level=0) {
+    data.forEach(item => {
+        const node = document.createElement('div');
+        node.className = `node level-${level}${item.children?'':' leaf'}${item.hot?' hot':''}`;
+        const label = document.createElement('div');
+        label.className = 'label';
+        let h = `<span class="cn-text">${item.cn}</span>`;
+        if (item.en)    h += `<span class="en-text">${item.en}</span>`;
+        if (item.hot)   h += `<span class="hot-badge">常用</span>`;
+        if (item.badge) h += `<span class="badge">${item.badge}</span>`;
+        label.innerHTML = h;
+        label.dataset.search = buildSearchText(item);
+        label.onclick = e => { e.stopPropagation(); node.classList.toggle('expanded'); };
+        node.appendChild(label);
+        if (item.options) {
+            const box = document.createElement('div');
+            box.className = 'options-box';
+            item.options.forEach(o => {
+                const d = document.createElement('div');
+                d.className = 'option-item';
+                d.textContent = o;
+                box.appendChild(d);
+            });
+            node.appendChild(box);
+        }
+        if (item.children) {
+            const wrap = document.createElement('div');
+            wrap.className = 'children';
+            draw(item.children, wrap, level+1);
+            node.appendChild(wrap);
+        }
+        parent.appendChild(node);
+    });
+}
+draw(DATA, document.getElementById('menuTree'));
+
+/* ── View switch ── */
+function switchView(view) {
+    document.querySelectorAll('.view').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(view+'Section').classList.add('active');
+    document.getElementById('btn-'+view).classList.add('active');
+    document.getElementById('scrollTarget').scrollTop = 0;
+}
+
+/* ── Expand / collapse all ── */
+function setAllExpanded(expand) {
+    document.querySelectorAll('.node').forEach(n =>
+        expand ? n.classList.add('expanded') : n.classList.remove('expanded')
+    );
+}
+
+/* ── Search ── */
+function onSearch() {
+    const raw = document.getElementById('searchInput').value.toLowerCase().trim();
+    const clearBtn = document.getElementById('clearSearch');
+    const countBar = document.getElementById('countBar');
+    const countNum = document.getElementById('countNum');
+    const emptyState = document.getElementById('emptyState');
+    clearBtn.classList.toggle('active', raw !== '');
+
+    const nodes  = document.querySelectorAll('.node');
+    const labels = document.querySelectorAll('.label');
+    const cards  = document.querySelectorAll('.card');
+
+    if (!raw) {
+        nodes.forEach(n  => { n.classList.remove('hidden','expanded'); });
+        labels.forEach(l => l.classList.remove('highlight'));
+        cards.forEach(c  => c.classList.remove('hidden'));
+        countBar.classList.remove('visible');
+        emptyState.classList.remove('visible');
+        return;
+    }
+
+    let pool = [raw];
+    for (const [key, vals] of Object.entries(ALIAS)) {
+        if (vals.some(a => a.toLowerCase().includes(raw)) || key.toLowerCase().includes(raw))
+            pool.push(key.toLowerCase());
+    }
+
+    let treeHits = 0;
+    nodes.forEach(n => n.classList.add('hidden'));
+    labels.forEach(l => {
+        const text = l.dataset.search || l.textContent.toLowerCase();
+        const hit  = pool.some(k => text.includes(k));
+        if (hit) {
+            treeHits++;
+            l.classList.add('highlight');
+            let cur = l.parentElement;
+            while (cur && cur.classList.contains('node')) {
+                cur.classList.remove('hidden');
+                cur.classList.add('expanded');
+                const parent = cur.parentElement;
+                cur = (parent && parent.classList.contains('children')) ? parent.parentElement : null;
+            }
+        } else {
+            l.classList.remove('highlight');
+        }
+    });
+
+    let cardHits = 0;
+    cards.forEach(c => {
+        const hit = pool.some(k => c.textContent.toLowerCase().includes(k));
+        c.classList.toggle('hidden', !hit);
+        if (hit) cardHits++;
+    });
+
+    const total = treeHits + cardHits;
+    countNum.textContent = total;
+    countBar.classList.toggle('visible', true);
+    emptyState.classList.toggle('visible', treeHits === 0 && document.getElementById('treeSection').classList.contains('active'));
+
+    if (treeHits > 0 && !document.getElementById('treeSection').classList.contains('active'))
+        switchView('tree');
+}
+
+function clearInput() {
+    document.getElementById('searchInput').value = '';
+    onSearch();
+}
 </script>
 </body>
 </html>
