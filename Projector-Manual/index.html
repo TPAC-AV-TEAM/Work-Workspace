@@ -7,16 +7,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=Noto+Sans+TC:wght@400;500;700;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
     <style>
+        /* index.html 有自己的首頁佈局，不完全共用 common.css */
         :root {
             --bg:       #0e0e0f;
             --glass:    rgba(28,28,30,0.75);
-            --glass-2:  rgba(38,38,40,0.6);
             --border:   rgba(255,255,255,0.07);
             --gold:     #d4af37;
             --gold-dim: rgba(212,175,55,0.15);
-            --blue:     #0A84FF;
-            --green:    #30D158;
-            --red:      #FF453A;
             --text:     #ffffff;
             --text-sub: rgba(255,255,255,0.45);
             --text-dim: rgba(255,255,255,0.18);
@@ -28,15 +25,12 @@
             height:100vh; height:100svh; overflow:hidden;
             -webkit-font-smoothing:antialiased; letter-spacing:-0.01em;
         }
-
-        /* ── Aura background ── */
         .aura {
             position:fixed; inset:0; pointer-events:none; z-index:0;
             background:
                 radial-gradient(ellipse at 10% 0%, rgba(212,175,55,0.07) 0%, transparent 45%),
                 radial-gradient(ellipse at 90% 100%, rgba(10,132,255,0.06) 0%, transparent 50%);
         }
-
         .shell { position:relative; z-index:1; width:100%; height:100%; display:flex; flex-direction:column; }
 
         /* ── Header ── */
@@ -55,16 +49,9 @@
         .home-sub { font-size:10px; font-weight:700; letter-spacing:0.2em; color:var(--text-sub); text-transform:uppercase; }
 
         /* ── Content ── */
-        .content {
-            flex:1; overflow-y:auto; padding:30px 16px 90px;
-            display:flex; flex-direction:column;
-        }
+        .content { flex:1; overflow-y:auto; padding:30px 16px 90px; display:flex; flex-direction:column; }
         .content::-webkit-scrollbar { display:none; }
-
-        .picker-label {
-            font-size:11px; font-weight:700; letter-spacing:0.12em; color:var(--text-sub);
-            text-transform:uppercase; margin:0 4px 16px;
-        }
+        .picker-label { font-size:11px; font-weight:700; letter-spacing:0.12em; color:var(--text-sub); text-transform:uppercase; margin:0 4px 16px; }
 
         /* ── Device card ── */
         .device-card {
@@ -76,7 +63,6 @@
             transition:background 0.15s, border-color 0.15s, transform 0.1s;
         }
         .device-card:active { background:rgba(40,40,42,0.85); transform:scale(0.98); }
-
         .device-mono {
             width:56px; height:56px; border-radius:15px; flex-shrink:0;
             display:flex; align-items:center; justify-content:center;
@@ -86,10 +72,7 @@
         }
         .device-body { flex:1; min-width:0; }
         .device-top { display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:5px; }
-        .device-brand {
-            font-size:10px; font-weight:700; letter-spacing:0.14em; color:var(--text-sub);
-            text-transform:uppercase; font-family:'JetBrains Mono',monospace;
-        }
+        .device-brand { font-size:10px; font-weight:700; letter-spacing:0.14em; color:var(--text-sub); text-transform:uppercase; font-family:'JetBrains Mono',monospace; }
         .device-badge {
             font-size:10px; color:var(--gold); background:var(--gold-dim);
             padding:2px 7px; border-radius:5px; border:1px solid rgba(212,175,55,0.2);
@@ -97,44 +80,20 @@
         }
         .device-model { font-size:20px; font-weight:900; color:var(--text); letter-spacing:0.01em; margin-bottom:5px; }
         .device-features { font-size:12.5px; font-weight:500; color:var(--text-sub); }
-        .device-arrow {
-            position:absolute; right:16px; top:50%; transform:translateY(-50%);
-            font-size:22px; color:var(--text-dim); font-weight:300;
-        }
+        .device-arrow { position:absolute; right:16px; top:50%; transform:translateY(-50%); font-size:22px; color:var(--text-dim); font-weight:300; }
 
-        /* ── Footer ── */
-        footer {
-            position:fixed; bottom:0; left:0; right:0;
-            text-align:center; padding:8px;
-            font-size:10px; font-weight:700; letter-spacing:0.2em;
-            color:var(--text-dim); pointer-events:none;
-        }
+        footer { position:fixed; bottom:0; left:0; right:0; text-align:center; padding:8px; font-size:10px; font-weight:700; letter-spacing:0.2em; color:var(--text-dim); pointer-events:none; }
     </style>
 
     <!-- PWA -->
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#0e0e0f">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="投影機">
-    <link rel="apple-touch-icon" href="icon-192.png">
     <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', function () {
-                navigator.serviceWorker.register('sw.js')
-                    .then(reg => console.log('[PWA] SW registered:', reg.scope))
-                    .catch(err => console.warn('[PWA] SW failed:', err));
-            });
-        }
-    </script>
+</script>
 </head>
 <body>
 <div class="aura"></div>
 <div class="shell">
-
     <header>
-        <img src="icon-192.png" class="home-logo" alt="">
+        <div class="home-logo" style="display:flex;align-items:center;justify-content:center;font-size:36px;background:var(--gold-dim);border:1px solid rgba(212,175,55,0.25);border-radius:18px;">📽</div>
         <div class="home-title">投影機選單導覽</div>
         <div class="home-sub">TPAC AV TEAM · 選擇機型</div>
     </header>
@@ -169,7 +128,6 @@
         </a>
     </div>
 </div>
-
 <footer>TPAC AV TEAM · 投影機選單導覽</footer>
 </body>
 </html>

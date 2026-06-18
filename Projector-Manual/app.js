@@ -10,8 +10,9 @@
    ALIAS — 搜尋別名對照表（可傳入 {} 若無別名）
    ═══════════════════════════════════════════════ */
 
-/* ── Debounce timer ── */
+/* ── Module-level state ── */
 let _searchTimer;
+let _alias = {};   // 由 initApp 注入，_runSearch 透過 closure 存取，不依賴全域變數
 
 /* ── Build searchable text for a single node ── */
 function buildSearchText(item) {
@@ -20,7 +21,7 @@ function buildSearchText(item) {
         item.en,
         item.badge,
         ...(item.aliases || []),
-        ...(item.options || [])
+        ...(item.options  || [])
     ].filter(Boolean).join(' ').toLowerCase();
 }
 
@@ -39,8 +40,8 @@ function draw(data, parent, level = 0) {
         label.className = 'label';
 
         let h = `<span class="cn-text">${item.cn}</span>`;
-        if (item.en)  h += `<span class="en-text">${item.en}</span>`;
-        if (item.hot) h += `<span class="hot-badge">常用</span>`;
+        if (item.en)    h += `<span class="en-text">${item.en}</span>`;
+        if (item.hot)   h += `<span class="hot-badge">常用</span>`;
         if (item.badge) h += `<span class="badge">${item.badge}</span>`;
         label.innerHTML = h;
 
@@ -94,11 +95,11 @@ function onSearch() {
 }
 
 function _runSearch() {
-    const raw       = document.getElementById('searchInput').value.toLowerCase().trim();
-    const clearBtn  = document.getElementById('clearSearch');
-    const countBar  = document.getElementById('countBar');
-    const countNum  = document.getElementById('countNum');
-    const emptyState= document.getElementById('emptyState');
+    const raw        = document.getElementById('searchInput').value.toLowerCase().trim();
+    const clearBtn   = document.getElementById('clearSearch');
+    const countBar   = document.getElementById('countBar');
+    const countNum   = document.getElementById('countNum');
+    const emptyState = document.getElementById('emptyState');
 
     clearBtn.classList.toggle('active', raw !== '');
 
@@ -116,12 +117,12 @@ function _runSearch() {
         return;
     }
 
-    /* expand alias pool */
-    let pool = [raw];
-    if (typeof ALIAS !== 'undefined') {
-        for (const [key, vals] of Object.entries(ALIAS)) {
-            if (vals.some(a => a.toLowerCase().includes(raw)) || key.toLowerCase().includes(raw))
-                pool.push(key.toLowerCase());
+    /* 展開別名搜尋池：用 _alias（由 initApp 注入，非全域）*/
+    const pool = [raw];
+    for (const [key, vals] of Object.entries(_alias)) {
+        if (key.toLowerCase().includes(raw) ||
+            vals.some(a => a.toLowerCase().includes(raw))) {
+            pool.push(key.toLowerCase());
         }
     }
 
@@ -134,12 +135,12 @@ function _runSearch() {
         if (hit) {
             treeHits++;
             l.classList.add('highlight');
-            /* reveal all ancestors */
-            let cur = l.parentElement;
+            /* 顯示命中節點本身，並向上展開所有祖先 */
+            let cur = l.parentElement;           // 命中的 .node
             while (cur && cur.classList.contains('node')) {
                 cur.classList.remove('hidden');
                 cur.classList.add('expanded');
-                const p = cur.parentElement;
+                const p = cur.parentElement;     // .children wrapper 或根層
                 cur = (p && p.classList.contains('children')) ? p.parentElement : null;
             }
         } else {
@@ -155,17 +156,18 @@ function _runSearch() {
         if (hit) cardHits++;
     });
 
-    const total = treeHits + cardHits;
+    const total      = treeHits + cardHits;
     countNum.textContent = total;
     countBar.classList.add('visible');
+
+    const treeActive = document.getElementById('treeSection').classList.contains('active');
     emptyState.classList.toggle(
         'visible',
-        treeHits === 0 && document.getElementById('treeSection').classList.contains('active')
+        (treeActive && treeHits === 0) || (!treeActive && cardHits === 0)
     );
 
-    /* auto-switch to tree if hits found there */
-    if (treeHits > 0 && !document.getElementById('treeSection').classList.contains('active'))
-        switchView('tree');
+    /* 若樹狀有結果，自動切換到樹狀頁 */
+    if (treeHits > 0 && !treeActive) switchView('tree');
 }
 
 /* ── Clear search input ── */
@@ -175,6 +177,7 @@ function clearInput() {
 }
 
 /* ── initApp: entry point called by each page ── */
-function initApp(data) {
+function initApp(data, alias) {
+    _alias = (alias && typeof alias === 'object') ? alias : {};
     draw(data, document.getElementById('menuTree'));
 }
