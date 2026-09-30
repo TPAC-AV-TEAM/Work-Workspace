@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>北藝設備檔期與租金查詢 - macOS Dark Pro</title>
+    <!-- iOS / Android Web App 專用設定 -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="北藝設備">
+    <style>
+        :root {
+            /* macOS Dark Theme 色彩系統 */
+            --mac-bg: #1e1e1e;
+            --mac-card-bg: rgba(38, 38, 41, 0.75);
+            --mac-card-border: rgba(255, 255, 255, 0.12);
+            --mac-card-hover: rgba(50, 50, 54, 0.85);
+            --mac-accent: #0a84ff; /* Apple System Blue */
+            --mac-accent-glow: rgba(10, 132, 255, 0.25);
+            --mac-text-primary: #f5f5f7;
+            --mac-text-secondary: #a1a1a6;
+            --mac-badge-bg: rgba(255, 255, 255, 0.08);
+            
+            /* 金額亮點色彩 (Blue) */
+            --mac-price-bg: rgba(10, 132, 255, 0.18);
+            --mac-price-border: rgba(10, 132, 255, 0.4);
+            
+            /* 數量亮點色彩 (Yellow/Gold) */
+            --mac-qty-bg: rgba(255, 214, 10, 0.18);
+            --mac-qty-border: rgba(255, 214, 10, 0.45);
+            --mac-qty-text: #ffd60a;
+
+            /* 異常警示色彩 (Orange/Red) */
+            --mac-warning: #ff9f0a;
+            --mac-warning-bg: rgba(255, 159, 10, 0.2);
+            --mac-warning-border: rgba(255, 159, 10, 0.5);
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Arial, "Microsoft JhengHei", sans-serif;
+            background-color: var(--mac-bg);
+            color: var(--mac-text-primary);
+            margin: 0;
+            padding: 0;
+            padding-bottom: 40px;
+            padding-top: env(safe-area-inset-top);
+            padding-left: env(safe-area-inset-left);
+            padding-right: env(safe-area-inset-right);
+            min-height: 100vh;
+        }
+
+        /* 固定頂部導航列 */
+        .mac-nav {
+            position: sticky;
+            top: 0;
+            background: rgba(30, 30, 30, 0.82);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            padding: 12px 16px 14px 16px;
+            border-bottom: 1px solid var(--mac-card-border);
+            z-index: 999;
+        }
+
+        .mac-window-controls {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            margin-bottom: 12px;
+        }
+
+        .mac-dot {
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+        }
+        .dot-red { background-color: #ff5f57; border: 1px solid #e0443e; }
+        .dot-yellow { background-color: #febc2e; border: 1px solid #d8a124; }
+        .dot-green { background-color: #28c840; border: 1px solid #1aab29; }
+        
+        .mac-app-title {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--mac-text-secondary);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-left: 6px;
+        }
+
+        .search-box {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 36px 12px 38px;
+            font-size: 15px;
+            color: var(--mac-text-primary);
+            background-color: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--mac-card-border);
+            border-radius: 10px;
+            outline: none;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        .search-input::placeholder {
+            color: var(--mac-text-secondary);
+            font-size: 14px;
+        }
+
+        .search-input:focus {
+            border-color: var(--mac-accent);
+            background-color: rgba(0, 0, 0, 0.6);
+            box-shadow: 0 0 0 3px var(--mac-accent-glow), inset 0 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            color: var(--mac-text-secondary);
+            font-size: 14px;
+            pointer-events: none;
+        }
+
+        .clear-btn {
+            position: absolute;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 12px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .stats-bar {
+            margin-top: 10px;
+            font-size: 12px;
+            color: var(--mac-text-secondary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2px;
+        }
+
+        /* 主容器 */
+        .app-container {
+            padding: 14px 14px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* macOS 卡片元件 */
+        .mac-card {
+            background: var(--mac-card-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 14px;
+            padding: 15px;
+            margin-bottom: 12px;
+            border: 1px solid var(--mac-card-border);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+            transition: transform 0.15s ease, background-color 0.15s ease;
+        }
+
+        .mac-card:active {
+            transform: scale(0.985);
+            background-color: var(--mac-card-hover);
+        }
+
+        .card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .item-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--mac-text-primary);
+            line-height: 1.35;
+            letter-spacing: -0.2px;
+            flex: 1;
+        }
+
+        .key-metrics {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+
+        .metric-badge {
+            font-weight: 700;
+            padding: 5px 10px;
+            border-radius: 8px;
+            font-size: 13.5px;
+            white-space: nowrap;
+            letter-spacing: -0.3px;
+            display: inline-flex;
+            align-items: center;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+
+        .qty-badge {
+            background-color: var(--mac-qty-bg);
+            color: var(--mac-qty-text);
+            border: 1px solid var(--mac-qty-border);
+        }
+
+        .qty-badge-warning {
+            background-color: var(--mac-warning-bg);
+            color: var(--mac-warning);
+            border: 1px solid var(--mac-warning-border);
+        }
+
+        .price-badge {
+            background-color: var(--mac-price-bg);
+            color: var(--mac-accent);
+            border: 1px solid var(--mac-price-border);
+        }
+
+        .tag-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin: 6px 0 8px 0;
+        }
+
+        .mac-badge {
+            font-size: 11.5px;
+            padding: 3px 8px;
+            border-radius: 6px;
+            background-color: var(--mac-badge-bg);
+            color: var(--mac-text-secondary);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .badge-venue {
+            color: #64d2ff;
+            background-color: rgba(100, 210, 255, 0.1);
+        }
+
+        .remark-drawer {
+            margin-top: 10px;
+            padding-top: 9px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            font-size: 13px;
+            color: var(--mac-text-secondary);
+            line-height: 1.45;
+        }
+
+        .warning-tag {
+            color: var(--mac-warning);
+            background-color: var(--mac-warning-bg);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 500;
+            display: inline-block;
+            margin-top: 2px;
+        }
+
+        .no-result {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--mac-text-secondary);
+        }
+
+        .no-result-icon {
+            font-size: 42px;
+            margin-bottom: 12px;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 380px) {
+            .card-top { flex-direction: column; gap: 8px; }
+            .key-metrics { width: 100%; justify-content: flex-start; }
+            .metric-badge { font-size: 12.5px; padding: 4px 8px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="mac-nav">
+    <div class="mac-window-controls">
+        <div class="mac-dot dot-red"></div>
+        <div class="mac-dot dot-yellow"></div>
+        <div class="mac-dot dot-green"></div>
+        <span class="mac-app-title">TPAC AV Inventory</span>
+    </div>
+
+    <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" class="search-input" placeholder="搜尋設備, 型號, 場館 (例: MID, 混音, DI)" autocomplete="off">
+        <button id="clearBtn" class="clear-btn" onclick="clearSearch()">✕</button>
+    </div>
+
+    <div class="stats-bar">
+        <span>北藝中心視聽設備庫</span>
+        <span id="resultCount">載入中...</span>
+    </div>
+</div>
+
+<div class="app-container" id="resultsList">
+    <!-- 卡片資料區域 -->
+</div>
+
+<script>
+// 全量視聽設備資料集
+const equipmentData = [
+    // --- 區塊一：各場館專屬設備 ---
+    { name: "收音麥克風 SHURE SM-58 (GT)", venue: "大劇院 (GT)", qty: "5 支", unit: "1支/1天", price: "NT$ 200", remark: "經典動圈收音麥克風" },
+    { name: "收音麥克風 SHURE SM-58 (GP)", venue: "球劇場 (GP)", qty: "5 支", unit: "1支/1天", price: "NT$ 200", remark: "經典動圈收音麥克風" },
+    { name: "收音麥克風 SHURE SM-58 (BB)", venue: "藍盒子 (BB)", qty: "4 支", unit: "1支/1天", price: "NT$ 200", remark: "經典動圈收音麥克風" },
+    { name: "地板收音麥克風 SHURE MX392/C (GT)", venue: "大劇院 (GT)", qty: "8 支", unit: "1支/1天", price: "NT$ 200", remark: "界面/地板收音麥克風" },
+    { name: "地板收音麥克風 SHURE MX392/C (GP)", venue: "球劇場 (GP)", qty: "8 支", unit: "1支/1天", price: "NT$ 200", remark: "界面/地板收音麥克風" },
+    { name: "地板收音麥克風 SHURE MX392/C (BB)", venue: "藍盒子 (BB)", qty: "8 支", unit: "1支/1天", price: "NT$ 200", remark: "界面/地板收音麥克風" },
+    { name: "電容式收音麥克風 DPA-4011A (GT)", venue: "大劇院 (GT)", qty: "8 支", unit: "1支/1天", price: "NT$ 3,000", remark: "高階電容收音麥克風" },
+    { name: "電容式收音麥克風 DPA-4011A (GP)", venue: "球劇場 (GP)", qty: "8 支", unit: "1支/1天", price: "NT$ 3,000", remark: "高階電容收音麥克風" },
+    { name: "電容式收音麥克風 DPA-4011A (BB)", venue: "藍盒子 (BB)", qty: "8 支", unit: "1支/1天", price: "NT$ 3,000", remark: "高階電容收音麥克風" },
+    
+    { name: "移動式舞台監聽揚聲器 K&F Gravis 12N (GT)", venue: "大劇院 (GT)", qty: "8 支", unit: "1支/1天", price: "NT$ 800", remark: "舞台監聽喇叭" },
+    { name: "移動式舞台監聽揚聲器 K&F Gravis 12N (GP)", venue: "球劇場 (GP)", qty: "6 支", unit: "1支/1天", price: "NT$ 800", remark: "舞台監聽喇叭" },
+    { name: "移動式舞台監聽揚聲器 K&F Gravis 12N (BB)", venue: "藍盒子 (BB)", qty: "6 支", unit: "1支/1天", price: "NT$ 800", remark: "舞台監聽喇叭" },
+    { name: "舞台監聽揚聲器用擴大機 UNIKA PWM-10000Q (GT)", venue: "大劇院 (GT)", qty: "1 台", unit: "1台/1天", price: "NT$ 1,500", remark: "4聲道擴大機" },
+    { name: "舞台監聽揚聲器用擴大機 UNIKA PWM-10000Q (GP)", venue: "球劇場 (GP)", qty: "1 台", unit: "1台/1天", price: "NT$ 1,500", remark: "4聲道擴大機" },
+    { name: "舞台監聽揚聲器用擴大機 UNIKA PWM-10000Q (BB)", venue: "藍盒子 (BB)", qty: "1 台", unit: "1台/1天", price: "NT$ 1,500", remark: "4聲道擴大機" },
+    
+    { name: "樂團指揮用低延遲攝影機 CDOUBLES TWA-CE2425N4.2X (GT)", venue: "大劇院 (GT)", qty: "2 台", unit: "1台/1天", price: "NT$ 500", remark: "指揮監看專用攝影機" },
+    { name: "樂團指揮用低延遲攝影機 CDOUBLES TWA-CE2425N4.2X (GP)", venue: "球劇場 (GP)", qty: "2 台", unit: "1台/1天", price: "NT$ 500", remark: "指揮監看專用攝影機" },
+    { name: "樂團用低延遲32吋LED監看螢幕 SAMSUNG UA32N4000AWZW (GT)", venue: "大劇院 (GT)", qty: "4 台", unit: "1台/1天", price: "NT$ 500", remark: "樂團監看螢幕" },
+    { name: "樂團用低延遲32吋LED監看螢幕 SAMSUNG UA32N4000AWZW (GP)", venue: "球劇場 (GP)", qty: "4 台", unit: "1台/1天", price: "NT$ 500", remark: "樂團監看螢幕" },
+    { name: "樂團用低延遲43吋LED監看螢幕 SAMSUNG UA43TU8000WXZW (GT)", venue: "大劇院 (GT)", qty: "3 台", unit: "1台/1天", price: "NT$ 800", remark: "樂團監看螢幕" },
+    { name: "樂團用低延遲43吋LED監看螢幕 SAMSUNG UA43TU8000WXZW (GP)", venue: "球劇場 (GP)", qty: "3 台", unit: "1台/1天", price: "NT$ 800", remark: "樂團監看螢幕" },
+
+    // --- 區塊二：三館及排練場共用設備 ---
+    { name: "數位混音控制器 MIDAS M32", venue: "三館及排練場共用", qty: "2 台", unit: "1台/1天", price: "NT$ 1,500", remark: "數位混音 Console" },
+    { name: "數位混音控制器 MIDAS M32-R", venue: "三館及排練場共用", qty: "1 台", unit: "1台/1天", price: "NT$ 1,000", remark: "數位混音 Console" },
+    { name: "數位混音控制器 BEHRINGER WING", venue: "三館及排練場共用", qty: "1 台", unit: "1台/1天", price: "NT$ 1,500", remark: "數位混音 Console" },
+    { name: "數位混音器用接線盒 I/O BOX MIDAS DL16", venue: "三館及排練場共用", qty: "2 台", unit: "1台/1天", price: "NT$ 1,000", remark: "數位介面盒" },
+    { name: "數位混音器用接線盒 I/O BOX Behringer S16", venue: "三館及排練場共用", qty: "1 台", unit: "1台/1天", price: "NT$ 500", remark: "數位介面盒" },
+    { name: "16軌混音控制器 Soundcraft GB-4 16ch", venue: "三館及排練場共用", qty: "2 台", unit: "1台/1天", price: "NT$ 1,000", remark: "類比混音器" },
+    { name: "12軌混音控制器 MACKIE PROFX12V3", venue: "三館及排練場共用", qty: "1 台", unit: "1台/1天", price: "NT$ 500", remark: "類比混音器" },
+
+    { name: "A組 MIPRO 無線麥克風系統", venue: "三館及排練場共用", qty: "1 套", unit: "1套/1天", price: "NT$ 5000", priceText: "NT$ 5,000", remark: "含ACT-747主機x4, AD-708天線分配器x1, AT-90W天線盤x2, ACT-70H手握麥x4, ACT-70T腰包x16, 膚色麥克風x16" },
+    { name: "B組 MIPRO 無線麥克風系統", venue: "三館及排練場共用", qty: "1 套", unit: "1套/1天", price: "NT$ 3,000", remark: "含ACT-747主機x2, AD-708天線分配器x1, AT-90W天線盤x2, ACT-70H手握麥x8, ACT-70T腰包x8, 膚色麥克風x8" },
+    { name: "C組 MIPRO 無線麥克風系統", venue: "三館及排練場共用", qty: "1 套", unit: "1套/1天", price: "NT$ 4,000", remark: "含ACT-747主機x3, AD-708天線分配器x1, AT-90W天線盤x2, ACT-70H手握麥x12, ACT-70T腰包x12, 膚色麥克風x12" },
+
+    { name: "DPA VC-4099 小提琴麥克風支架組", venue: "三館共用", qty: "12 支", unit: "1支/1天", price: "NT$ 3,000", remark: "電容式收音麥克風 + 小提琴專用夾件" },
+    { name: "DPA CC-4099 大提琴麥克風支架組", venue: "三館共用", qty: "8 支", unit: "1支/1天", price: "NT$ 3,000", remark: "電容式收音麥克風 + 大提琴專用夾件" },
+    { name: "DPA BC-4099 低音大提琴麥克風支架組", venue: "三館共用", qty: "4 支", unit: "1支/1天", price: "NT$ 3,000", remark: "電容式收音麥克風 + 低音大提琴專用夾件" },
+    { name: "DPA U-4099 多用途麥克風支架組", venue: "三館共用", qty: "2 支", unit: "1支/1天", price: "NT$ 3,000", remark: "電容式收音麥克風 + 多用途專用夾件" },
+    { name: "DPA PC-4099 鋼琴麥克風支架組", venue: "三館共用", qty: "4 支", unit: "1支/1天", price: "NT$ 3,000", remark: "電容式收音麥克風 + 鋼琴專用磁吸夾件" },
+    { name: "DPA 6066 雙耳掛頭戴式迷你麥克風", venue: "三館共用", qty: "20 條", unit: "1支/1天", price: "NT$ 2,000", remark: "附 Mipro / Shure / Sennheiser / Lectrosonics 專用轉接頭" },
+
+    { name: "AVIOM AN-16I-V2 & AVIOM D-400 類比訊號輸入裝置", venue: "三館共用", qty: "3 套", unit: "1組/1天", price: "NT$ 1,000", remark: "個人監聽混音器輸入分配系統" },
+    { name: "AVIOM A-360 個人監聽網路混音器", venue: "三館共用", qty: "24 台", unit: "1組/1天", price: "NT$ 1,000", remark: "樂手個人監聽網路混音器" },
+    { name: "Sennheiser SR-300 IEM G3 無線個人監聽發射主機", venue: "三館共用", qty: "20 台", unit: "1組/1天", price: "NT$ 1,000", remark: "無線耳監發射主機" },
+    { name: "Sennheiser EK-300 IEM G3 + IE-4 無線個人監聽接收腰包機", venue: "三館共用", qty: "20 套", unit: "1組/1天", price: "NT$ 1,000", remark: "含耳監接收腰包及 Sennheiser IE-4 耳機" },
+    { name: "NADY AUDIO PM-100 個人近場監聽揚聲器", venue: "三館共用", qty: "40 支", unit: "1支/1天", price: "NT$ 500", remark: "個人近場監聽喇叭" },
+    { name: "LAB Gruppen IPD 1200 個人近場監聽擴大機", venue: "三館共用", qty: "6 台", unit: "1台/1天", price: "NT$ 800", remark: "近場監聽擴大機" },
+    { name: "LAB Gruppen IPD 2400 個人近場監聽擴大機", venue: "三館共用", qty: "6 台", unit: "1台/1天", price: "NT$ 1,000", remark: "近場監聽擴大機" },
+
+    { name: "線性陣列柱狀揚聲器 FBT CS-1000", venue: "三館及排練場共用", qty: "8 支", unit: "1支/1天", price: "NT$ 1,500", remark: "柱狀揚聲器" },
+    { name: "線性陣列柱狀揚聲器 RCF EVOX J8", venue: "三館及排練場共用", qty: "2 支可用", unit: "1支/1天", price: "NT$ 1,000", remark: "<span class='warning-tag'>⚠ 原配置4支，現有 2 支燒毀送修中，總數剩 2 支可用</span>" },
+    { name: "MIPRO MA-708 小型活動式音箱", venue: "三館及排練場共用", qty: "4 台", unit: "1台/1天", price: "NT$ 500", remark: "含 2 支手握無線麥克風" },
+    { name: "音訊訊號轉換盒 dbx DI-1 DI BOX", venue: "三館及排練場共用", qty: "12 個", unit: "1組/1天", price: "NT$ 200", remark: "音訊 DI BOX" },
+    { name: "USB 音訊訊號轉換盒 Mackie MDB-USB DI BOX", venue: "三館及排練場共用", qty: "3 個", unit: "1組/1天", price: "NT$ 300", remark: "USB 專用 DI BOX" },
+
+    { name: "Panasonic PT-RQ35K 30,000流明雷射投影機", venue: "三館共用", qty: "2 台", unit: "1台/1場", price: "NT$ 60,000", remark: "含長焦(ET-D3LEW10)及超短焦(ET-D75LE95)鏡頭各一" },
+    { name: "Digital Projection Titan Super Quad 1080p (20000流明)", venue: "三館共用", qty: "1 台", unit: "未定", price: "請洽技術部", remark: "包含相關配件與投影機立 TRUSS 架" },
+    { name: "Panasonic PT-EZ770Z 6000流明 3DLP投影機", venue: "三館共用", qty: "2 台", unit: "1台/1天", price: "NT$ 6,000", remark: "高畫質投影機" },
+    { name: "P3.91 LED全彩彩幕 (字幕用)", venue: "三館共用", qty: "8 組", unit: "1面/1天", price: "NT$ 4,000", remark: "一組八塊，共有八組（含控制器及線材，不含電腦）" },
+    { name: "EPSON EV-115 3LCD 2200流明雷射投影機 (字幕用)", venue: "三館共用", qty: "4 台", unit: "1台/1天", price: "NT$ 1,500", remark: "<span class='warning-tag'>⚠️ 非短焦，有 2 台已固定在球劇場 (GP)</span>" },
+    { name: "氣壓式地拉蓆白銀幕 (字幕投影用)", venue: "三館共用", qty: "6 組", unit: "1組/1天", price: "NT$ 300", remark: "畫面 W203*H151cm / 布幕 W211*H230cm" },
+    { name: "ClearSonic panels IsoPac B 樂器用隔屏", venue: "三館及排練場共用", qty: "4 組", unit: "1組/1天", price: "NT$ 1,500", remark: "樂器防噪隔屏" },
+    { name: "CUE LIGHT ETC CueSystem", venue: "三館共用", qty: "3 套", unit: "1套/1天", price: "NT$ 2,000", remark: "12ch 桌上控制器 + 6組子機" }
+];
+
+// 正則特殊符號跳脫
+function escapeRegExp(string) {
+    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+// 移除空格、底線、連字號等常見分隔符號（用於型號比對）
+function normalizeModelText(text) {
+    if (!text) return '';
+    return text.toLowerCase().replace(/[\s\-_/\\()（）.,:;+]/g, '');
+}
+
+// 單一關鍵字比對邏輯
+function matchSingleToken(token, textToSearch, normalizedTarget) {
+    const rawToken = token.trim();
+    if (!rawToken) return true;
+
+    // 1. 若為極短英數字詞 (長度 <= 2，例如 DI、GT、GP、BB)，嚴格要求「獨立單詞邊界」
+    // 使用 Lookbehind / Lookahead 避免命中 Audio 或 Digital
+    if (/^[a-zA-Z0-9]{1,2}$/i.test(rawToken)) {
+        const regex = new RegExp(`(?<![a-zA-Z0-9])${escapeRegExp(rawToken)}(?![a-zA-Z0-9])`, 'i');
+        return regex.test(textToSearch);
+    }
+
+    // 2. 正常詞彙：先比對原始內容是否包含
+    if (textToSearch.toLowerCase().includes(rawToken.toLowerCase())) {
+        return true;
+    }
+
+    // 3. 型號容錯比對 (例如輸入 SM58 或 SM-58 比對 SM 58)
+    const normToken = normalizeModelText(rawToken);
+    return normToken.length > 0 && normalizedTarget.includes(normToken);
+}
+
+// 智慧型號容錯與搜尋演算法
+function performSearch() {
+    const searchInput = document.getElementById('searchInput');
+    const rawQuery = searchInput.value.trim();
+    const clearBtn = document.getElementById('clearBtn');
+    
+    clearBtn.style.display = rawQuery.length > 0 ? 'flex' : 'none';
+
+    if (!rawQuery) {
+        renderResults(equipmentData);
+        return;
+    }
+
+    const tokens = rawQuery.split(/\s+/).filter(t => t.length > 0);
+
+    const filtered = equipmentData.filter(item => {
+        const textToSearch = `${item.name} ${item.venue} ${item.remark}`;
+        const normalizedTarget = normalizeModelText(textToSearch);
+
+        // 情況 A：如果是單一簡短代號 (長度 <= 2，例如純輸入 DI)
+        // 直接走嚴格單詞邊界比對，不走全文無空格模糊匹配
+        if (tokens.length === 1 && /^[a-zA-Z0-9]{1,2}$/i.test(tokens[0])) {
+            return matchSingleToken(tokens[0], textToSearch, normalizedTarget);
+        }
+
+        // 情況 B：型號容錯（例如使用者輸入 "SM 58", "SM-58", "M32 R" 等連續型號）
+        // 若使用者輸入包含分隔符號，優先嘗試將整串去符號比對
+        const fullNormalizedQuery = normalizeModelText(rawQuery);
+        if (fullNormalizedQuery.length > 2 && normalizedTarget.includes(fullNormalizedQuery)) {
+            return true;
+        }
+
+        // 情況 C：多關鍵字交集搜尋（例如 "大劇院 DI"、"MIPRO 麥克風"）
+        return tokens.every(token => matchSingleToken(token, textToSearch, normalizedTarget));
+    });
+
+    renderResults(filtered);
+}
+
+// 渲染卡片結果至頁面
+function renderResults(data) {
+    const resultsContainer = document.getElementById('resultsList');
+    const resultCount = document.getElementById('resultCount');
+
+    resultCount.textContent = `${data.length} 項設備`;
+
+    if (data.length === 0) {
+        resultsContainer.innerHTML = `
+            <div class="no-result">
+                <div class="no-result-icon">💻</div>
+                <div style="font-size: 15px; font-weight: 500;">未找到符合的設備</div>
+                <div style="font-size: 12px; margin-top: 6px; opacity: 0.6;">請嘗試搜尋其他關鍵字或簡寫</div>
+            </div>
+        `;
+        return;
+    }
+
+    resultsContainer.innerHTML = data.map(item => {
+        const isWarning = item.qty.includes("可用") || item.remark.includes("燒毀");
+        const qtyBadgeClass = isWarning ? "metric-badge qty-badge-warning" : "metric-badge qty-badge";
+
+        return `
+        <div class="mac-card">
+            <div class="card-top">
+                <div class="item-title">${item.name}</div>
+                <div class="key-metrics">
+                    <div class="${qtyBadgeClass}">📦 ${item.qty}</div>
+                    <div class="metric-badge price-badge">${item.price}</div>
+                </div>
+            </div>
+            <div class="tag-group">
+                <span class="mac-badge badge-venue">📍 ${item.venue}</span>
+                <span class="mac-badge">計價單位: ${item.unit}</span>
+            </div>
+            <div class="remark-drawer">
+                ${item.remark}
+            </div>
+        </div>
+        `;
+    }).join('');
+}
+
+// 清除按鈕
+function clearSearch() {
+    const searchInput = document.getElementById('searchInput');
+    searchInput.value = '';
+    performSearch();
+    searchInput.focus();
+}
+
+// 監聽輸入事件
+document.getElementById('searchInput').addEventListener('input', performSearch);
+
+// 頁面初始化
+performSearch();
+</script>
+
+</body>
+</html>
