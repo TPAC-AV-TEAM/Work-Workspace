@@ -3,7 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>北藝視聽設備租賃查詢系統</title>
+    <title>北藝視聽設備租賃查詢系統 v1.0.0</title>
+    <link rel="manifest" href="./manifest.webmanifest">
+    <meta name="theme-color" content="#1e1e1e">
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" type="image/png" href="./icons/icon-192.png">
+    <link rel="apple-touch-icon" href="./icons/icon-192.png">
     <!-- iOS / Android Web App 專用設定 -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -593,6 +598,14 @@ document.getElementById('searchInput').addEventListener('input', performSearch);
 
 // 初始化渲染
 performSearch();
+</script>
+<script>
+// PWA：註冊 Service Worker（需 HTTPS，GitHub Pages 預設符合）
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').catch(err => console.warn('SW 註冊失敗', err));
+    });
+}
 </script>
 
 </body>
