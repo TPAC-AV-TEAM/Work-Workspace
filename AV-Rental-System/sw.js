@@ -1,5 +1,5 @@
 // 版本需與 index.html 的 <title> 版本同步
-const VERSION = 'v1.0.1';
+const VERSION = 'v1.0.2';
 const CACHE = 'tpac-av-inventory-' + VERSION;
 const ASSETS = ['./', './index.html', './manifest.webmanifest',
   './icon-192.png', './icon-512.png', './icon-maskable-512.png'];
