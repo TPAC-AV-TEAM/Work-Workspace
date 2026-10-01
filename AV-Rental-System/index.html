@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>北藝設備檔期與租金查詢 - macOS Dark Pro</title>
+    <title>北藝視聽設備租賃查詢系統</title>
     <!-- iOS / Android Web App 專用設定 -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="北藝設備">
+    <meta name="apple-mobile-web-app-title" content="北藝視聽租賃">
     <style>
         :root {
             /* macOS Dark Theme 色彩系統 */
@@ -279,6 +279,21 @@
             border: 1px solid var(--mac-accent);
             border-radius: 10px;
         }
+        .mac-app-title { font-size: 14px; letter-spacing: 1px; color: var(--mac-text-primary); }
+        .search-input {
+            padding: 14px 40px 14px 42px;
+            font-size: 16px;
+            background-color: rgba(10, 132, 255, 0.08);
+            border: 2px solid #64d2ff;
+            box-shadow: 0 0 0 3px var(--mac-accent-glow), 0 0 16px rgba(100, 210, 255, 0.35);
+        }
+        .search-input::placeholder { color: #c7c7cc; }
+        .search-input:focus {
+            border-color: #ffffff;
+            background-color: rgba(10, 132, 255, 0.15);
+            box-shadow: 0 0 0 4px rgba(100, 210, 255, 0.45), 0 0 22px rgba(100, 210, 255, 0.5);
+        }
+        .search-icon { left: 14px; font-size: 16px; }
     </style>
 </head>
 <body>
@@ -288,7 +303,7 @@
         <div class="mac-dot dot-red"></div>
         <div class="mac-dot dot-yellow"></div>
         <div class="mac-dot dot-green"></div>
-        <span class="mac-app-title">TPAC AV Inventory</span>
+        <span class="mac-app-title">北藝・視聽設備租賃查詢系統</span>
     </div>
 
     <div class="search-box">
@@ -298,7 +313,7 @@
     </div>
 
     <div class="stats-bar">
-        <span>北藝中心視聽設備清單</span>
+        <span>設備清單 ・ 數量 ・ 租賃價格</span>
         <span id="resultCount">載入中...</span>
     </div>
 </div>
@@ -329,9 +344,9 @@
 // 全量原始視聽設備資料集
 const equipmentData = [
     // --- 區塊一：各場館專屬設備 ---
-    { name: "收音麥克風 SHURE SM-58 (GT)", venue: "大劇院 (GT)", qty: "6 支", unit: "1支/1天", price: "$200", remark: "經典動圈收音麥克風" },
-    { name: "收音麥克風 SHURE SM-58 (GP)", venue: "球劇場 (GP)", qty: "6 支", unit: "1支/1天", price: "$200", remark: "經典動圈收音麥克風" },
-    { name: "收音麥克風 SHURE SM-58 (BB)", venue: "藍盒子 (BB)", qty: "5 支", unit: "1支/1天", price: "$200", remark: "經典動圈收音麥克風" },
+    { name: "收音麥克風 SHURE SM-58 (GT)", venue: "大劇院 (GT)", qty: "5 支", unit: "1支/1天", price: "$200", remark: "經典動圈收音麥克風" },
+    { name: "收音麥克風 SHURE SM-58 (GP)", venue: "球劇場 (GP)", qty: "5 支", unit: "1支/1天", price: "$200", remark: "經典動圈收音麥克風" },
+    { name: "收音麥克風 SHURE SM-58 (BB)", venue: "藍盒子 (BB)", qty: "4 支", unit: "1支/1天", price: "$200", remark: "經典動圈收音麥克風" },
     { name: "地板收音麥克風 SHURE MX392/C (GT)", venue: "大劇院 (GT)", qty: "8 支", unit: "1支/1天", price: "$200", remark: "界面/地板收音麥克風" },
     { name: "地板收音麥克風 SHURE MX392/C (GP)", venue: "球劇場 (GP)", qty: "8 支", unit: "1支/1天", price: "$200", remark: "界面/地板收音麥克風" },
     { name: "地板收音麥克風 SHURE MX392/C (BB)", venue: "藍盒子 (BB)", qty: "8 支", unit: "1支/1天", price: "$200", remark: "界面/地板收音麥克風" },
@@ -362,9 +377,9 @@ const equipmentData = [
     { name: "16軌混音控制器 Soundcraft GB-4 16ch", venue: "三館及排練場共用", qty: "2 台", unit: "1台/1天", price: "$1,000", remark: "類比混音器" },
     { name: "12軌混音控制器 MACKIE PROFX12V3", venue: "三館及排練場共用", qty: "1 台", unit: "1台/1天", price: "$500", remark: "類比混音器" },
 
-    { name: "A組 MIPRO 無線麥克風系統", venue: "三館及排練場共用", qty: "1 套", unit: "1套/1天", price: "$5,000", remark: "含ACT-747主機x4, AD-708天線分配器x1, AT-90W天線盤x2, ACT-70H手握麥x4, ACT-70T腰包x16, 膚色麥克風x16" },
-    { name: "B組 MIPRO 無線麥克風系統", venue: "三館及排練場共用", qty: "1 套", unit: "1套/1天", price: "$3,000", remark: "含ACT-747主機x2, AD-708天線分配器x1, AT-90W天線盤x2, ACT-70H手握麥x8, ACT-70T腰包x8, 膚色麥克風x8" },
-    { name: "C組 MIPRO 無線麥克風系統", venue: "三館及排練場共用", qty: "1 套", unit: "1套/1天", price: "$4,000", remark: "含ACT-747主機x3, AD-708天線分配器x1, AT-90W天線盤x2, ACT-70H手握麥x12, ACT-70T腰包x12, 膚色麥克風x12" },
+    { name: "A組 MIPRO 無線麥克風系統", venue: "三館及排練場共用", qty: "1 套", unit: "1套/1天", price: "$5,000", remark: "含ACT-747主機x4 (5UB), AD-708天線分配器x1, AT-90W天線盤x2, ACT-70H手握麥x4, ACT-70T腰包x16, 膚色麥克風x16" },
+    { name: "B組 MIPRO 無線麥克風系統", venue: "三館及排練場共用", qty: "1 套", unit: "1套/1天", price: "$3,000", remark: "含ACT-747主機x2 (6UA), AD-708天線分配器x1, AT-90W天線盤x2, ACT-70H手握麥x8, ACT-70T腰包x8, 膚色麥克風x8" },
+    { name: "C組 MIPRO 無線麥克風系統", venue: "三館及排練場共用", qty: "1 套", unit: "1套/1天", price: "$4,000", remark: "含ACT-747主機x3 (5UB), AD-708天線分配器x1, AT-90W天線盤x2, ACT-70H手握麥x12, ACT-70T腰包x12, 膚色麥克風x12" },
 
     { name: "DPA VC-4099 小提琴麥克風支架組", venue: "三館共用", qty: "12 支", unit: "1支/1天", price: "$3,000", remark: "電容式收音麥克風 + 小提琴專用夾件" },
     { name: "DPA CC-4099 大提琴麥克風支架組", venue: "三館共用", qty: "8 支", unit: "1支/1天", price: "$3,000", remark: "電容式收音麥克風 + 大提琴專用夾件" },
@@ -388,9 +403,9 @@ const equipmentData = [
     { name: "USB 音訊訊號轉換盒 Mackie MDB-USB DI BOX", venue: "三館及排練場共用", qty: "3 組", unit: "1組/1天", price: "$300", remark: "USB 專用 DI BOX" },
 
     { name: "Panasonic PT-RQ35K 30,000流明雷射投影機", venue: "三館共用", qty: "2 台", unit: "1台/1場", price: "$60,000", remark: "含長焦(ET-D3LEW10)及超短焦(ET-D75LE95)鏡頭各一" },
-    { name: "Digital Projection Titan Super Quad 1080p (20000流明)", venue: "三館共用", qty: "1 台", unit: "未定", price: "請洽技術部", remark: "包含相關配件與投影機立 TRUSS 架" },
+    { name: "Digital Projection Titan Super Quad 1080p (20000流明)", venue: "三館共用", qty: "1 台", unit: "未定", price: "請洽技術部", remark: "包含相關配件與投影機立 TRUSS 架；25.8×58×68.8 cm (H×W×D)，39.0 kg，200~240VAC 50/60Hz" },
     { name: "Panasonic PT-EZ770Z 6000流明 3DLP投影機", venue: "三館共用", qty: "2 台", unit: "1台/1天", price: "$6,000", remark: "高畫質投影機" },
-    { name: "P3.91 LED全彩彩幕 (字幕用)", venue: "三館共用", qty: "8 面", unit: "1面/1天", price: "$4,000", remark: "寬100cm×高200cm×台車50cm；含控制器及線材，不含電腦" },
+    { name: "P3.91 LED全彩彩幕 (字幕用)", venue: "三館共用", qty: "8 組", unit: "1面/1天", price: "$4,000", remark: "一組八塊，共有八組；單面寬100cm×高200cm×台車50cm；含控制器及線材，不含電腦" },
     { name: "EPSON EV-115 3LCD 2200流明雷射投影機 (字幕用)", venue: "三館共用", qty: "4 台", unit: "1台/1天", price: "$1,500", remark: "含控制器及線材，不含電腦<br><span class='warning-tag'>⚠️ 非短焦，有 2 台已固定在球劇場 (GP)</span>" },
     { name: "氣壓式地拉蓆白銀幕 (字幕投影用)", venue: "三館共用", qty: "6 組", unit: "1組/1天", price: "$300", remark: "畫面 W203*H151cm / 布幕 W211*H230cm" },
     { name: "ClearSonic panels IsoPac B 樂器用隔屏", venue: "三館及排練場共用", qty: "4 組", unit: "1組/1天", price: "$1,500", remark: "樂器防噪隔屏" },
