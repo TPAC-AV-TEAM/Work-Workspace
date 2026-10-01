@@ -1,8 +1,8 @@
 {
   "id": "./",
-  "name": "北藝視聽設備租賃查詢系統",
-  "short_name": "北藝視聽租賃",
-  "description": "北藝中心視聽設備清單、數量、租賃價格查詢",
+  "name": "視聽設備租賃查詢系統",
+  "short_name": "視聽租賃",
+  "description": "視聽設備清單、數量、租賃價格查詢",
   "lang": "zh-TW",
   "start_url": "./",
   "scope": "./",
